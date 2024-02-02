@@ -1,50 +1,5 @@
-# Team 18 - Successorator 
 
----
-# MEETING 0 NOTES
-
-**Planning [out of 100%]** (requirements)
-
-- Risk analysis [10%]
-  - Risks identified, ranked, and classified high, medium, low, with solution plan
-    (see [Risk Analysis](https://canvas.ucsd.edu/courses/52058/pages/risk-analysis) resource)
-  - Estimation of initial Velocity with justification
-  - Iteration length
-- User Stories (in [BDD style](https://canvas.ucsd.edu/courses/52058/pages/bdd-resources), named, estimated, prioritized, with [wire-framed UI screens](https://canvas.ucsd.edu/courses/52058/pages/user-interface-screens), as necessary) [40%]
-- Tasks for the Stories in your *first* Iteration (assigned to Stories as appropriate, and estimated) [20%]
-- Two Iterations [10%]
-  - Named, with all User Stories and "loose" Tasks (if any) assigned to Iterations
-- [Planning Poker documentation](https://canvas.ucsd.edu/courses/52058/pages/planning-poker) [5%]
-  - all team members' estimates 
-    (remember, for each user story, play until modestly converged)
-  - assumptions uncovered
-  - Photo of you playing planning poker
-    (there is an upload limit size; watch your photo size)
-  - For each poker "hand"/round:
-    - each teammate's estimate
-    - new assumption(s) uncovered
-- [Scenario-Based System Tests](https://canvas.ucsd.edu/courses/52058/pages/scenario-based-system-tests) [8%]
-  - These are based on the end-to-end scenarios given in the requirements
-    (plus removed assumptions and details of UI interaction).  Scenarios must be added for implied end-to-end Scenarios.
-  - Annotated with User Stories covered (should cover all, of course)
-- Population of GitHub Project with the above [6%]
-- **Complete Participation Survey (assigned per individual) [1%] (separate submission)**
-
-
-
-need to complete
 # <a name="_xwb8um4xqj9w"></a>Risk Analysis:
-**Example:**
-
-**Risk: [name]**
-
-**Description: [narrative]**
-
-**Severity: [Low | Medium | High]**
-
-**Resolution: [plan]**
-
-**Status: [Resolved | In progress]**
 
 [ ](https://www.when2meet.com/?23477466-2DA4m)[https://www.when2meet.com/?23477466-2DA4m**](https://www.when2meet.com/?23477466-2DA4m)
 
@@ -149,6 +104,7 @@ Increments (In hours): 1, 2, 3, 4, 8, 16
     - Only One Goal: Given that there is one goal “Prepare for midterm”, when Jessica taps on “Prepare for midterm”, then the “Prepare for midterm text will be crossed out in strikethrough.
     - Multiple Goals: Given that there are two goals “Prepare for midterm” and “Grocery shopping”, when Jessica taps on “Prepare for midterm” to mark the goal as complete, then the “Prepare for midterm” text will be crossed out in strikethrough and moved to below “Grocery shopping”. 
     - Already Completed Goals: Given that there is one unfinished goal “Prepare for midterm” and one finished goal “Grocery shopping”, when Jessica taps on “Prepare for midterm”, then the “Prepare for midterm” text will be crossed out in strikethrough and put above “Grocery shopping”.
+
 - (3.) Display Goals
   - As a user, I want to be able to see the goals I have completed and not completed so that I know what *needs* to be done today. 
   - Priority: High
@@ -165,6 +121,7 @@ Increments (In hours): 1, 2, 3, 4, 8, 16
     - Already populated goals 
       - Completed Goals: Given that the goal “Prepare for midterm” has been marked as completed, when Jessica opens the app, then the goal “Prepare for midterm” will be striked through.
       - Completed and Uncompleted Goals: Given that the goal “Prepare for midterm” has been marked as completed and the goal “Grocery shopping” has not been completed, when Jessica opens the app, then the goal “Grocery shopping” will not be struck though and will appear above the goal “Prepare for midterm” which will be striked through.
+
 - (4.) Un-Complete Goal
   - As a user, I want to be able to unmark a goal as incomplete so that I know it still needs to be done. 
   - Priority: Med
@@ -180,6 +137,9 @@ Increments (In hours): 1, 2, 3, 4, 8, 16
     - Only One Completed Goal: Given that the only goal “Prepare for midterm” has been marked as completed, when Jessica taps on “Prepare for midterm” then the strikethrough on “Prepare for midterm” is removed.
     - Completed and Uncompleted Goals: Given that the goal “Prepare for midterm” has been marked as completed and the goal “Grocery shopping” has not been marked as completed, when Jessica taps on “Prepare for midterm” then the strikethrough on “Prepare for midterm” is removed and “Prepare for midterm” is moved above “Grocery shopping”.
     - Only Uncompleted Goals: Given that the goal “Prepare for midterm” has been marked as completed and the goal “Grocery shopping” has been marked as completed, when Jessica taps on “Prepare for midterm” then the strikethrough on “Grocery shopping” is removed and “Grocery shopping” is moved above “Grocery shopping”.
+
+
+
 - (5). Display Date 
   - Priority: Low
   - As a user, when I launch the app, I want to see today’s date at the top of the screen so I know what day I am creating goals for.
@@ -197,7 +157,7 @@ Increments (In hours): 1, 2, 3, 4, 8, 16
     - Display Today’s Date with Goals: Given that there is the goal “Prepare for midterm” added and the date is Wednesday, January 31, when Jessica opens that app then the app should display “Wednesday 1/31” at the top of the screen and the goal “Prepare for midterm” should be displayed beneath the date
 - (6) Rollover Goals
   - Priority: Med
-  - Dependency: User Story #1, #2, #3
+  - Dependency: User Story #1, #2, #3, #5
   - Time Estimate: 4
   - As a user, I want my goals to rollover to the next day if I don’t complete them so I know that I still have to finish them.
   - Task:
@@ -208,75 +168,53 @@ Increments (In hours): 1, 2, 3, 4, 8, 16
     - Uncompleted Goals: Given that the goal “Prepare for midterm” is not marked as completed and the goal “text Maria” is marked as completed and the date is Wednesday, 1/31, when it is 2am, then the goal “Prepare for midterm” will be displayed at the top marked as uncompleted with the date Thursday, 2/1.
     - All Goals Completed: Given that the goals “Prepare for midterm” and goal “Grocery shopping” are marked as completed and there are no other goals, when it turns 2am comes, then no goals will be displayed.
 
-only tasks for 1st iteration
-
-include time estimates
 # <a name="_6zm5xqotkze"></a>Tasks
+
+**Iteration 1:**
+
 Loose Tasks:
 
--set up Android environment
+-set up Android environment **Time Estimate:** 15 min
 
--set up basis for the app (design basic structure, Java classes, etc)
+-set up basis for the app (design basic structure, Java classes, etc) **Time Estimate:** 15 min
 
--learn how to add keyboard function
+-learn how to add keyboard function **Time Estimate:** 15 min
 
--set up GitHub repository & Github Projects
+-set up GitHub repository & Github Projects **Time Estimate:** 30 min
 
-User Story #1: Add GOAL
-
-- Task:
-  - Goal Repository (some sort of backend)
-  - Goal Object/Class
-  - Implement “Add” button, when clicked, display pop-up/fragment for goal creation
-    - Design UI for display 
-    - Submit and cancel button
-    - Fragment/pop-up for goal creation
-  - Implement keyboard w/ voice dictation
-  - Testing 
-
-User Story #2: 
+User Story #1: Add GOAL (8 hours) (8.5 hours after estimating tasks)
 
 - Task:
-  - Onclick event for goal
-  - Shift completed goal to top of finished goals list
-  - Update goal repository
-  - Add strikethrough on goal text
-  - Testing
+  - Goal Repository (some sort of backend) **Time Estimate:** 3 hours
+  - Goal Object/Class **Time Estimate:** 1 hour
+  - Implement “Add” button, when clicked, display pop-up/fragment for goal creation 
+    - Design UI for display **Time Estimate:** 30 min
+    - Submit and cancel button **Time Estimate:** 30 min
+    - Fragment/pop-up for goal creation **Time Estimate:** 1 hour
+  - Implement keyboard w/ voice dictation (voice dictation is low priority) **Time Estimate:** 30 min
+  - Testing **Time Estimate:** 2 hours
 
-User Story #3: Display Goal
+User Story #3: Display Goal (2 hours)
 
 - Task: 
-  - UI
+  - UI **Time Estimate:** 30 min
     - Using a list style of page
-  - Fetch goals (2 lists, “active goals” and “completed goals”)
-    - Observers for the goals
-  - Testing
+  - Fetch goals (2 lists, “active goals” and “completed goals”) 
 
-User Story #4:
+**Time Estimate:** 1 hour
 
-- Task:
-  - Add “on-click” on a completed goal to mark as uncomplete
-  - Update goal repository 
-  - Move goal to top of list
-  - Remove strikethrough from goal
-  - Testing
+- Observers for the goals
+- Testing **Time Estimate:** 30 min
 
-User Story #5: Display Date
+User Story #5: Display Date (1 hours)
 
 - Task:
-  - Format: Day of Week x/xx
-  - UI Design for date panel
-  - Create panel for date 
-  - Display date
-  - Update date at 2am
-  - Testing
+  - Format: Day of Week x/xx **Time Estimate:** 30min
+  - UI Design for date panel **Time Estimate:** 15min
+    - Create panel for date
+    - Display date** 
+  - Testing **Time Estimate:** 15min
 
-User Story #6:
-
-- Task:
-  - Roll over at 2am & retrieve unfinished goals from previous day 
-  - Delete any completed goals @ rollover time 
-  - Testing
 # <a name="_94fogoyb8xj"></a>Iterations/Milestone
 First Iteration (Feb 4 - Feb 10):
 
@@ -284,12 +222,14 @@ User Story #1 – Add Goal
 
 User Story #3 – Display Goal
 
+User Story #5 – Display Date
+
 
 Second Iteration (Feb 11 - Feb 19):
 
 User Story #2 – Complete Goal
 
-User Story #3 – Un-Complete Goal
+User Story #4 – Un-Complete Goal
 
 1st Milestone:
 
@@ -297,7 +237,6 @@ User Story #3 – Un-Complete Goal
 
 -MVP: be able to add, display and complete a goal 
 
-double check
 # <a name="_fpdeysepnvwp"></a>Scenario-Based Milestone Tests
 
 1\. Start the app by tapping the app icon. You should see the date Wednesday 1/31 in the center at the top. You should also see a blank white screen beneath it that says "No goals for the Day.  Click the + at the upper right to enter your Most Important Thing." in gray text in the middle. You should also see a + in the upper right corner of the app. 
@@ -325,20 +264,6 @@ double check
 12\. Close the app.
 # <a name="_qag1e56l2oz7"></a>Github Project
 
+Project: <https://github.com/orgs/CSE-110-Winter-2024/projects/182/views/1> 
 
-
-
-## Getting Started
-
- - [ ] Look around the project.
-   - The `docs/` directory may be helpful, as Slack/Discord messages are easy to lose.
-     - This is a good place to put finalized user stories, standards, guidelines, meeting notes, etc
-       that you want to stick with the repository in perpetuity (e.g. after the semester ends) e.g.
-       for portfolio purposes.
-     - Google Docs is easier for collaboration, but eventually you might want to put the
-       finalized versions here for reference. (This way you can also reference them in PRs!)
- - [ ] Modify the `.github/pull_request_template.md` to suit your needs.
-   - You **do not** need to use the exact same template, but justify your changes when you 
-     PR the updated template.
- - [ ] Replace this README with something appropriate.
-   - **When you do, replace the title to replace X with your team number.**
+Repository: <https://github.com/CSE-110-Winter-2024/project-team-18>
