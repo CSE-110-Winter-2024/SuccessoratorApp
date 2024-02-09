@@ -1,19 +1,23 @@
 package edu.ucsd.cse110.successorator.lib.domain;
 
-public interface GoalRepository {
-    /*
-    * Subject<Flashcard> find(int id);
+import java.util.List;
 
-    Subject<List<Flashcard>> findAll();
+import edu.ucsd.cse110.successorator.lib.util.Subject;
 
-    void save(Flashcard flashcard);
+public interface GoalRepository<T> {
 
-    void save(List<Flashcard> flashcards);
+    Subject<T> find(int id);
+
+    Subject<List<T>> findAll();
+
+    void save(T flashcard);
+
+    void save(List<T> flashcards);
 
     void remove(int id);
 
-    void append(Flashcard flashcard);
+    void append(T flashcard);
 
-    void prepend(Flashcard flashcard);
-    * */
+    void prepend(T flashcard);
+
 }
