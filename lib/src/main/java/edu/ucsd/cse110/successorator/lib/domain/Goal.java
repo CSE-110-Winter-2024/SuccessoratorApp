@@ -7,21 +7,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * Just a dummy domain model that does nothing in particular. Delete me.
+ * Goal class
+ * title The title of the goal.
+ * id The unique identifier for the goal.
+ * done The completion status of the goal; true if the goal is completed, false otherwise.
  */
 public class Goal {
+    private final @Nullable String title;
     private final @Nullable Integer id;
-    private final @Nullable String foo;
-    private final @NotNull String bar;
+    private final boolean done;
 
     public Goal(
+            @Nullable String title,
             @Nullable Integer id,
-            @Nullable String foo,
-            @NotNull String bar
+            boolean done
     ) {
         this.id = id;
-        this.foo = foo;
-        this.bar = bar;
+        this.title = title;
+        this.done = done;
     }
 
     @Nullable
@@ -30,25 +33,28 @@ public class Goal {
     }
 
     @Nullable
-    public String getFoo() {
-        return foo;
+    public String getTitle() {
+        return title;
     }
 
-    @NotNull
-    public String getBar() {
-        return bar;
+    public boolean isDone() {
+        return done;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Goal goal = (Goal) o;
-        return Objects.equals(id, goal.id) && Objects.equals(foo, goal.foo) && Objects.equals(bar, goal.bar);
+        return done == goal.done &&
+                Objects.equals(id, goal.id) &&
+                Objects.equals(title, goal.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, foo, bar);
+
+        return Objects.hash(id, title, done);
     }
 }
