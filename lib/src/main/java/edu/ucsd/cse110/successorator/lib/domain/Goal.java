@@ -9,15 +9,15 @@ import java.util.Objects;
 /**
  * Just a dummy domain model that does nothing in particular. Delete me.
  */
-public class Dummy {
+public class Goal {
     private final @Nullable Integer id;
     private final @Nullable String foo;
     private final @NotNull String bar;
 
-    public Dummy(
-        @Nullable Integer id,
-        @Nullable String foo,
-        @NotNull String bar
+    public Goal(
+            @Nullable Integer id,
+            @Nullable String foo,
+            @NotNull String bar
     ) {
         this.id = id;
         this.foo = foo;
@@ -43,8 +43,8 @@ public class Dummy {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Dummy dummy = (Dummy) o;
-        return Objects.equals(id, dummy.id) && Objects.equals(foo, dummy.foo) && Objects.equals(bar, dummy.bar);
+        Goal goal = (Goal) o;
+        return Objects.equals(id, goal.id) && Objects.equals(foo, goal.foo) && Objects.equals(bar, goal.bar);
     }
 
     @Override
