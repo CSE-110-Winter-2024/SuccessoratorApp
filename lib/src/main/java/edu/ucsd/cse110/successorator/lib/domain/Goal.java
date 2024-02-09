@@ -1,7 +1,9 @@
 package edu.ucsd.cse110.successorator.lib.domain;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -10,17 +12,17 @@ import java.util.Objects;
  * id The unique identifier for the goal.
  * done The completion status of the goal; true if the goal is completed, false otherwise.
  */
-public class Goal {
+public class Goal implements Serializable {
     private final @Nullable Integer id;
-    private final @Nullable String title;
+    private final @NonNull String title;
     private final boolean isComplete;
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
 
     public Goal(
-            @Nullable String title,
             @Nullable Integer id,
+            @NonNull String title,
             boolean isComplete,
-            @Nullable Integer sortOrder // Corrected parameter type and removed the semicolon.
+            int sortOrder // Corrected parameter type and removed the semicolon.
     ) {
         this.id = id;
         this.title = title;
@@ -28,13 +30,11 @@ public class Goal {
         this.sortOrder = sortOrder;
     }
 
-    @Nullable
-    public Integer getId() {
+    public @Nullable Integer id() {
         return id;
     }
 
-    @Nullable
-    public String getTitle() {
+    public @NonNull String title() {
         return title;
     }
 
@@ -42,8 +42,7 @@ public class Goal {
         return isComplete;
     }
 
-    @Nullable
-    public Integer getSortOrder() {
+    public int sortOrder() {
         return sortOrder;
     }
 
