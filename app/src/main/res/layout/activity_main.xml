@@ -7,13 +7,26 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/placeholder_text"
+        android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/placeholder"
+        android:text="Date Text"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/card_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/card_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/list_item_goal" >
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
