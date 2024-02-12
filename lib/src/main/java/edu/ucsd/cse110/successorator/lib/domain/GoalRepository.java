@@ -4,20 +4,20 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
-public interface GoalRepository<T> {
+public interface GoalRepository {
 
-    Subject<T> find(int id);
+    Subject<Goal> find(int id);
 
-    Subject<List<T>> findAll();
+    Subject<List<Goal>> findAll();
 
-    void save(T flashcard);
+    void save(Goal flashcard);
 
-    void save(List<T> flashcards);
+    void save(List<Goal> goalList);
 
     void remove(int id);
 
-    void append(T flashcard);
+    void append(Goal goal);
 
-    void prepend(T flashcard);
+    void prepend(Goal goal);
 
 }
