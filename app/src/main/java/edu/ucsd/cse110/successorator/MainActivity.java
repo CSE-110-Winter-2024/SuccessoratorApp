@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         view.dateText.setText(R.string.no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing);
 
         setContentView(view.getRoot());
+        swapFragments();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +60,5 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, GoalListFragment.newInstance())
                     .commit();
         }
-        isShowingStudy = !isShowingStudy;
     }
 }

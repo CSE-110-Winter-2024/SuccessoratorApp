@@ -15,20 +15,21 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.GoalListFragmentBinding;
+//Not created yet
 //import edu.ucsd.cse110.successorator.ui.goal.dialog.ConfirmDeleteCardDialogFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
-public class CardListFragment extends Fragment {
+public class GoalListFragment extends Fragment {
     private MainViewModel activityModel;
-    private FragmentCardListBinding view;
-    private CardListAdapter adapter;
+    private GoalListFragmentBinding view;
+    private GoalListAdapter adapter;
 
-    public CardListFragment() {
+    public GoalListFragment() {
         // Required empty public constructor
     }
 
-    public static CardListFragment newInstance() {
-        CardListFragment fragment = new CardListFragment();
+    public static GoalListFragment newInstance() {
+        GoalListFragment fragment = new GoalListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -45,11 +46,12 @@ public class CardListFragment extends Fragment {
         this.activityModel = modelProvider.get(MainViewModel.class);
 
         // Initialize the Adapter (with an empty list for now)
-        this.adapter = new CardListAdapter(requireContext(), List.of(), id -> {
-            var dialogFragment = ConfirmDeleteCardDialogFragment.newInstance(id);
-            dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteCardDialogFragment");
+        this.adapter = new GoalListAdapter(requireContext(), List.of(), id -> {
+        // TODO: Delete Confirmation
+        //    var dialogFragment = ConfirmDeleteCardDialogFragment.newInstance(id);
+        //    dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteCardDialogFragment");
         });
-        activityModel.getOrderedCards().observe(cards -> {
+        activityModel.getOrderedGoals().observe(cards -> {
             if (cards == null) return;
             adapter.clear();
             adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!
@@ -60,16 +62,11 @@ public class CardListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.view = FragmentCardListBinding.inflate(inflater, container, false);
+        this.view = GoalListFragmentBinding.inflate(inflater, container, false);
 
         // Set the adapter on the ListView
         view.cardList.setAdapter(adapter);
 
-        //show CreateCardDialogFormat
-        view.createCardButton.setOnClickListener(v -> {
-            var dialogFragment = CreateCardDialogFragment.newInstance();
-            dialogFragment.show(getParentFragmentManager(), "CreateCardDialogFragment");
-        });
         return view.getRoot();
     }
 }
