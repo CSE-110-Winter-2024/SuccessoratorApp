@@ -27,7 +27,7 @@ public class MainViewModel extends ViewModel {
                         return new MainViewModel(app.getGoalRepository());
                     });
 
-    public MainViewModel(GoalRepository flashcardRepository) {
+    public MainViewModel(GoalRepository goalRepository) {
         this.goalRepository = goalRepository;
 
     }
