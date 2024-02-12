@@ -45,7 +45,7 @@ public class CreateGoalDialogFragment extends DialogFragment{
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
-        this.view = FragmentGoalCreateCardBinding.inflate(getLayoutInflater());
+        this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("New Goal")
@@ -58,7 +58,7 @@ public class CreateGoalDialogFragment extends DialogFragment{
     }
 
     private void onPositiveButtonClick(DialogInterface dialog, int which){
-        var goalText = view.! CHANGE TO ID HERE !.getText().toString();
+        var goalText = view.addGoalText.getText().toString();
 
         //sort order is an invalid value here, because append/prepend will replace it
         var card = new Goal(goalText, null, false, -1);

@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
-import edu.ucsd.cse110.successorator.app.ui.goal.dialog.CreateCardDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -42,6 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayPopUp() {
         var dialogFragment = CreateGoalDialogFragment.newInstance();
-        dialogFragment.show(getParentFragmentManager(), "CreateCardDialogFragment");
+        dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
     }
 }
