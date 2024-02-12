@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.lib.domain;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Objects;
@@ -12,15 +13,15 @@ import java.util.Objects;
  */
 public class Goal {
     private final @Nullable Integer id;
-    private final @Nullable String title;
+    private final @NonNull String title;
     private final boolean isComplete;
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
 
     public Goal(
-            @Nullable String title,
+            @NonNull String title,
             @Nullable Integer id,
             boolean isComplete,
-            @Nullable Integer sortOrder // Corrected parameter type and removed the semicolon.
+            Integer sortOrder // Corrected parameter type and removed the semicolon.
     ) {
         this.id = id;
         this.title = title;
@@ -33,7 +34,7 @@ public class Goal {
         return id;
     }
 
-    @Nullable
+    @NonNull
     public String getTitle() {
         return title;
     }
@@ -42,7 +43,6 @@ public class Goal {
         return isComplete;
     }
 
-    @Nullable
     public Integer getSortOrder() {
         return sortOrder;
     }
