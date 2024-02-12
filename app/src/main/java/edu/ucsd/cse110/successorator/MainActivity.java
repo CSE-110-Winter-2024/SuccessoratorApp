@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 
 public class MainActivity extends AppCompatActivity {
+    boolean isEmpty = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,5 +45,20 @@ public class MainActivity extends AppCompatActivity {
     private void displayPopUp() {
         var dialogFragment = CreateGoalDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
+    }
+
+    private void swapFragments() {
+        if (isEmpty) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, CreateGoalDialogFragment.newInstance())
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, GoalListFragment.newInstance())
+                    .commit();
+        }
+        isShowingStudy = !isShowingStudy;
     }
 }

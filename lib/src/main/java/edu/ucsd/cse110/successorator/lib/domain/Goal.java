@@ -21,7 +21,6 @@ public class Goal implements Serializable {
     public Goal(
             @NonNull String title,
             @Nullable Integer id,
-            @NonNull String title,
             boolean isComplete,
             Integer sortOrder // Corrected parameter type and removed the semicolon.
     ) {
@@ -31,7 +30,7 @@ public class Goal implements Serializable {
         this.sortOrder = sortOrder;
     }
 
-    public @Nullable Integer id() {
+    public @Nullable Integer getId() {
         return id;
     }
 
@@ -62,5 +61,13 @@ public class Goal implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, isComplete, sortOrder);
+    }
+
+    public Goal withId(int id) {
+        return new Goal(this.title, id, this.isComplete, this.sortOrder);
+    }
+
+    public Goal withSortOrder(int sortOrder) {
+        return new Goal(this.title, this.id, this.isComplete, sortOrder);
     }
 }
