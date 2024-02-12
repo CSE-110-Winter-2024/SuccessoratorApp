@@ -19,10 +19,11 @@ public class Goal implements Serializable {
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
 
     public Goal(
+            @NonNull String title,
             @Nullable Integer id,
             @NonNull String title,
             boolean isComplete,
-            int sortOrder // Corrected parameter type and removed the semicolon.
+            Integer sortOrder // Corrected parameter type and removed the semicolon.
     ) {
         this.id = id;
         this.title = title;
@@ -34,7 +35,8 @@ public class Goal implements Serializable {
         return id;
     }
 
-    public @NonNull String title() {
+    @NonNull
+    public String getTitle() {
         return title;
     }
 
@@ -42,7 +44,7 @@ public class Goal implements Serializable {
         return isComplete;
     }
 
-    public int sortOrder() {
+    public Integer getSortOrder() {
         return sortOrder;
     }
 

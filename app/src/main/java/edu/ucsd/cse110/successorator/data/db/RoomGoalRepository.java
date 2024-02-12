@@ -5,8 +5,12 @@ import androidx.lifecycle.Transformations;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RoomGoalRepository {
-    /*
+import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
+import edu.ucsd.cse110.successorator.lib.util.Subject;
+import edu.ucsd.cse110.successorator.util.LiveDataSubjectAdapter;
+
+public class RoomGoalRepository implements GoalRepository {
     private final GoalDao goalDao;
 
     public RoomGoalRepository(GoalDao goalDao){
@@ -50,12 +54,11 @@ public class RoomGoalRepository {
 
     @Override
     public void prepend(Goal goal){
-        goalDao.prepend(goalEntity.fromGoal(goal));
+        goalDao.prepend(GoalEntity.fromGoal(goal));
     }
 
     @Override
-    public void remove(int id){
+    public void remove(int id) {
         goalDao.delete(id);
     }
-    */
 }
