@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import edu.ucsd.cse110.successorator.lib.domain.Goal;
+
 @Entity(tableName = "goals")
 public class GoalEntity {
     @PrimaryKey(autoGenerate = true)
@@ -26,15 +28,15 @@ public class GoalEntity {
         this.isComplete = isComplete;
         this.sortOrder = sortOrder;
     }
-/*
+
     public static GoalEntity fromGoal(@NonNull Goal goal){
-        var card = new GoalEntity(goal.title(), goal.isComplete(), goal.sortOrder());
-        card.id = goal.id();
-        return card;
+        var goalGoal = new GoalEntity(goal.getTitle(), goal.isComplete(), goal.getSortOrder());
+        goalGoal.id = goal.getId();
+        return goalGoal;
     }
 
     public @NonNull Goal toGoal(){
-        return new Goal(id, title, isComplete, sortOrder);
+        return new Goal(title, id, isComplete, sortOrder);
     }
- */
+
 }

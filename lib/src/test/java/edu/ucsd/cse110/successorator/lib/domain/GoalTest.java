@@ -7,10 +7,10 @@ import org.junit.Test;
 public class GoalTest {
     @Test
     public void testGetters() {
-        var goal = new Goal(1, "Do Dishes", false, 0);
-        assertEquals(Integer.valueOf(1), goal.id());
-        assertEquals("Do Dishes", goal.title());
+        Goal goal = new Goal("Do Dishes", 1,false, 0);
+        assertEquals((Integer)1, goal.getId());
+        assertEquals("Do Dishes", goal.getTitle());
         assertFalse(goal.isComplete());
-        assertEquals(0, goal.sortOrder());
+        assertEquals((Integer)0, goal.getSortOrder());
     }
 }

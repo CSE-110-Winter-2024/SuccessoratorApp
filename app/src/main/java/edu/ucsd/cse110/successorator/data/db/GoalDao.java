@@ -9,7 +9,7 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
-//@Dao
+@Dao
 public interface GoalDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Long insert(GoalEntity flashcard);

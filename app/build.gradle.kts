@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation(project(":lib"))
+    implementation(project(":lib"))
     project(":lib")
     val room_version = "2.6.1"
 
