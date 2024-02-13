@@ -30,7 +30,7 @@ public class Goal implements Serializable {
         this.sortOrder = sortOrder;
     }
 
-    public @Nullable Integer id() {
+    public @Nullable Integer getId() {
         return id;
     }
 
