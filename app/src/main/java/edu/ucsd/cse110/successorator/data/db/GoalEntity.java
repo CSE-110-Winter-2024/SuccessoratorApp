@@ -30,9 +30,9 @@ public class GoalEntity {
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal){
-        var card = new GoalEntity(goal.getTitle(), goal.isComplete(), goal.getSortOrder());
-        card.id = goal.getId();
-        return card;
+        var goalGoal = new GoalEntity(goal.getTitle(), goal.isComplete(), goal.getSortOrder());
+        goalGoal.id = goal.getId();
+        return goalGoal;
     }
 
     public @NonNull Goal toGoal(){

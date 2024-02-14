@@ -2,6 +2,7 @@ package edu.ucsd.cse110.successorator;
 
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
@@ -14,6 +15,7 @@ import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
+import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 
 public class MainViewModel extends ViewModel {
     private final GoalRepository goalRepository;
@@ -29,8 +31,8 @@ public class MainViewModel extends ViewModel {
         this.hasGoal = new SimpleSubject<>();
         this.currDate = new SimpleSubject<>();
 
+
         // Initialize...
-        //TODO: set to check database
         hasGoal.setValue(true);
         currDate.setValue("Today!");
 
@@ -44,6 +46,7 @@ public class MainViewModel extends ViewModel {
             orderedGoals.setValue(newOrderedCards);
         });
     }
+
     public static final ViewModelInitializer<MainViewModel> initializer =
             new ViewModelInitializer<>(
                     MainViewModel.class,
@@ -56,6 +59,25 @@ public class MainViewModel extends ViewModel {
     public Subject<List<Goal>> getOrderedGoals() {
         return orderedGoals;
     }
+  
+    public MainViewModel(GoalRepository goalRepository) {
+        this.orderedGoals = new SimpleSubject<>();
+        this.goalRepository = goalRepository;
+        this.displayedText = new SimpleSubject<>();
+
+        goalRepository.findAll().observe(goals -> {
+            if (goals == null) return; // not ready yet, ignore
+
+            var newOrderedCards = goals.stream().sorted(Comparator.comparingInt(Goal::getSortOrder))
+                    .collect(Collectors.toList());
+            orderedGoals.setValue(newOrderedCards);
+        });
+
+        orderedGoals.observe(goals -> {
+            if (goals == null || goals.size() == 0) return;
+            var card = goals.get(0);
+        });
+    }
 
 
     public void addGoal(Goal goal){
@@ -66,4 +88,8 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
+
+    public Subject<String> getCurrDate() {
+        return self.currDate;
     }
+}
