@@ -62,4 +62,8 @@ public class MainViewModel extends ViewModel {
         goalRepository.append(goal);
     }
 
+    public void remove(int id){
+        goalRepository.remove(id);
+    }
+
     }

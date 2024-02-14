@@ -46,11 +46,12 @@ public class GoalListFragment extends Fragment {
         this.activityModel = modelProvider.get(MainViewModel.class);
 
         // Initialize the Adapter (with an empty list for now)
-        this.adapter = new GoalListAdapter(requireContext(), List.of(), id -> {
+        this.adapter = new GoalListAdapter(requireContext(), List.of(), activityModel::remove);
+                //id -> {
         // TODO: Delete Confirmation
         //    var dialogFragment = ConfirmDeleteCardDialogFragment.newInstance(id);
         //    dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteCardDialogFragment");
-        });
+        //});
         activityModel.getOrderedGoals().observe(cards -> {
             if (cards == null) return;
             adapter.clear();
@@ -64,6 +65,8 @@ public class GoalListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = GoalListFragmentBinding.inflate(inflater, container, false);
 
+        //If not goals, put prompt on screen
+        view.cardList.setEmptyView(view.empty);
         // Set the adapter on the ListView
         view.cardList.setAdapter(adapter);
 

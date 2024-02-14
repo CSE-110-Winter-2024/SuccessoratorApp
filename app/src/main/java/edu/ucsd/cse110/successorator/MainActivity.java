@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import androidx.fragment.app.Fragment;
 
 import androidx.annotation.NonNull;
@@ -21,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         var view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        view.dateText.setText(R.string.no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing);
 
         setContentView(view.getRoot());
         swapFragments();
@@ -52,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
         if (isEmpty) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, CreateGoalDialogFragment.newInstance())
+                    .replace(R.id.goalList, CreateGoalDialogFragment.newInstance())
                     .commit();
         } else {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, GoalListFragment.newInstance())
+                    .replace(R.id.goalList, GoalListFragment.newInstance())
                     .commit();
         }
     }
