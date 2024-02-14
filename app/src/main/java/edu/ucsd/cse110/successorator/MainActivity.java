@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
 
         view.dateText.setText(date.getDate());
-        view.placeholderText.setText(R.string.no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing);
 
         setContentView(view.getRoot());
         swapFragments();

@@ -61,26 +61,6 @@ public class MainViewModel extends ViewModel {
     public Subject<List<Goal>> getOrderedGoals() {
         return orderedGoals;
     }
-  
-    public MainViewModel(GoalRepository goalRepository) {
-        this.orderedGoals = new SimpleSubject<>();
-        this.goalRepository = goalRepository;
-        this.currDate = new SimpleSubject<>();
-
-        goalRepository.findAll().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-
-            var newOrderedCards = goals.stream().sorted(Comparator.comparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-            orderedGoals.setValue(newOrderedCards);
-        });
-
-        orderedGoals.observe(goals -> {
-            if (goals == null || goals.size() == 0) return;
-            var card = goals.get(0);
-        });
-    }
-
 
     public void addGoal(Goal goal){
         goalRepository.append(goal);
