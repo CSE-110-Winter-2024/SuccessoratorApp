@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
@@ -24,11 +25,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         var view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
+        //Testing this out
+        // Formatting the current date with month in letters (e.g., "EEEE MMM/dd" for "Monday Jan/01")
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE MMM dd, yyyy", Locale.getDefault());
+        String formattedDate = now.format(formatter);
 
-        view.dateText.setText(date.getDate());
+        view.dateText.setText(formattedDate);
+
+        //Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
+        //view.dateText.setText(date.getDate());
+
         view.placeholderText.setText(R.string.no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing);
-
         setContentView(view.getRoot());
     }
 

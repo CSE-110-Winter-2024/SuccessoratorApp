@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Successorator</string>
+
+   <!-- <string name="app_name">Successorator</string> -->
+    <string name="app_name">Goals</string>
     <string name="placeholder">Placeholder</string>
     <string name="hello_world">Hello, World!</string>
     <string name="no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing">No goals for the Day.  Click the + at the upper right to enter your Most Important Thing.</string>
     <string name="add_goal" />
     <string name="previous" />
     <string name="enter_a_goal">Enter a goal...</string>
+
+
 </resources>
