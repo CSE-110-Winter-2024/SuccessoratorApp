@@ -10,7 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
+import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         var view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
+        Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
+
+        view.dateText.setText(date.getDate());
         view.placeholderText.setText(R.string.no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing);
 
         setContentView(view.getRoot());
