@@ -23,6 +23,7 @@ public class MainViewModel extends ViewModel {
     private final MutableSubject<List<Goal>> orderedGoals;
     private final MutableSubject<Boolean> hasGoal;
     private final MutableSubject<String> currDate;
+    private final MutableSubject<String> placeholderText;
     public MainViewModel(GoalRepository goalRepository) {
         this.goalRepository = goalRepository;
 
@@ -30,6 +31,7 @@ public class MainViewModel extends ViewModel {
         this.orderedGoals = new SimpleSubject<>();
         this.hasGoal = new SimpleSubject<>();
         this.currDate = new SimpleSubject<>();
+        this.placeholderText = new SimpleSubject<>();
 
 
         // Initialize...
