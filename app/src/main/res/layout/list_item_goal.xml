@@ -15,7 +15,6 @@
         android:layout_marginBottom="16dp"
         android:gravity="center_vertical"
         android:text="Goal Text"
-        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/goal_delete_button"
