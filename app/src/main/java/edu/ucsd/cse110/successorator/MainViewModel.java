@@ -63,7 +63,7 @@ public class MainViewModel extends ViewModel {
     public MainViewModel(GoalRepository goalRepository) {
         this.orderedGoals = new SimpleSubject<>();
         this.goalRepository = goalRepository;
-        this.displayedText = new SimpleSubject<>();
+        this.currDate = new SimpleSubject<>();
 
         goalRepository.findAll().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
@@ -90,6 +90,6 @@ public class MainViewModel extends ViewModel {
 
 
     public Subject<String> getCurrDate() {
-        return self.currDate;
+        return currDate;
     }
 }
