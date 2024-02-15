@@ -62,4 +62,12 @@ public class Goal implements Serializable {
     public int hashCode() {
         return Objects.hash(id, title, isComplete, sortOrder);
     }
+
+    public Goal withId(int id) {
+        return new Goal(this.title, id, this.isComplete, this.sortOrder);
+    }
+
+    public Goal withSortOrder(int sortOrder) {
+        return new Goal(this.title, this.id, this.isComplete, sortOrder);
+    }
 }

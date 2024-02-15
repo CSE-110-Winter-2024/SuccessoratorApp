@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import androidx.fragment.app.Fragment;
 
 import androidx.annotation.NonNull;
@@ -17,8 +19,10 @@ import java.time.format.DateTimeFormatter;
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 
 public class MainActivity extends AppCompatActivity {
+    boolean isEmpty = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
 
         view.dateText.setText(date.getDate());
-        view.placeholderText.setText(R.string.no_goals_for_the_day_click_the_at_the_upper_right_to_enter_your_most_important_thing);
 
         setContentView(view.getRoot());
+        swapFragments();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,5 +55,19 @@ public class MainActivity extends AppCompatActivity {
     private void displayPopUp() {
         var dialogFragment = CreateGoalDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
+    }
+
+    private void swapFragments() {
+        if (isEmpty) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, CreateGoalDialogFragment.newInstance())
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, GoalListFragment.newInstance())
+                    .commit();
+        }
     }
 }
