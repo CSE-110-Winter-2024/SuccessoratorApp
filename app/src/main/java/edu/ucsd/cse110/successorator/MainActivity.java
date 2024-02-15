@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         var view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
+        Date date = new Date(LocalDateTime.now().minusHours(2), DateTimeFormatter.ofPattern("EEEE M/dd"));
 
         view.dateText.setText(date.getDate());
 
