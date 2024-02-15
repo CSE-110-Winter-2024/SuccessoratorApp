@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="96dp">
 
+    <!-- TextView centered in the layout -->
     <TextView
         android:id="@+id/goal_text"
         android:layout_width="0dp"
@@ -13,25 +14,27 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:text="Goal Text"
-        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/goal_delete_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/goal_delete_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_cross"
-        android:tint="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <!-- Button used to mark as complete with transparent background
+         and border, overlaying the TextView -->
+    <Button
+        android:id="@+id/goal_delete_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=""
+        android:textColor="#FF000000"
+        app:layout_constraintTop_toTopOf="@id/goal_text"
+        app:layout_constraintBottom_toBottomOf="@id/goal_text"
+        app:layout_constraintStart_toStartOf="@id/goal_text"
+        app:layout_constraintEnd_toEndOf="@id/goal_text"
+        android:background="@android:color/transparent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
