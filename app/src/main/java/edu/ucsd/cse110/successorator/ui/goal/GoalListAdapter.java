@@ -1,10 +1,12 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -16,10 +18,15 @@ import java.util.function.Consumer;
 import edu.ucsd.cse110.successorator.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
+/**
+ * https://www.tutorialspoint.com/strikethrough-text-in-android
+ */
 public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Integer> onDeleteClick;
+    Consumer<Integer> strikethruClick;
 
-    public GoalListAdapter(Context context, List<Goal> goals, Consumer<Integer> onDeleteClick) {
+    Consumer<Integer> removeStrikethruClick;
+    public GoalListAdapter(Context context, List<Goal> goals, Consumer<Integer> onDeleteClick){
         // This sets a bunch of stuff internally, which we can access
         // with getContext() and getItem() for example.
         //
@@ -50,10 +57,23 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         // Populate the view with the goal's data.
         binding.goalText.setText(goal.getTitle());
 
-        //bind the delete button to the callback
-        binding.goalDeleteButton.setOnClickListener(v -> {
-            var id = Objects.requireNonNull(goal.getId());
-            onDeleteClick.accept(id);
+        //Set listener for strikethrough
+        binding.goalText.setOnClickListener(v -> {
+            if(!binding.goalText.getPaint().isStrikeThruText()){
+                //strikethrough text
+                binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                //todo set isComplete = true
+                //var id = Objects.requireNonNull(goal.getId());
+                //strikethruClick.accept(id);
+            }
+            else{
+                //remove strikethrough
+                binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                //todo set isComplete = false
+                //var id = Objects.requireNonNull(goal.getId());
+                //removeStrikethruClick.accept(id);
+            }
+
         });
 
         return binding.getRoot();

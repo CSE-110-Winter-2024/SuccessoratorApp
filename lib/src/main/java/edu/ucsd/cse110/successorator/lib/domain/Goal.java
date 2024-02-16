@@ -70,4 +70,8 @@ public class Goal implements Serializable {
     public Goal withSortOrder(int sortOrder) {
         return new Goal(this.title, this.id, this.isComplete, sortOrder);
     }
+
+    public Goal changeComplete(){
+        return new Goal(this.title, this.id, !this.isComplete, sortOrder);
+    }
 }

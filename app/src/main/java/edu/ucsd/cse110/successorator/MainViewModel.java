@@ -66,6 +66,7 @@ public class MainViewModel extends ViewModel {
         goalRepository.append(goal);
     }
 
+    //Delete once done
     public void remove(int id){
         goalRepository.remove(id);
     }

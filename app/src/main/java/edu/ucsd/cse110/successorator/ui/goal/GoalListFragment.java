@@ -47,11 +47,7 @@ public class GoalListFragment extends Fragment {
 
         // Initialize the Adapter (with an empty list for now)
         this.adapter = new GoalListAdapter(requireContext(), List.of(), activityModel::remove);
-                //id -> {
-        // TODO: Delete Confirmation
-        //    var dialogFragment = ConfirmDeleteCardDialogFragment.newInstance(id);
-        //    dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteCardDialogFragment");
-        //});
+
         activityModel.getOrderedGoals().observe(cards -> {
             if (cards == null) return;
             adapter.clear();
