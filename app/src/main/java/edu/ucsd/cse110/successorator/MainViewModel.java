@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.Goals;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
@@ -24,6 +25,7 @@ public class MainViewModel extends ViewModel {
     private final MutableSubject<Boolean> hasGoal;
     private final MutableSubject<String> currDate;
     private final MutableSubject<String> placeholderText;
+
     public MainViewModel(GoalRepository goalRepository) {
         this.goalRepository = goalRepository;
 
@@ -42,11 +44,16 @@ public class MainViewModel extends ViewModel {
         goalRepository.findAll().observe(cards -> {
             if (cards == null) return; // not ready yet, ignore
 
+
             var newOrderedCards = cards.stream()
-                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                    .sorted(Comparator.comparing(Goal::isComplete)
+                            .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
+
             orderedGoals.setValue(newOrderedCards);
         });
+
+
     }
 
     public static final ViewModelInitializer<MainViewModel> initializer =
@@ -62,15 +69,26 @@ public class MainViewModel extends ViewModel {
         return orderedGoals;
     }
 
-    public void addGoal(Goal goal){
+    public void save(Goal goal) {
+        goalRepository.save(goal);
+    }
+
+    public void addGoal(Goal goal) {
         goalRepository.append(goal);
     }
 
     //Delete once done
-    public void remove(int id){
+    public void remove(int id) {
         goalRepository.remove(id);
     }
 
+    public void reOrder() {
+        var cards = this.orderedGoals.getValue();
+        if (cards == null) return;
+
+        var newCards = Goals.reorder(cards);
+        goalRepository.save(newCards);
+    }
 
     public Subject<String> getCurrDate() {
         return currDate;

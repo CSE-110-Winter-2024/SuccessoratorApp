@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,15 @@ public class GoalListFragment extends Fragment {
         this.activityModel = modelProvider.get(MainViewModel.class);
 
         // Initialize the Adapter (with an empty list for now)
-        this.adapter = new GoalListAdapter(requireContext(), List.of(), activityModel::remove);
+        this.adapter = new GoalListAdapter(
+                requireContext(),
+                List.of(),
+                task -> {
+                    var newTask = task.withComplete(!task.isComplete());
+                    activityModel.save(newTask);
+                },
+                activityModel::remove
+        );
 
         activityModel.getOrderedGoals().observe(cards -> {
             if (cards == null) return;

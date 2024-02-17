@@ -1,6 +1,7 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,17 +23,21 @@ import edu.ucsd.cse110.successorator.lib.domain.Goal;
  * https://www.tutorialspoint.com/strikethrough-text-in-android
  */
 public class GoalListAdapter extends ArrayAdapter<Goal> {
+    Consumer<Goal> onGoalClicked;
     Consumer<Integer> onDeleteClick;
-    Consumer<Integer> strikethruClick;
 
     Consumer<Integer> removeStrikethruClick;
-    public GoalListAdapter(Context context, List<Goal> goals, Consumer<Integer> onDeleteClick){
+
+    public GoalListAdapter(Context context, List<Goal> goals,
+                           Consumer<Goal> onGoalClicked,
+                           Consumer<Integer> onDeleteClick) {
         // This sets a bunch of stuff internally, which we can access
         // with getContext() and getItem() for example.
         //
         // Also note that ArrayAdapter NEEDS a mutable List (ArrayList),
         // or it will crash!
         super(context, 0, new ArrayList<>(goals));
+        this.onGoalClicked = onGoalClicked;
         this.onDeleteClick = onDeleteClick;
     }
 
@@ -54,26 +59,20 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             binding = ListItemGoalBinding.inflate(layoutInflater, parent, false);
         }
 
+        // M -> V
         // Populate the view with the goal's data.
         binding.goalText.setText(goal.getTitle());
+        // setup ST to match
+        if (goal.isComplete()) {
+            binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
+        // V -> M
         //Set listener for strikethrough
         binding.goalText.setOnClickListener(v -> {
-            if(!binding.goalText.getPaint().isStrikeThruText()){
-                //strikethrough text
-                binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                //todo set isComplete = true
-                //var id = Objects.requireNonNull(goal.getId());
-                //strikethruClick.accept(id);
-            }
-            else{
-                //remove strikethrough
-                binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                //todo set isComplete = false
-                //var id = Objects.requireNonNull(goal.getId());
-                //removeStrikethruClick.accept(id);
-            }
-
+            onGoalClicked.accept(goal);
         });
 
         return binding.getRoot();
