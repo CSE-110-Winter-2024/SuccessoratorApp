@@ -9,15 +9,13 @@ import java.util.stream.Collectors;
 public class Goals {
     @NonNull
     public static List<Goal> reorder(List<Goal> cards) {
-        //Build mapping from old to new sort orders using Math.floorMod to wrap around
-        var newGoals = new ArrayList<Goal>();
-        for (int i = 0; i < cards.size(); i++) {
-            var thisCard = cards.get(i);
-            var thatCard = cards.get(Math.floorMod(i, cards.size()));
-            if(!thisCard.isComplete()) {
-                newGoals.add(thisCard.withSortOrder(thatCard.getSortOrder()));
-            }
+        var newCards = new ArrayList<Goal>();
+        for(int i = 0; i < cards.size(); i++){
+            var thisGoal = cards.get(i);
+            newCards.add(thisGoal.withSortOrder(i + 1));
         }
-        return newGoals;
+
+        return newCards;
     }
+
 }

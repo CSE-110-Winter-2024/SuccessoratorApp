@@ -48,6 +48,11 @@ public class RoomGoalRepository implements GoalRepository {
     }
 
     @Override
+    public void appendCompleteGoal(Goal goal){
+        goalDao.appendCompleteGoal(GoalEntity.fromGoal(goal));
+    }
+
+    @Override
     public void append(Goal goal){
         goalDao.append(GoalEntity.fromGoal(goal));
     }
@@ -60,5 +65,9 @@ public class RoomGoalRepository implements GoalRepository {
     @Override
     public void remove(int id) {
         goalDao.delete(id);
+    }
+
+    public void shiftOver(int from){
+        goalDao.shiftOver(from);
     }
 }

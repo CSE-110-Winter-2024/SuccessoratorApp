@@ -50,9 +50,9 @@ public class GoalListFragment extends Fragment {
         this.adapter = new GoalListAdapter(
                 requireContext(),
                 List.of(),
-                task -> {
-                    var newTask = task.withComplete(!task.isComplete());
-                    activityModel.save(newTask);
+                goal -> {
+                    var newGoal = goal.withComplete(!goal.isComplete());
+                    activityModel.updateGoal(newGoal);
                 },
                 activityModel::remove
         );

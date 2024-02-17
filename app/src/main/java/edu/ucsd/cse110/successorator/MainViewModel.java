@@ -2,10 +2,12 @@ package edu.ucsd.cse110.successorator;
 
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,16 +43,16 @@ public class MainViewModel extends ViewModel {
         currDate.setValue("Today!");
 
         // When the list of cards changes (or is first loaded), reset the ordering.
-        goalRepository.findAll().observe(cards -> {
-            if (cards == null) return; // not ready yet, ignore
+        goalRepository.findAll().observe(goals -> {
+            if (goals == null) return; // not ready yet, ignore
 
 
-            var newOrderedCards = cards.stream()
+            var newOrderedGoals = goals.stream()
                     .sorted(Comparator.comparing(Goal::isComplete)
                             .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
 
-            orderedGoals.setValue(newOrderedCards);
+            orderedGoals.setValue(newOrderedGoals);
         });
 
 
@@ -73,21 +75,37 @@ public class MainViewModel extends ViewModel {
         goalRepository.save(goal);
     }
 
+    public void updateGoal(Goal goal){
+        if(goal.isComplete()){
+            int firstCompleteGoal = lastUncompleteGoal();
+            goalRepository.shiftOver(firstCompleteGoal);
+            var newGoal = goal.withSortOrder(firstCompleteGoal);
+            goalRepository.save(newGoal);
+        }else{
+            goalRepository.shiftOver(1);
+            var newGoal = goal.withSortOrder(1);
+            goalRepository.save(newGoal);
+        }
+
+    }
+
     public void addGoal(Goal goal) {
-        goalRepository.append(goal);
+        goalRepository.appendCompleteGoal(goal);
+    }
+    public int lastUncompleteGoal(){
+        var goals = this.orderedGoals.getValue();
+        for(int i = 0; i < goals.size(); i++){
+            var thisGoal = goals.get(i);
+            if(thisGoal.isComplete()){
+               return thisGoal.getSortOrder();
+            }
+        }
+        return goals.get(goals.size() - 1).getSortOrder() + 1;
     }
 
     //Delete once done
     public void remove(int id) {
         goalRepository.remove(id);
-    }
-
-    public void reOrder() {
-        var cards = this.orderedGoals.getValue();
-        if (cards == null) return;
-
-        var newCards = Goals.reorder(cards);
-        goalRepository.save(newCards);
     }
 
     public Subject<String> getCurrDate() {

@@ -20,4 +20,8 @@ public interface GoalRepository {
 
     void prepend(Goal goal);
 
+    void appendCompleteGoal(Goal goal);
+
+    void shiftOver(int from);
+
 }

@@ -59,6 +59,11 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             binding = ListItemGoalBinding.inflate(layoutInflater, parent, false);
         }
 
+        binding.goalDeleteButton.setOnClickListener(v -> {
+            var id = Objects.requireNonNull(goal.getId());
+            onDeleteClick.accept(id);
+        });
+
         // M -> V
         // Populate the view with the goal's data.
         binding.goalText.setText(goal.getTitle());
