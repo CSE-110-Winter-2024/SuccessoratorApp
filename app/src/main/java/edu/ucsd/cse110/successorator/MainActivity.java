@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        //date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         //Scheduler scheduler = new Scheduler(dateText);
         //scheduler.startTask();
 
@@ -71,13 +70,19 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.action_bar_menu_add_goal) {
             displayPopUp();
         }
-
+        else if(itemId == R.id.action_bar_menu_advance_date){
+            advanceDate();
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void displayPopUp() {
         var dialogFragment = CreateGoalDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
+    }
+
+    public void advanceDate(){
+        date.advanceDate();
     }
 
     private void swapFragments() {
@@ -92,13 +97,5 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.goalList, GoalListFragment.newInstance())
                     .commit();
         }
-    }
-
-    private void updateTime() {
-        //view.dateText.setText(date.formatDate());
-        //view.dateText.setText(date.formatDateTime());
-        TextView dateText = findViewById(R.id.date_text);
-        //Scheduler scheduler = new Scheduler(dateText);
-        //scheduler.startTask();
     }
 }

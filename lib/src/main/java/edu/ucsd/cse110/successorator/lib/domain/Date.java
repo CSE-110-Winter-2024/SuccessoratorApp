@@ -27,4 +27,11 @@ public class Date {
     public String formatDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
 
     public LocalDateTime getDate() {return this.dateTime; }
+
+    public String getDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
+
+    public void advanceDate(){
+        LocalDateTime nextDate = dateTime.plusDays(1);
+        this.dateTime = nextDate;
+    }
 }
