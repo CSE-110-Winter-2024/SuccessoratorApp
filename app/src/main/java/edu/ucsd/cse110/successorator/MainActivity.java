@@ -1,32 +1,23 @@
 package edu.ucsd.cse110.successorator;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
-import androidx.fragment.app.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
-import edu.ucsd.cse110.successorator.lib.domain.Date;
-import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 
 public class MainActivity extends AppCompatActivity {
     boolean isEmpty = false;
-    Date date;
+
     ActivityMainBinding view;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.action_bar, menu);
+        getMenuInflater().inflate(R.menu.add_goal, menu);
         return true;
     }
 
@@ -70,19 +61,13 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.action_bar_menu_add_goal) {
             displayPopUp();
         }
-        else if(itemId == R.id.action_bar_menu_advance_date){
-            advanceDate();
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
     private void displayPopUp() {
         var dialogFragment = CreateGoalDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
-    }
-
-    public void advanceDate(){
-        date.advanceDate();
     }
 
     private void swapFragments() {

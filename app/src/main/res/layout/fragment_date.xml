@@ -6,6 +6,7 @@
     tools:context=".ui.date.DateFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/date_text"
         android:layout_width="match_parent"

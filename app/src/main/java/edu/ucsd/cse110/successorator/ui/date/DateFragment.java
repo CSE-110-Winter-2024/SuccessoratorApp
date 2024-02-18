@@ -8,8 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +25,8 @@ import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
 /**
+ * Referenced https://developer.android.com/guide/fragments/appbar
+ *
  * A simple {@link Fragment} subclass.
  * Use the {@link DateFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -29,6 +35,8 @@ public class DateFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentDateBinding view;
     private Date date;
+
+    Button adavanceDateButton;
 
     public DateFragment() {
         // Required empty public constructor
@@ -45,6 +53,7 @@ public class DateFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
         //Initialize Model
         var modelOwner = requireActivity();
         var modelFactory = ViewModelProvider.Factory.from(MainViewModel.initializer);
@@ -77,8 +86,27 @@ public class DateFragment extends Fragment {
         // Inflate the layout for this fragment
         this.view = FragmentDateBinding.inflate(inflater, container, false);
         //view.dateText.setText(date.formatDate());
+
+        setHasOptionsMenu(true);
+
         view.dateText.setText(date.formatDateTime());
         return view.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.advance_date, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_bar_menu_advance_date) {// Navigate to settings screen.
+            this.date.advanceDate();
+            updateDisplay();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void updateDisplay() {
