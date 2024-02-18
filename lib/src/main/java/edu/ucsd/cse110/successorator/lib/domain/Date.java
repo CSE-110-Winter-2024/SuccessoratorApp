@@ -25,4 +25,9 @@ public class Date {
     }
 
     public String getDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
+
+    public void advanceDate(){
+        LocalDateTime nextDate = dateTime.plusDays(1);
+        this.dateTime = nextDate;
+    }
 }

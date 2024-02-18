@@ -66,13 +66,20 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.action_bar_menu_add_goal) {
             displayPopUp();
         }
-
+        else if(itemId == R.id.action_bar_menu_advance_date){
+            advanceDate();
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void displayPopUp() {
         var dialogFragment = CreateGoalDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
+    }
+
+    public void advanceDate(){
+        date.advanceDate();
+        updateTime();
     }
 
     private void swapFragments() {
