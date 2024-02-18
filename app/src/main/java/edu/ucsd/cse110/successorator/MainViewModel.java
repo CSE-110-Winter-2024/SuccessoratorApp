@@ -69,7 +69,13 @@ public class MainViewModel extends ViewModel {
         dateTime.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
-            rollOver();
+            var lastLogDate = lastLog.getValue();
+            if(lastLogDate.getDate().toLocalDate()
+                    .isBefore(dateTime.getValue().getDate().toLocalDate())) {
+                removeCompleted();
+                lastLogDate.setDate(LocalDateTime.now());
+                lastLog.setValue(lastLogDate);
+            }
         });
     }
 
@@ -94,15 +100,19 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public MutableSubject<Date> getDateTime() { return dateTime; }
+    public Subject<Date> getDateTime() { return dateTime; }
 
     public Subject<Date> getLastLog() { return lastLog; }
 
-    public void rollOver() {
-        var lastLogDate = lastLog.getValue().getDate().toLocalDate();
-        if(lastLogDate.isBefore(dateTime.getValue().getDate().toLocalDate())) {
-            goalRepository.removeCompleted();
+    public void updateTime(Date date, boolean logTime) {
+        if(logTime) {
+            lastLog.setValue(date);
+        }
+        else {
+            dateTime.setValue(date);
         }
     }
+
+    public void removeCompleted() { goalRepository.removeCompleted(); }
 
 }

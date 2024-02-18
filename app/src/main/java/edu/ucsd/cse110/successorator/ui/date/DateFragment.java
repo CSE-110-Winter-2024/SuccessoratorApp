@@ -34,7 +34,6 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
 public class DateFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentDateBinding view;
-    private Date date;
 
     Button adavanceDateButton;
 
@@ -59,23 +58,22 @@ public class DateFragment extends Fragment {
         var modelFactory = ViewModelProvider.Factory.from(MainViewModel.initializer);
         var modelProvider = new ViewModelProvider(modelOwner, modelFactory);
         this.activityModel = modelProvider.get(MainViewModel.class);
-
-        date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        date.setDate(activityModel.getDateTime().getValue().getDate());
     }
 
     @Override
     public void onResume() {
-        date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        Date date = activityModel.getDateTime().getValue();
         date.setDate(LocalDateTime.now());
-        activityModel.getDateTime().setValue(date);
+        activityModel.updateTime(date, false);
         updateDisplay();
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        activityModel.getLastLog().getValue().setDate(LocalDateTime.now());
+        Date date = activityModel.getLastLog().getValue();
+        date.setDate(LocalDateTime.now());
+        activityModel.updateTime(date, true);
         super.onPause();
     }
 
@@ -85,11 +83,12 @@ public class DateFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         this.view = FragmentDateBinding.inflate(inflater, container, false);
-        //view.dateText.setText(date.formatDate());
 
         setHasOptionsMenu(true);
 
-        view.dateText.setText(date.formatDateTime());
+        updateDisplay();
+        //view.dateText.setText(date.formatDate());
+        //view.dateText.setText(date.formatDateTime());
         return view.getRoot();
     }
 
@@ -101,7 +100,9 @@ public class DateFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_bar_menu_advance_date) {// Navigate to settings screen.
-            this.date.advanceDate();
+            Date date = activityModel.getDateTime().getValue();
+            date.advanceDate();
+            activityModel.updateTime(date, false);
             updateDisplay();
             return true;
         }
@@ -110,7 +111,8 @@ public class DateFragment extends Fragment {
     }
 
     public void updateDisplay() {
-        //view.dateText.setText(date.formatDate());
-        view.dateText.setText(date.formatDateTime());
+        view.dateText.setText(activityModel.getDateTime()
+                .getValue().formatDate());
+        //view.dateText.setText(date.formatDateTime());
     }
 }

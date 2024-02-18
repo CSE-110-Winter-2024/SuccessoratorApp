@@ -30,8 +30,5 @@ public class Date {
 
     public String getDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
 
-    public void advanceDate(){
-        this.dateTime = dateTime.plusDays(1);
-
-    }
+    public void advanceDate() { this.dateTime = dateTime.plusDays(1); }
 }
