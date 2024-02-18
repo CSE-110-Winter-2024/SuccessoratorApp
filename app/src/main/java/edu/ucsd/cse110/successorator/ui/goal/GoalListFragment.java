@@ -52,7 +52,7 @@ public class GoalListFragment extends Fragment {
                 List.of(),
                 goal -> {
                     var newGoal = goal.withComplete(!goal.isComplete());
-                    activityModel.updateGoal(newGoal);
+                    activityModel.save(newGoal);
                 },
                 activityModel::remove
         );

@@ -52,8 +52,17 @@ public class SimpleGoalRepository implements GoalRepository {
 
     @Override
     public void appendCompleteGoal(Goal goal){
-
+        //dataSource.shiftSortOrders()
     }
+//
+//    var goals = this.orderedGoals.getValue();
+//        for(int i = 0; i < goals.size(); i++){
+//        var thisGoal = goals.get(i);
+//        if(thisGoal.isComplete()){
+//            return thisGoal.getSortOrder();
+//        }
+//    }
+//        return goals.get(goals.size() - 1).getSortOrder() + 1;
 
     @Override
     public void shiftOver(int from){

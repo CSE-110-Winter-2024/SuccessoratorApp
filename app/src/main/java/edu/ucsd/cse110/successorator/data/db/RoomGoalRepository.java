@@ -3,6 +3,7 @@ package edu.ucsd.cse110.successorator.data.db;
 import androidx.lifecycle.Transformations;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
@@ -37,7 +38,17 @@ public class RoomGoalRepository implements GoalRepository {
 
     @Override
     public void save(Goal goal){
-        goalDao.insert(GoalEntity.fromGoal(goal));
+        if(goal.isComplete()){
+            int firstCompleteGoal = goalDao.getMaxSortOrderInComplete() + 1;
+            shiftOver(firstCompleteGoal);
+            var newGoal = goal.withSortOrder(firstCompleteGoal);
+            goalDao.insert(GoalEntity.fromGoal(newGoal));
+        }else{
+            shiftOver(1);
+            var newGoal = goal.withSortOrder(1);
+            goalDao.insert(GoalEntity.fromGoal(newGoal));
+        }
+        //goalDao.insert(GoalEntity.fromGoal(goal));
     }
 
     public void save(List<Goal> goals){
@@ -70,4 +81,5 @@ public class RoomGoalRepository implements GoalRepository {
     public void shiftOver(int from){
         goalDao.shiftOver(from);
     }
+
 }

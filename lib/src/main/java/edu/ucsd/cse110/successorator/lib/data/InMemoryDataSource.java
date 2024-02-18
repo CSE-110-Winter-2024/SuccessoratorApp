@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.lib.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +120,17 @@ public class InMemoryDataSource {
                 .collect(Collectors.toList());
 
         putGoals(cards);
+    }
+
+
+    public int getMaxSortOrderInComplete(){
+        var goalList = new ArrayList<>(goals.values());
+        for(int i = 0; i < goalList.size(); i++){
+            if(goalList.get(i).isComplete()){
+                return goalList.get(i-1).getSortOrder();
+            }
+        }
+        return goalList.get(goals.size() - 1).getSortOrder();
     }
 
     /**
