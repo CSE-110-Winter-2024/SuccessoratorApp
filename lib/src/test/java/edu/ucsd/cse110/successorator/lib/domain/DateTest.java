@@ -11,7 +11,8 @@ public class DateTest {
     @Test
     public void testGetters() {
         LocalDateTime testDate = LocalDateTime.of(2024, 2, 13, 12, 21);
-        Date date = new Date(testDate, DateTimeFormatter.ofPattern("EEEE M/dd"));
-        assertEquals("Tuesday 2/13", date.getDate());
+        Date date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        date.setDate(testDate);
+        assertEquals("Tuesday 2/13", date.formatDate());
     }
 }

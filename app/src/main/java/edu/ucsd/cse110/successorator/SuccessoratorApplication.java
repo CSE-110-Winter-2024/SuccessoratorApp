@@ -5,16 +5,18 @@ import android.app.Application;
 import androidx.room.Room;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import edu.ucsd.cse110.successorator.data.db.RoomGoalRepository;
 import edu.ucsd.cse110.successorator.data.db.SuccessoratorDatabase;
+import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 
 public class SuccessoratorApplication extends Application {
     private GoalRepository goalRepository;
-    //private TimeKeeper timeKeeper;
+    private TimeKeeper timeKeeper;
 
     @Override
     public void onCreate() {
@@ -41,13 +43,16 @@ public class SuccessoratorApplication extends Application {
                     .apply();
         }
 
-        //timeKeeper = new SimpleTimeKeeper();
-        //timeKeeper.setDateTime(LocalDateTime.parse(sharedPreferences
-        //        .getString("datetime", LocalDateTime.now().toString())));
-
         sharedPreferences.edit()
                 .putString("datetime", LocalDateTime.now().toString())
                 .apply();
+        timeKeeper = new SimpleTimeKeeper();
+        timeKeeper.setDateTime(LocalDateTime.parse(sharedPreferences
+                .getString("datetime", LocalDateTime.now().toString())));
+
+        /*sharedPreferences.edit()
+                .putString("datetime", LocalDateTime.now().toString())
+                .apply();*/
     }
 
 
@@ -56,5 +61,5 @@ public class SuccessoratorApplication extends Application {
         return goalRepository;
     }
 
-    //public TimeKeeper getTimeKeeper() { return timeKeeper; }
+    public TimeKeeper getTimeKeeper() { return timeKeeper; }
 }

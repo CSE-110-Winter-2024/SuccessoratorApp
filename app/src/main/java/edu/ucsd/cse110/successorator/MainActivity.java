@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
+import edu.ucsd.cse110.successorator.ui.date.DateFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 
@@ -32,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-
-        //updateTime();
+        //date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        //Scheduler scheduler = new Scheduler(dateText);
+        //scheduler.startTask();
 
         setContentView(view.getRoot());
         swapFragments();
@@ -42,16 +43,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
-        //timeKeeper = new SimpleTimeKeeper();
-        date.setDate(LocalDateTime.parse(sharedPreferences
-                .getString("datetime", LocalDateTime.now().toString())));
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.date_fragment_container, DateFragment.newInstance())
+                .commit();
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
         sharedPreferences.edit()
                 .putString("datetime", LocalDateTime.now().toString())
                 .apply();
-        updateTime();
-        super.onResume();
+        super.onPause();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTime() {
-        view.dateText.setText(date.getDate());
-        //view.dateText.setText(date.getDateTime());
+        //view.dateText.setText(date.formatDate());
+        //view.dateText.setText(date.formatDateTime());
         TextView dateText = findViewById(R.id.date_text);
         //Scheduler scheduler = new Scheduler(dateText);
         //scheduler.startTask();

@@ -25,7 +25,7 @@ public class Scheduler {
             if (currentTime.getHour() == 0 && currentTime.getMinute() == 0) {
                 Date date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
                 date.setDate(LocalDateTime.now());
-                dateText.setText(date.getDate());
+                dateText.setText(date.formatDate());
             }
         }, 0, 1, TimeUnit.MINUTES);
     }

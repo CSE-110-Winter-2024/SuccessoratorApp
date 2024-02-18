@@ -17,12 +17,14 @@ public class Date {
     }
 
     public void setDate(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+        this.dateTime = dateTime.minusHours(2);
     }
 
-    public String getDate() {
+    public String formatDate() {
         return formatter.format(dateTime);
     }
 
-    public String getDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
+    public String formatDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
+
+    public LocalDateTime getDate() {return this.dateTime; }
 }
