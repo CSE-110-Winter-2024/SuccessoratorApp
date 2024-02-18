@@ -20,4 +20,6 @@ public interface GoalRepository {
 
     void prepend(Goal goal);
 
+    void removeCompleted();
+
 }

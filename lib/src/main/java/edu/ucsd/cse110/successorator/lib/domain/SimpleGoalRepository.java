@@ -49,4 +49,7 @@ public class SimpleGoalRepository implements GoalRepository {
         //then insert the new card before the first one
         dataSource.putGoal(goal.withSortOrder(dataSource.getMinSortOrder() - 1));
     }
+
+    @Override
+    public void removeCompleted() {}
 }

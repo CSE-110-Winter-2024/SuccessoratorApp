@@ -44,6 +44,9 @@ public interface GoalDao {
     @Query("DELETE FROM goals WHERE id = :id")
     void delete(int id);
 
+    @Query("DELETE FROM goals WHERE isComplete = 1")
+    void deleteComplete();
+
     @Transaction
     default int append(GoalEntity goal) {
         var maxSortOrder = getMaxSortOrder();

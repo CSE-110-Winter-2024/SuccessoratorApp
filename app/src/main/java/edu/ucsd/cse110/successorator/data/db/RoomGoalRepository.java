@@ -61,4 +61,7 @@ public class RoomGoalRepository implements GoalRepository {
     public void remove(int id) {
         goalDao.delete(id);
     }
+
+    @Override
+    public void removeCompleted() { goalDao.deleteComplete(); }
 }
