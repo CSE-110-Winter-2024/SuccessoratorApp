@@ -19,26 +19,39 @@ import java.time.format.DateTimeFormatter;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
+import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 
 public class MainActivity extends AppCompatActivity {
     boolean isEmpty = false;
+    Date date;
+    ActivityMainBinding view;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        var view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        Date date = new Date(LocalDateTime.now().minusHours(2), DateTimeFormatter.ofPattern("EEEE M/dd"));
+        view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
+        date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
 
-        view.dateText.setText(date.getDate());
+        //updateTime();
 
         setContentView(view.getRoot());
         swapFragments();
+    }
 
-        TextView dateText = findViewById(R.id.date_text);
-        Scheduler scheduler = new Scheduler(dateText);
-        scheduler.startTask();
+    @Override
+    protected void onResume() {
+        var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
+        //timeKeeper = new SimpleTimeKeeper();
+        date.setDate(LocalDateTime.parse(sharedPreferences
+                .getString("datetime", LocalDateTime.now().toString())));
+
+        sharedPreferences.edit()
+                .putString("datetime", LocalDateTime.now().toString())
+                .apply();
+        updateTime();
+        super.onResume();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,5 +87,13 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.goalList, GoalListFragment.newInstance())
                     .commit();
         }
+    }
+
+    private void updateTime() {
+        view.dateText.setText(date.getDate());
+        //view.dateText.setText(date.getDateTime());
+        TextView dateText = findViewById(R.id.date_text);
+        //Scheduler scheduler = new Scheduler(dateText);
+        //scheduler.startTask();
     }
 }

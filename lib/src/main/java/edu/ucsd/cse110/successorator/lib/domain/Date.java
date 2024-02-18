@@ -11,12 +11,18 @@ public class Date {
     private LocalDateTime dateTime;
     private DateTimeFormatter formatter;
 
-    public Date(LocalDateTime dateTime, DateTimeFormatter formatter) {
-        this.dateTime = dateTime;
+    public Date(DateTimeFormatter formatter) {
+        //this.dateTime = dateTime;
         this.formatter = formatter;
+    }
+
+    public void setDate(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getDate() {
         return formatter.format(dateTime);
     }
+
+    public String getDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
 }

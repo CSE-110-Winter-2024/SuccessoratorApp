@@ -23,7 +23,8 @@ public class Scheduler {
         scheduler.scheduleAtFixedRate(() -> {
             LocalDateTime currentTime = LocalDateTime.now().minusHours(2);
             if (currentTime.getHour() == 0 && currentTime.getMinute() == 0) {
-                Date date = new Date(LocalDateTime.now(), DateTimeFormatter.ofPattern("EEEE M/dd"));
+                Date date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+                date.setDate(LocalDateTime.now());
                 dateText.setText(date.getDate());
             }
         }, 0, 1, TimeUnit.MINUTES);
