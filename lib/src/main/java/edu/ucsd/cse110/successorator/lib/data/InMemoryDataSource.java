@@ -12,7 +12,7 @@ import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
 /**
- * Class used as a sort of "database" of decks and flashcards that exist. This
+ * Class used as a sort of "database" of goals that exist. This
  * will be replaced with a real database in the future, but can also be used
  * for testing.
  */
@@ -70,29 +70,29 @@ public class InMemoryDataSource {
         return maxSortOrder;
     }
 
-    public void putGoal(Goal card) {
-        var fixedCard = preInsert(card);
+    public void putGoal(Goal goal) {
+        var fixedGoal = preInsert(goal);
 
-        goals.put(fixedCard.getId(), fixedCard);
+        goals.put(fixedGoal.getId(), fixedGoal);
         postInsert();
         assertSortOrderConstraints();
 
-        if (goalSubjects.containsKey(fixedCard.getId())) {
-            goalSubjects.get(fixedCard.getId()).setValue(fixedCard);
+        if (goalSubjects.containsKey(fixedGoal.getId())) {
+            goalSubjects.get(fixedGoal.getId()).setValue(fixedGoal);
         }
         allGoalsSubject.setValue(getGoals());
     }
 
-    public void putGoals(List<Goal> cards) {
-        var fixedCards = cards.stream()
+    public void putGoals(List<Goal> goalList) {
+        var fixedGoals = goalList.stream()
                 .map(this::preInsert)
                 .collect(Collectors.toList());
 
-        fixedCards.forEach(card -> goals.put(card.getId(), card));
+        fixedGoals.forEach(goal -> goals.put(goal.getId(), goal));
         postInsert();
         assertSortOrderConstraints();
 
-        fixedCards.forEach(card -> {
+        fixedGoals.forEach(card -> {
             if (goalSubjects.containsKey(card.getId())) {
                 goalSubjects.get(card.getId()).setValue(card);
             }
@@ -100,7 +100,7 @@ public class InMemoryDataSource {
         allGoalsSubject.setValue(getGoals());
     }
 
-    public void removeFlashcard(int id) {
+    public void removeGoal(int id) {
         var card = goals.get(id);
         var sortOrder = card.getSortOrder();
 
@@ -125,12 +125,14 @@ public class InMemoryDataSource {
 
     public int getMaxSortOrderInComplete(){
         var goalList = new ArrayList<>(goals.values());
+        int maxSortOrderInComplete = 0;
         for(int i = 0; i < goalList.size(); i++){
-            if(goalList.get(i).isComplete()){
-                return goalList.get(i-1).getSortOrder();
+            var goal = goalList.get(i);
+            if(!goal.isComplete() && goal.getSortOrder() > maxSortOrderInComplete){
+                maxSortOrderInComplete = goal.getSortOrder();
             }
         }
-        return goalList.get(goals.size() - 1).getSortOrder();
+        return maxSortOrderInComplete;
     }
 
     /**

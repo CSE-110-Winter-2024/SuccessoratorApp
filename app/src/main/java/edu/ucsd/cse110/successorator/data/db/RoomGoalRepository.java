@@ -40,22 +40,15 @@ public class RoomGoalRepository implements GoalRepository {
     public void save(Goal goal){
         if(goal.isComplete()){
             int firstCompleteGoal = goalDao.getMaxSortOrderInComplete() + 1;
-            shiftOver(firstCompleteGoal);
+            goalDao.shiftSortOrders(firstCompleteGoal, goalDao.getMaxSortOrder(), 1);
             var newGoal = goal.withSortOrder(firstCompleteGoal);
             goalDao.insert(GoalEntity.fromGoal(newGoal));
         }else{
-            shiftOver(1);
+            goalDao.shiftSortOrders(1, goalDao.getMaxSortOrder(), 1);
             var newGoal = goal.withSortOrder(1);
             goalDao.insert(GoalEntity.fromGoal(newGoal));
         }
         //goalDao.insert(GoalEntity.fromGoal(goal));
-    }
-
-    public void save(List<Goal> goals){
-        var entities = goals.stream()
-                .map(GoalEntity::fromGoal)
-                .collect(Collectors.toList());
-        goalDao.insert(entities);
     }
 
     @Override
@@ -63,6 +56,13 @@ public class RoomGoalRepository implements GoalRepository {
         goalDao.appendCompleteGoal(GoalEntity.fromGoal(goal));
     }
 
+    // ----- Unused -----
+    public void save(List<Goal> goals){
+        var entities = goals.stream()
+                .map(GoalEntity::fromGoal)
+                .collect(Collectors.toList());
+        goalDao.insert(entities);
+    }
     @Override
     public void append(Goal goal){
         goalDao.append(GoalEntity.fromGoal(goal));
@@ -76,10 +76,6 @@ public class RoomGoalRepository implements GoalRepository {
     @Override
     public void remove(int id) {
         goalDao.delete(id);
-    }
-
-    public void shiftOver(int from){
-        goalDao.shiftOver(from);
     }
 
 }
