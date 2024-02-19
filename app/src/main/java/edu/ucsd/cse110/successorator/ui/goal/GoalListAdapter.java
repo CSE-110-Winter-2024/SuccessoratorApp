@@ -1,10 +1,13 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -16,16 +19,26 @@ import java.util.function.Consumer;
 import edu.ucsd.cse110.successorator.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
+/**
+ * https://www.tutorialspoint.com/strikethrough-text-in-android
+ * Adapter for GoalListFragment
+ */
 public class GoalListAdapter extends ArrayAdapter<Goal> {
+    Consumer<Goal> onGoalClicked;
     Consumer<Integer> onDeleteClick;
 
-    public GoalListAdapter(Context context, List<Goal> goals, Consumer<Integer> onDeleteClick) {
+    Consumer<Integer> removeStrikethruClick;
+
+    public GoalListAdapter(Context context, List<Goal> goals,
+                           Consumer<Goal> onGoalClicked,
+                           Consumer<Integer> onDeleteClick) {
         // This sets a bunch of stuff internally, which we can access
         // with getContext() and getItem() for example.
         //
         // Also note that ArrayAdapter NEEDS a mutable List (ArrayList),
         // or it will crash!
         super(context, 0, new ArrayList<>(goals));
+        this.onGoalClicked = onGoalClicked;
         this.onDeleteClick = onDeleteClick;
     }
 
@@ -47,13 +60,25 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             binding = ListItemGoalBinding.inflate(layoutInflater, parent, false);
         }
 
-        // Populate the view with the goal's data.
-        binding.goalText.setText(goal.getTitle());
-
-        //bind the delete button to the callback
         binding.goalDeleteButton.setOnClickListener(v -> {
             var id = Objects.requireNonNull(goal.getId());
             onDeleteClick.accept(id);
+        });
+
+        // M -> V
+        // Populate the view with the goal's data.
+        binding.goalText.setText(goal.getTitle());
+        // setup ST to match
+        if (goal.isComplete()) {
+            binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+        // V -> M
+        //Set listener for strikethrough
+        binding.goalText.setOnClickListener(v -> {
+            onGoalClicked.accept(goal);
         });
 
         return binding.getRoot();
