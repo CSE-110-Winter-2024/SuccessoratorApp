@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         view = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
-        //Scheduler scheduler = new Scheduler(dateText);
-        //scheduler.startTask();
 
         setContentView(view.getRoot());
         swapFragments();

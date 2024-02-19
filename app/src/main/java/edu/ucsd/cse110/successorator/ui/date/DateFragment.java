@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -77,6 +78,8 @@ public class DateFragment extends Fragment {
         super.onPause();
     }
 
+    //https://stackoverflow.com/questions/11690504/how-to-use-view-ontouchlistener-instead-of-onclick
+    // for onTouchListener
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -86,9 +89,18 @@ public class DateFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
+        view.dateText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Date date = activityModel.getCurrDate().getValue();
+                date.setDate(LocalDateTime.now());
+                activityModel.updateTime(date, false);
+                updateDisplay();
+                return true;
+            }
+        });
+
         updateDisplay();
-        //view.dateText.setText(date.formatDate());
-        //view.dateText.setText(date.formatDateTime());
         return view.getRoot();
     }
 
