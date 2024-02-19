@@ -66,6 +66,17 @@ public class SimpleGoalRepository implements GoalRepository {
         //then insert the new card before the first one
         dataSource.putGoal(goal.withSortOrder(dataSource.getMinSortOrder() - 1));
     }
+
+    @Override
+    public void removeCompleted() {
+        var goals = dataSource.getGoals();
+        for(var goal : goals) {
+            if(goal.isComplete()) {
+                dataSource.removeGoal(goal.getId());
+            }
+        }
+    }
+
     @Override
     public void save(List<Goal> goals) {
         dataSource.putGoals(goals);

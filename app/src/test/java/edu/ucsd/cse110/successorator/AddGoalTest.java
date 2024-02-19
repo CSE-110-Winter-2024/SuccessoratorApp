@@ -3,7 +3,7 @@ import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
-import edu.ucsd.cse110.successorator.lib.domain.Timekeeper;
+import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
 import org.junit.Before;
@@ -22,6 +22,7 @@ public class AddGoalTest {
     private InMemoryDataSource dataSource;
     private SimpleGoalRepository repo;
     private MainViewModel model;
+    private TimeKeeper timeKeeper;
 
     //Set up dataSource, repo, and model
     @Before
@@ -33,7 +34,9 @@ public class AddGoalTest {
                 new Goal("Grocery shopping", 2, false, 2)
         ));
         repo = new SimpleGoalRepository(dataSource);
-        model = new MainViewModel(repo, new SimpleTimeKeeper());
+        timeKeeper = new SimpleTimeKeeper();
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        model = new MainViewModel(repo, timeKeeper);
     }
 //The testAddGoal adds newGoal "Text Maria"
     @Test

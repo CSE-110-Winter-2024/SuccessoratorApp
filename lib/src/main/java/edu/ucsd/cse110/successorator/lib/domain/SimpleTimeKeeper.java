@@ -6,7 +6,7 @@ import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
-public class SimpleTimeKeeper implements Timekeeper{
+public class SimpleTimeKeeper implements TimeKeeper {
     private MutableSubject<LocalDateTime> dateTime;
 
     public SimpleTimeKeeper() {

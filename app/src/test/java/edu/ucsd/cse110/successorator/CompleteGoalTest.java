@@ -4,12 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
+import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 
 public class CompleteGoalTest {
     /*
@@ -23,7 +25,9 @@ public class CompleteGoalTest {
         InMemoryDataSource dataSource = new InMemoryDataSource();
         dataSource.putGoal(new Goal("Prepare for midterm", 1, false, 1));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
-        MainViewModel model = new MainViewModel(repo, new SimpleTimeKeeper());
+        TimeKeeper timeKeeper = new SimpleTimeKeeper();
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        MainViewModel model = new MainViewModel(repo, timeKeeper);
 
         //When...
         // * tap occurs *
@@ -57,7 +61,9 @@ public class CompleteGoalTest {
                 new Goal("Prepare for midterm", 1, false, 1),
                 new Goal("Grocery shopping", 2, false, 2)));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
-        MainViewModel model = new MainViewModel(repo, new SimpleTimeKeeper());
+        TimeKeeper timeKeeper = new SimpleTimeKeeper();
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        MainViewModel model = new MainViewModel(repo, timeKeeper);
 
         //When...
         // * tap on "Prepare for midterm" *
@@ -95,7 +101,10 @@ public class CompleteGoalTest {
                 new Goal("Prepare for midterm", 1, false, 1),
                 new Goal("Grocery shopping", 2, true, 2)));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
-        MainViewModel model = new MainViewModel(repo, new SimpleTimeKeeper());
+        TimeKeeper timeKeeper = new SimpleTimeKeeper();
+        //timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        timeKeeper.setDateTime(LocalDateTime.now().plusHours(1));
+        MainViewModel model = new MainViewModel(repo, timeKeeper);
 
         //When...
         // * tap on "Prepare for midterm" *

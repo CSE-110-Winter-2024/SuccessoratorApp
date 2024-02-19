@@ -11,12 +11,21 @@ public class Date {
     private LocalDateTime dateTime;
     private DateTimeFormatter formatter;
 
-    public Date(LocalDateTime dateTime, DateTimeFormatter formatter) {
-        this.dateTime = dateTime;
+    public Date(DateTimeFormatter formatter) {
         this.formatter = formatter;
     }
 
-    public String getDate() {
+    public void setDate(LocalDateTime dateTime) {
+        this.dateTime = dateTime.minusHours(2);
+    }
+
+    public String formatDate() {
         return formatter.format(dateTime);
     }
+
+    public String formatDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
+
+    public LocalDateTime getDate() {return this.dateTime; }
+
+    public void advanceDate() { this.dateTime = dateTime.plusDays(1); }
 }
