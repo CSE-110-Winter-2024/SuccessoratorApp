@@ -2,8 +2,14 @@ package edu.ucsd.cse110.successorator;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
+import edu.ucsd.cse110.successorator.lib.domain.Timekeeper;
+import edu.ucsd.cse110.successorator.lib.util.Subject;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,7 +33,7 @@ public class AddGoalTest {
                 new Goal("Grocery shopping", 2, false, 2)
         ));
         repo = new SimpleGoalRepository(dataSource);
-        model = new MainViewModel(repo);
+        model = new MainViewModel(repo, new SimpleTimeKeeper());
     }
 //The testAddGoal adds newGoal "Text Maria"
     @Test

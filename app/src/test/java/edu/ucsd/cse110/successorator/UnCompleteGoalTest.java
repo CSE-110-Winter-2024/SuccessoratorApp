@@ -9,6 +9,7 @@ import java.util.List;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 
 public class UnCompleteGoalTest {
     /*
@@ -22,7 +23,7 @@ public class UnCompleteGoalTest {
         InMemoryDataSource dataSource = new InMemoryDataSource();
         dataSource.putGoal(new Goal("Prepare for midterm", 1, true, 2));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
-        MainViewModel model = new MainViewModel(repo);
+        MainViewModel model = new MainViewModel(repo, new SimpleTimeKeeper());
 
         //When...
         // * tap occurs *
@@ -56,7 +57,7 @@ public class UnCompleteGoalTest {
                 new Goal("Prepare for midterm", 1, true, 3),
                 new Goal("Grocery shopping", 2, false, 2)));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
-        MainViewModel model = new MainViewModel(repo);
+        MainViewModel model = new MainViewModel(repo, new SimpleTimeKeeper());
 
         //When...
         // * tap occurs *
@@ -93,7 +94,7 @@ public class UnCompleteGoalTest {
                 new Goal("Prepare for midterm", 1, true, 2),
                 new Goal("Grocery shopping", 2, true, 4)));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
-        MainViewModel model = new MainViewModel(repo);
+        MainViewModel model = new MainViewModel(repo, new SimpleTimeKeeper());
 
         //When...
         // * tap occurs *

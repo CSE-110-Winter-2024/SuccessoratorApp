@@ -9,6 +9,7 @@ import java.util.List;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -26,7 +27,7 @@ public class AddGoalUnitTests {
                 new Goal("Goal4", 3, false, 4)
         );
         var repo = new SimpleGoalRepository(dataSource);
-        var model = new MainViewModel(repo);
+        var model = new MainViewModel(repo, new SimpleTimeKeeper());
 
         var expected = new Goal("Goal1", 0, false, 1);
         model.addGoal(expected);
@@ -41,7 +42,7 @@ public class AddGoalUnitTests {
         );
         dataSource.putGoals(goals);
         var repo = new SimpleGoalRepository(dataSource);
-        var model = new MainViewModel(repo);
+        var model = new MainViewModel(repo, new SimpleTimeKeeper());
 
         var addGoal = new Goal("Grocery shopping", 1, false, 2);
         model.addGoal(addGoal);
