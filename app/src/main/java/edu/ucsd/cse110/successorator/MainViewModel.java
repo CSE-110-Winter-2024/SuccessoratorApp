@@ -32,7 +32,7 @@ public class MainViewModel extends ViewModel {
     // UI state
     private final MutableSubject<List<Goal>> orderedGoals;
     private final MutableSubject<Boolean> hasGoal;
-    private final MutableSubject<Date> dateTime;
+    private final MutableSubject<Date> currDate;
     private final MutableSubject<Date> lastLog;
     private final MutableSubject<String> placeholderText;
     public MainViewModel(GoalRepository goalRepository, TimeKeeper timeKeeper) {
@@ -43,7 +43,7 @@ public class MainViewModel extends ViewModel {
         this.orderedGoals = new SimpleSubject<>();
         this.hasGoal = new SimpleSubject<>();
         this.placeholderText = new SimpleSubject<>();
-        this.dateTime = new SimpleSubject<>();
+        this.currDate = new SimpleSubject<>();
         this.lastLog = new SimpleSubject<>();
 
 
@@ -52,9 +52,9 @@ public class MainViewModel extends ViewModel {
         Date logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(timeKeeper.getDateTime().getValue());
         lastLog.setValue(logDate);
-        Date currDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        currDate.setDate(LocalDateTime.now());
-        dateTime.setValue(currDate);
+        Date datetime = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        datetime.setDate(LocalDateTime.now());
+        currDate.setValue(datetime);
 
         // When the list of cards changes (or is first loaded), reset the ordering.
         goalRepository.findAll().observe(cards -> {
@@ -66,12 +66,12 @@ public class MainViewModel extends ViewModel {
             orderedGoals.setValue(newOrderedCards);
         });
 
-        dateTime.observe(date -> {
+        currDate.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
             var lastLogDate = lastLog.getValue();
             if(lastLogDate.getDate().toLocalDate()
-                    .isBefore(dateTime.getValue().getDate().toLocalDate())) {
+                    .isBefore(currDate.getValue().getDate().toLocalDate())) {
                 removeCompleted();
                 lastLogDate.setDate(LocalDateTime.now());
                 lastLog.setValue(lastLogDate);
@@ -100,7 +100,7 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public Subject<Date> getDateTime() { return dateTime; }
+    public Subject<Date> getCurrDate() { return currDate; }
 
     public Subject<Date> getLastLog() { return lastLog; }
 
@@ -109,7 +109,7 @@ public class MainViewModel extends ViewModel {
             lastLog.setValue(date);
         }
         else {
-            dateTime.setValue(date);
+            currDate.setValue(date);
         }
     }
 

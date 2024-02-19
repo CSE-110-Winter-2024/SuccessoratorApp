@@ -62,7 +62,7 @@ public class DateFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Date date = activityModel.getDateTime().getValue();
+        Date date = activityModel.getCurrDate().getValue();
         date.setDate(LocalDateTime.now());
         activityModel.updateTime(date, false);
         updateDisplay();
@@ -100,7 +100,7 @@ public class DateFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_bar_menu_advance_date) {// Navigate to settings screen.
-            Date date = activityModel.getDateTime().getValue();
+            Date date = activityModel.getCurrDate().getValue();
             date.advanceDate();
             activityModel.updateTime(date, false);
             updateDisplay();
@@ -111,8 +111,7 @@ public class DateFragment extends Fragment {
     }
 
     public void updateDisplay() {
-        view.dateText.setText(activityModel.getDateTime()
-                .getValue().formatDate());
-        //view.dateText.setText(date.formatDateTime());
+        view.dateText.setText(activityModel.getCurrDate().getValue().formatDate());
+        //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }
