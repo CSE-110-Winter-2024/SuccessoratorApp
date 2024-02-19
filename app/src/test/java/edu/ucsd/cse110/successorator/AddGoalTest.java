@@ -74,7 +74,7 @@ public class AddGoalTest {
         //assertTrue(dataSource.getGoal(1).isComplete());
 
         // Adds a new goal into the list
-        Goal newGoal = new Goal("Text Maria", 3, false, 1);
+        Goal newGoal = new Goal("Text Maria", 3, false, null);
         model.addGoal(newGoal); //add goal to model
         Goal actual = dataSource.getGoal(3); //retrieve goal from dataSource
 
@@ -88,6 +88,48 @@ public class AddGoalTest {
         int actualSize = dataSource.getGoals().size();
         assertEquals(expectedSize, actualSize);
         //Done with first add
+
+        /*
+         * Marking All goals ("Grocery shopping and Text Maria" as complete)
+         */
+        goalToComplete = dataSource.getGoal(2);
+        nG = goalToComplete.withComplete(!goalToComplete.isComplete());
+        model.save(nG);
+        goalToComplete = dataSource.getGoal(3);
+        nG = goalToComplete.withComplete(!goalToComplete.isComplete());
+        model.save(nG);
+
+
+        // Adds a fourth goal into the list
+        newGoal = new Goal("Write addTest", 4, false, null);
+        model.addGoal(newGoal); //add goal to model
+        actual = dataSource.getGoal(4); //retrieve goal from dataSource
+
+        // Verify the goal was added correctly
+        assertEquals("Write addTest", actual.getTitle());
+        assertEquals(Integer.valueOf(4), actual.getId());
+        assertEquals(Integer.valueOf(1), actual.getSortOrder());
+
+        // Verify the size of the goal list in the data source
+        expectedSize = 4; // Initial 2 goals + 1 new goal
+        actualSize = dataSource.getGoals().size();
+        assertEquals(expectedSize, actualSize);
+
+
+        // Adds a fourth goal into the list
+        newGoal = new Goal("Push my progress", 5, false, null);
+        model.addGoal(newGoal); //add goal to model
+        actual = dataSource.getGoal(5); //retrieve goal from dataSource
+
+        // Verify the goal was added correctly
+        assertEquals("Push my progress", actual.getTitle());
+        assertEquals(Integer.valueOf(5), actual.getId());
+        assertEquals(Integer.valueOf(2), actual.getSortOrder());
+
+        // Verify the size of the goal list in the data source
+        expectedSize = 5; // Initial 2 goals + 1 new goal
+        actualSize = dataSource.getGoals().size();
+        assertEquals(expectedSize, actualSize);
     }
 
 }
