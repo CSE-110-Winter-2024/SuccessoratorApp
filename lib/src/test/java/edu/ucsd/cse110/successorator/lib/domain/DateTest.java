@@ -11,9 +11,19 @@ public class DateTest {
     @Test
     public void testGetters() {
         LocalDateTime testDate = LocalDateTime.of(2024, 2, 13, 12, 21);
+        LocalDateTime expected = LocalDateTime.of(2024, 2, 13, 10, 21);
+        Date date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        date.setDate(testDate);
+        assertEquals(expected, date.getDate());
+    }
+
+    @Test
+    public void testFormatters() {
+        LocalDateTime testDate = LocalDateTime.of(2024, 2, 13, 12, 21);
         Date date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(testDate);
         assertEquals("Tuesday 2/13", date.formatDate());
+        assertEquals("Tuesday 2/13 10:21", date.formatDateTime());
     }
 
     @Test
