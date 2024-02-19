@@ -32,8 +32,7 @@ public class InMemoryDataSource {
     public InMemoryDataSource() {
     }
 
-    public final static List<Goal> DEFAULT_GOALS = List.of(
-    );
+    public final static List<Goal> DEFAULT_GOALS = List.of();
 
     public static InMemoryDataSource fromDefault() {
         var data = new InMemoryDataSource();
@@ -92,17 +91,17 @@ public class InMemoryDataSource {
         postInsert();
         assertSortOrderConstraints();
 
-        fixedGoals.forEach(card -> {
-            if (goalSubjects.containsKey(card.getId())) {
-                goalSubjects.get(card.getId()).setValue(card);
+        fixedGoals.forEach(goal -> {
+            if (goalSubjects.containsKey(goal.getId())) {
+                goalSubjects.get(goal.getId()).setValue(goal);
             }
         });
         allGoalsSubject.setValue(getGoals());
     }
 
     public void removeGoal(int id) {
-        var card = goals.get(id);
-        var sortOrder = card.getSortOrder();
+        var goal = goals.get(id);
+        var sortOrder = goal.getSortOrder();
 
         goals.remove(id);
         shiftSortOrders(sortOrder, maxSortOrder, -1);
@@ -114,12 +113,12 @@ public class InMemoryDataSource {
     }
 
     public void shiftSortOrders(int from, int to, int by) {
-        var cards = goals.values().stream()
+        var goalList = goals.values().stream()
                 .filter(card -> card.getSortOrder() >= from && card.getSortOrder() <= to)
                 .map(card -> card.withSortOrder(card.getSortOrder() + by))
                 .collect(Collectors.toList());
 
-        putGoals(cards);
+        putGoals(goalList);
     }
 
 
