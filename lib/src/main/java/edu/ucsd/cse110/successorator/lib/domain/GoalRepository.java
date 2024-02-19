@@ -12,9 +12,11 @@ public interface GoalRepository {
 
     void save(Goal flashcard);
 
-    void save(List<Goal> goalList);
-
     void remove(int id);
+
+    void appendCompleteGoal(Goal goal);
+
+    void save(List<Goal> goalList);
 
     void append(Goal goal);
 

@@ -38,6 +38,9 @@ public interface GoalDao {
     @Query("SELECT MAX(sort_order) FROM goals")
     int getMaxSortOrder();
 
+    @Query("SELECT MAX(sort_order) FROM goals WHERE isComplete = false")
+    int getMaxSortOrderInComplete();
+
     @Query("UPDATE goals SET sort_order = sort_order + :by " + "WHERE sort_order >= :from AND sort_order <= :to")
     void shiftSortOrders(int from, int to, int by);
 
@@ -45,10 +48,25 @@ public interface GoalDao {
     void delete(int id);
 
     @Transaction
+    default void shiftOver(int from){
+        shiftSortOrders(from, getMaxSortOrder(), 1);
+    }
+    @Transaction
     default int append(GoalEntity goal) {
         var maxSortOrder = getMaxSortOrder();
         var newGoal = new GoalEntity(
                 goal.title, goal.isComplete, maxSortOrder + 1
+        );
+        return Math.toIntExact(insert(newGoal));
+    }
+
+    //Method for appending a complete goal to list
+    @Transaction
+    default int appendCompleteGoal(GoalEntity goal) {
+        var maxSortOrderInComplete = getMaxSortOrderInComplete();
+        shiftSortOrders(maxSortOrderInComplete + 1, getMaxSortOrder(), 1);
+        var newGoal = new GoalEntity(
+                goal.title, goal.isComplete, maxSortOrderInComplete + 1
         );
         return Math.toIntExact(insert(newGoal));
     }

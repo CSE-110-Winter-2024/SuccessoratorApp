@@ -16,6 +16,9 @@ import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
+/**
+ * Fragment associated with the pop up box for creating a new goal
+ */
 public class CreateGoalDialogFragment extends DialogFragment{
     private MainViewModel activityModel;
     private FragmentDialogCreateGoalBinding view;

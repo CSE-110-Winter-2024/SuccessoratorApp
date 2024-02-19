@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,10 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.GoalListFragmentBinding;
-//Not created yet
-//import edu.ucsd.cse110.successorator.ui.goal.dialog.ConfirmDeleteCardDialogFragment;
-import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
+/**
+ * Fragment associated with displaying the list of goals
+ */
 public class GoalListFragment extends Fragment {
     private MainViewModel activityModel;
     private GoalListFragmentBinding view;
@@ -46,12 +47,16 @@ public class GoalListFragment extends Fragment {
         this.activityModel = modelProvider.get(MainViewModel.class);
 
         // Initialize the Adapter (with an empty list for now)
-        this.adapter = new GoalListAdapter(requireContext(), List.of(), activityModel::remove);
-                //id -> {
-        // TODO: Delete Confirmation
-        //    var dialogFragment = ConfirmDeleteCardDialogFragment.newInstance(id);
-        //    dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteCardDialogFragment");
-        //});
+        this.adapter = new GoalListAdapter(
+                requireContext(),
+                List.of(),
+                goal -> {
+                    var newGoal = goal.withComplete(!goal.isComplete());
+                    activityModel.save(newGoal);
+                },
+                activityModel::remove
+        );
+
         activityModel.getOrderedGoals().observe(cards -> {
             if (cards == null) return;
             adapter.clear();
