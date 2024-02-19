@@ -49,10 +49,6 @@ public class SuccessoratorApplication extends Application {
         timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.parse(sharedPreferences
                 .getString("datetime", LocalDateTime.now().toString())));
-
-        /*sharedPreferences.edit()
-                .putString("datetime", LocalDateTime.now().toString())
-                .apply();*/
     }
 
 
