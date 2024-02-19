@@ -57,6 +57,7 @@ public class MainViewModel extends ViewModel {
 
     }
 
+    // Initialize the view model
     public static final ViewModelInitializer<MainViewModel> initializer =
             new ViewModelInitializer<>(
                     MainViewModel.class,
@@ -79,8 +80,6 @@ public class MainViewModel extends ViewModel {
         goalRepository.appendCompleteGoal(goal);
     }
 
-
-    //Delete once done
     public void remove(int id) {
         goalRepository.remove(id);
     }

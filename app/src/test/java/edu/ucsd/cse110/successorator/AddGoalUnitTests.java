@@ -58,7 +58,6 @@ public class AddGoalUnitTests {
             assertEquals(expected.get(index).isComplete(), model.getOrderedGoals().getValue().get(index).isComplete());
             assertEquals(expected.get(index).getSortOrder(), model.getOrderedGoals().getValue().get(index).getSortOrder());
         }
-
     }
 
 

@@ -19,6 +19,7 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
 
 public class InMemoryDataSourceTest {
     InMemoryDataSource dataSource;
+
     @Before
     public void initObjects(){
         dataSource = new InMemoryDataSource();
@@ -45,6 +46,55 @@ public class InMemoryDataSourceTest {
         Goal actual1 = dataSource.getGoal(2);
         assertEquals(expected1, actual1);
 
+        int expected2 = 5;
+        int actual2 = dataSource.getMaxSortOrder();
+        assertEquals(expected2, actual2);
 
+        int expected3 = 3;
+        int actual3 = dataSource.getMaxSortOrderInComplete();
+        assertEquals(expected3, actual3);
+
+        int expected4 = 1;
+        int actual4 = dataSource.getMinSortOrder();
+        assertEquals(expected4, actual4);
+    }
+
+    @Test
+    public void testPutGoalAndPutGoals(){
+        dataSource.putGoal(new Goal("6", 6, true, 6));
+        int expectedSize = 6;
+        int actualSize = dataSource.getGoals().size();
+        assertEquals(expectedSize, actualSize);
+
+        Goal expectedGoal = new Goal("6", 6, true, 6);
+        Goal actualGoal = dataSource.getGoal(6);
+        assertEquals(expectedGoal, actualGoal);
+
+        dataSource = new InMemoryDataSource();
+        dataSource.putGoals(List.of(
+                new Goal("Prepare for midterm", 1, false, 1),
+                new Goal("Grocery shopping", 2, true, 2)));
+        expectedSize = 2;
+        actualSize = dataSource.getGoals().size();
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    public void testShiftSortOrders(){
+        dataSource.shiftSortOrders(1, dataSource.getMaxSortOrder(), 1);
+        int count = 2;
+        for(Goal goal : dataSource.getGoals()){
+            int expected = count++;
+            int actual = goal.getSortOrder();
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    public void testRemove(){
+        dataSource.removeGoal(2);
+        int expectedSize = 4;
+        int actualSize = dataSource.getGoals().size();
+        assertEquals(expectedSize, actualSize);
     }
 }
