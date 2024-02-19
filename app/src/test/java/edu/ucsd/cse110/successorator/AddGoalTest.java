@@ -74,7 +74,7 @@ public class AddGoalTest {
         //assertTrue(dataSource.getGoal(1).isComplete());
 
         // Adds a new goal into the list
-        Goal newGoal = new Goal("Text Maria", 3, false, null);
+        Goal newGoal = new Goal("Text Maria", 3, false, 1);
         model.addGoal(newGoal); //add goal to model
         Goal actual = dataSource.getGoal(3); //retrieve goal from dataSource
 
