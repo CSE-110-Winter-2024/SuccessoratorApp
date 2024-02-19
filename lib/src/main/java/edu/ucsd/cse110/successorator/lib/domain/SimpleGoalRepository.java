@@ -51,5 +51,12 @@ public class SimpleGoalRepository implements GoalRepository {
     }
 
     @Override
-    public void removeCompleted() {}
+    public void removeCompleted() {
+        var goals = dataSource.getGoals();
+        for(var goal : goals) {
+            if(goal.isComplete()) {
+                dataSource.removeFlashcard(goal.getId());
+            }
+        }
+    }
 }
