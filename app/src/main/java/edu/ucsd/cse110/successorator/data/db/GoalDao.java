@@ -45,7 +45,7 @@ public interface GoalDao {
     void delete(int id);
 
     @Query("DELETE FROM goals WHERE isComplete = 1")
-    void deleteComplete();
+    void deleteCompleted();
 
     @Transaction
     default int append(GoalEntity goal) {
