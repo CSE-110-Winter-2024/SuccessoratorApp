@@ -1,12 +1,13 @@
 package edu.ucsd.cse110.successorator.lib.domain;
-
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import java.util.Objects;
 
+
+
+
 public class GoalTest {
+    private GoalRepository mockGoal;
     @Test
     public void testGetters() {
         Goal goal = new Goal("Do Dishes", 1,false, 0);
@@ -54,5 +55,6 @@ public class GoalTest {
 
         assertEquals(expected, actual);
     }
+
 
 }

@@ -74,4 +74,7 @@ public class Goal implements Serializable {
     public Goal withComplete(boolean isComplete){
         return new Goal(this.title, this.id, isComplete, this.sortOrder);
     }
+
+    public void setComplete(boolean b) {
+    }
 }
