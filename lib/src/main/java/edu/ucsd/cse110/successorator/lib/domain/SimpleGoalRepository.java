@@ -5,6 +5,9 @@ import java.util.List;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
+/**
+  * Simple Goal Repository for unit testing
+  */
 public class SimpleGoalRepository implements GoalRepository {
     private final InMemoryDataSource dataSource;
 

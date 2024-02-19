@@ -16,10 +16,10 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.GoalListFragmentBinding;
-//Not created yet
-//import edu.ucsd.cse110.successorator.ui.goal.dialog.ConfirmDeleteCardDialogFragment;
-import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
+/**
+ * Fragment associated with displaying the list of goals
+ */
 public class GoalListFragment extends Fragment {
     private MainViewModel activityModel;
     private GoalListFragmentBinding view;

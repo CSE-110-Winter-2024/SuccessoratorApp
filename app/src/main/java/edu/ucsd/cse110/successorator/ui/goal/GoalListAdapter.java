@@ -21,6 +21,7 @@ import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
 /**
  * https://www.tutorialspoint.com/strikethrough-text-in-android
+ * Adapter for GoalListFragment
  */
 public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Goal> onGoalClicked;
