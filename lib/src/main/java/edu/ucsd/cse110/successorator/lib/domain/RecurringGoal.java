@@ -13,7 +13,6 @@ public class RecurringGoal implements Serializable {
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
     private final @NonNull Integer frequency;
     private LocalDate startDate;
-    private
 
     public RecurringGoal(
             @NonNull String title,
