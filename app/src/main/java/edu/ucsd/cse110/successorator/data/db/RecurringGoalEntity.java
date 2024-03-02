@@ -22,12 +22,12 @@ public class RecurringGoalEntity {
     public int frequency;
 
     @ColumnInfo(name = "start_date")
-    public LocalDate startDate;
+    public String startDate;
 
     @ColumnInfo(name = "sort_order")
     public int sortOrder;
 
-    RecurringGoalEntity(@NonNull String title, int frequency, LocalDate startDate, int sortOrder) {
+    RecurringGoalEntity(@NonNull String title, int frequency, String startDate, int sortOrder) {
         this.title = title;
         this.frequency = frequency;
         this.startDate = startDate;
@@ -36,12 +36,12 @@ public class RecurringGoalEntity {
 
     public static RecurringGoalEntity fromRecurringGoal(@NonNull RecurringGoal recurringGoal) {
         var recurringGoalGoal = new RecurringGoalEntity(recurringGoal.getTitle(), recurringGoal.getFrequency(),
-                recurringGoal.getStartDate(), recurringGoal.getSortOrder());
+                recurringGoal.getStartDate().toString(), recurringGoal.getSortOrder());
         recurringGoalGoal.id = recurringGoal.getId();
         return recurringGoalGoal;
     }
 
     public @NonNull RecurringGoal toRecurringGoal() {
-        return new RecurringGoal(title, id, frequency, startDate, sortOrder);
+        return new RecurringGoal(title, id, frequency, LocalDate.parse(startDate), sortOrder);
     }
 }
