@@ -54,6 +54,7 @@ public interface GoalDao {
     default void shiftOver(int from){
         shiftSortOrders(from, getMaxSortOrder(), 1);
     }
+
     @Transaction
     default int append(GoalEntity goal) {
         var maxSortOrder = getMaxSortOrder();

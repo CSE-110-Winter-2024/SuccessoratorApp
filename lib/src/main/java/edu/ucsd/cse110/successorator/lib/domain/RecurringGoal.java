@@ -12,7 +12,7 @@ public class RecurringGoal implements Serializable {
     private final @NonNull String title;
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
     private final @NonNull Integer frequency;
-    private LocalDate startDate;
+    private final LocalDate startDate;
 
     public RecurringGoal(
             @NonNull String title,
@@ -21,15 +21,11 @@ public class RecurringGoal implements Serializable {
             LocalDate startDate,
             Integer sortOrder // Corrected parameter type and removed the semicolon.
     ) {
-        this.id = id;
         this.title = title;
+        this.id = id;
         this.frequency = frequency;
         this.startDate = startDate;
         this.sortOrder = sortOrder;
-    }
-
-    public @Nullable Integer getId() {
-        return id;
     }
 
     @NonNull
@@ -37,14 +33,18 @@ public class RecurringGoal implements Serializable {
         return title;
     }
 
-    public Integer getSortOrder() {
-        return sortOrder;
+    public @Nullable Integer getId() {
+        return id;
     }
 
     @NonNull
     public Integer getFrequency() { return frequency; }
 
     public LocalDate getStartDate() { return startDate; }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -64,18 +64,11 @@ public class RecurringGoal implements Serializable {
     }
 
     public RecurringGoal withId(int id) {
-        return new RecurringGoal(this.title, id, this.isComplete, this.sortOrder);
+        return new RecurringGoal(this.title, id, this.frequency, this.startDate, this.sortOrder);
     }
 
     public RecurringGoal withSortOrder(int sortOrder) {
-        return new RecurringGoal(this.title, this.id, this.isComplete, sortOrder);
-    }
-
-    public RecurringGoal withComplete(boolean isComplete){
-        return new RecurringGoal(this.title, this.id, isComplete, this.sortOrder);
-    }
-
-    public void setComplete(boolean b) {
+        return new RecurringGoal(this.title, this.id, this.frequency, this.startDate, sortOrder);
     }
 
     public enum Frequency {
