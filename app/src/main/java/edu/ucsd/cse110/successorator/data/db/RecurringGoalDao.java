@@ -23,11 +23,17 @@ public interface RecurringGoalDao {
     @Query("SELECT * FROM recurringGoals ORDER BY sort_order")
     List<RecurringGoalEntity> findAll();
 
+    @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
+    List<RecurringGoalEntity> findAllToAdd(String start_date);
+
     @Query("SELECT * FROM recurringGoals WHERE id = :id")
     LiveData<RecurringGoalEntity> findAsLiveData(int id);
 
     @Query("SELECT * FROM recurringGoals ORDER BY sort_order")
     LiveData<List<RecurringGoalEntity>> findAllAsLiveData();
+
+    @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
+    LiveData<List<RecurringGoalEntity>> findAllToAddAsLiveData(String start_date);
 
     @Query("SELECT COUNT(*) FROM recurringGoals")
     int count();
