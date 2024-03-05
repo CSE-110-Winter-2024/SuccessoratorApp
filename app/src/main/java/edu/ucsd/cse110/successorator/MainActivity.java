@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_goal, menu);
         getMenuInflater().inflate(R.menu.dropdown, menu);
+        getMenuInflater().inflate(R.menu.advance_date, menu);
         return true;
     }
 
