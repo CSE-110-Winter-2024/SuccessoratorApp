@@ -8,12 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import edu.ucsd.cse110.successorator.lib.util.Constants;
+
 public class RecurringGoal implements Serializable {
-    //Constants
-    private final static int DAILY = 1;
-    private final static int WEEKLY = 2;
-    private final static int MONTHLY = 3;
-    private final static int YEARLY = 4;
 
     private final @Nullable Integer id;
     private final @NonNull String title;
@@ -77,11 +74,11 @@ public class RecurringGoal implements Serializable {
 
     public RecurringGoal updateNextDate() {
         switch(frequency) {
-            case DAILY:
+            case Constants.DAILY:
                 return withNextDate(nextDate.plusDays(1));
-            case WEEKLY:
+            case Constants.WEEKLY:
                 return withNextDate(nextDate.plusWeeks(1));
-            case MONTHLY:
+            case Constants.MONTHLY:
                 return withNextDate(nextDate.plusWeeks(4));
             default:
                 return withNextDate(nextDate.plusYears(1));
