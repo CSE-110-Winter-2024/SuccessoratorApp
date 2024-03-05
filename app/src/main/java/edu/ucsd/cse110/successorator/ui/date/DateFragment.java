@@ -123,7 +123,7 @@ public class DateFragment extends Fragment {
     }
 
     public void updateDisplay() {
-        view.dateText.setText(activityModel.getCurrDate().getValue().formatDate());
+        view.dateText.setText("Today, " + activityModel.getCurrDate().getValue().formatDate());
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }
