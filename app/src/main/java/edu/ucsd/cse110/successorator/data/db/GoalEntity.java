@@ -25,12 +25,12 @@ public class GoalEntity {
     public int sortOrder;
 
     @ColumnInfo(name = "state")
-    public State state;
+    public String state;
 
     @ColumnInfo(name = "recurringId")
     public Integer recurringId;
 
-    GoalEntity(@NonNull String title, boolean isComplete, int sortOrder, State state, int recurringId){
+    GoalEntity(@NonNull String title, boolean isComplete, int sortOrder, String state, int recurringId){
         this.title = title;
         this.isComplete = isComplete;
         this.sortOrder = sortOrder;
