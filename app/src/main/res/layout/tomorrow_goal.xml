@@ -7,7 +7,6 @@
 
     <!-- Focus -->
 
-
     <!-- List the Today Goals
 @id: card_list (Will have to change)
 -->
@@ -21,12 +20,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/list_item_goal"
-        android:drawSelectorOnTop="false">
+        android:drawSelectorOnTop="true">
 
     </ListView>
 
 
-    <!--   Data     -->
+    <!--   Data  [Giving me issues displaying data (duplicate) ]   -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/date_fragment_container"
         android:name="edu.ucsd.cse110.successorator.ui.date.DateFragment"
@@ -40,18 +39,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_date" />
 
-    <!--   Goal List     -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/tomorrowGoalList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_fragment_container" />
+    <!--    &lt;!&ndash;   Goal List     &ndash;&gt;-->
+    <!--    <androidx.fragment.app.FragmentContainerView-->
+    <!--        android:id="@+id/tomorrowGoalList"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/date_fragment_container" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Add -->
-
-
-

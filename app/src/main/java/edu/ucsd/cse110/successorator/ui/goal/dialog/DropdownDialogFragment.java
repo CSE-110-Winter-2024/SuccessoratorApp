@@ -15,6 +15,8 @@ import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.ui.date.DateFragment;
+import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.MockFragment;
 
 
@@ -59,32 +61,25 @@ public class DropdownDialogFragment extends DialogFragment {
         String text;
         if(view.radioButton2.isChecked()){
             text = view.radioButton2.getText().toString();
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, GoalListFragment.newInstance())
+                    .replace(R.id.date_fragment_container, DateFragment.newInstance())
+                    .commit();
         }else if(view.radioButton3.isChecked()){
             text = view.radioButton3.getText().toString();
         }else if(view.radioButton4.isChecked()){
             text = view.radioButton4.getText().toString();
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, MockFragment.newInstance())
+                    .replace(R.id.date_fragment_container, MockFragment.newInstance())
+                    .commit();
         }else{
             text = view.radioButton5.getText().toString();
         }
 
-        getParentFragmentManager()
-                .beginTransaction()
-                .replace(R.id.goalList, MockFragment.newInstance())
-                .replace(R.id.date_fragment_container, MockFragment.newInstance())
-                .commit();
-
-//        Intent intent = new Intent(String.valueOf(MockFragment.class));
-//        startActivity(intent);
-        //sort order is an invalid value here, because append/prepend will replace it
-//        var card = new Goal(text, null, false, -1);
-//
-//        activityModel.addGoal(card);
-
         dialog.dismiss();
-    }
-
-    private void swapFragment(String text){
-
     }
 
     private void onNegativeButtonClick(DialogInterface dialog, int which){
