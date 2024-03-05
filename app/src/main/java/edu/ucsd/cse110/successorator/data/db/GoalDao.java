@@ -58,7 +58,7 @@ public interface GoalDao {
     default int append(GoalEntity goal) {
         var maxSortOrder = getMaxSortOrder();
         var newGoal = new GoalEntity(
-                goal.title, goal.isComplete, maxSortOrder + 1
+                goal.title, goal.isComplete, maxSortOrder + 1, goal.state, goal.recurringId
         );
         return Math.toIntExact(insert(newGoal));
     }
@@ -69,7 +69,7 @@ public interface GoalDao {
         var maxSortOrderInComplete = getMaxSortOrderInComplete();
         shiftSortOrders(maxSortOrderInComplete + 1, getMaxSortOrder(), 1);
         var newGoal = new GoalEntity(
-                goal.title, goal.isComplete, maxSortOrderInComplete + 1
+                goal.title, goal.isComplete, maxSortOrderInComplete + 1, goal.state, goal.recurringId
         );
         return Math.toIntExact(insert(newGoal));
     }
@@ -78,7 +78,7 @@ public interface GoalDao {
     default int prepend(GoalEntity goal) {
         shiftSortOrders(getMinSortOrder(), getMaxSortOrder(), 1);
         var newGoal = new GoalEntity(
-                goal.title, goal.isComplete, getMinSortOrder() - 1
+                goal.title, goal.isComplete, getMinSortOrder() - 1, goal.state, goal.recurringId
         );
         return Math.toIntExact(insert(newGoal));
     }

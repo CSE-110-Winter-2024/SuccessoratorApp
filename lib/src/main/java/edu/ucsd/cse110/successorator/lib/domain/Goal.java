@@ -18,16 +18,24 @@ public class Goal implements Serializable {
     private final boolean isComplete;
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
 
+    private final @NonNull Enum state;
+
+    private final Integer recurringId;
+
     public Goal(
             @NonNull String title,
             @Nullable Integer id,
             boolean isComplete,
-            Integer sortOrder // Corrected parameter type and removed the semicolon.
+            Integer sortOrder, // Corrected parameter type and removed the semicolon.
+            Enum state,
+            Integer recurringId
     ) {
         this.id = id;
         this.title = title;
         this.isComplete = isComplete;
         this.sortOrder = sortOrder;
+        this.state = state;
+        this.recurringId = recurringId;
     }
 
     public @Nullable Integer getId() {
@@ -47,6 +55,9 @@ public class Goal implements Serializable {
         return sortOrder;
     }
 
+    public Enum getState(){return state;}
+
+    public Integer getRecurringId(){return recurringId;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +66,9 @@ public class Goal implements Serializable {
         return isComplete == goal.isComplete &&
                 Objects.equals(id, goal.id) &&
                 Objects.equals(title, goal.title) &&
-                Objects.equals(sortOrder, goal.sortOrder);
+                Objects.equals(sortOrder, goal.sortOrder) &&
+                Objects.equals(state, goal.state) &&
+                Objects.equals(recurringId, goal.recurringId);
     }
 
     @Override
@@ -64,17 +77,24 @@ public class Goal implements Serializable {
     }
 
     public Goal withId(int id) {
-        return new Goal(this.title, id, this.isComplete, this.sortOrder);
+        return new Goal(this.title, id, this.isComplete, this.sortOrder, this.state, this.recurringId);
     }
 
     public Goal withSortOrder(int sortOrder) {
-        return new Goal(this.title, this.id, this.isComplete, sortOrder);
+        return new Goal(this.title, this.id, this.isComplete, sortOrder, this.state, this.recurringId);
     }
 
     public Goal withComplete(boolean isComplete){
-        return new Goal(this.title, this.id, isComplete, this.sortOrder);
+        return new Goal(this.title, this.id, isComplete, this.sortOrder, this.state, this.recurringId);
     }
 
+    public Goal withState(Enum state){
+        return new Goal(this.title, this.id, this.isComplete, this.sortOrder, state, this.recurringId);
+    }
+
+    public Goal withRecurringId(Integer recurringId){
+        return new Goal(this.title, this.id, this.isComplete, this.sortOrder, this.state, recurringId);
+    }
     public void setComplete(boolean b) {
     }
 }
