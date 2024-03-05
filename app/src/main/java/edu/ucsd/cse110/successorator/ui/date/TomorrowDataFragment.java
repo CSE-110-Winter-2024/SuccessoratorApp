@@ -42,8 +42,8 @@ public class TomorrowDataFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DateFragment newInstance() {
-        DateFragment fragment = new DateFragment();
+    public static TomorrowDataFragment newInstance() {
+        TomorrowDataFragment fragment = new TomorrowDataFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -123,7 +123,7 @@ public class TomorrowDataFragment extends Fragment {
     }
 
     public void updateDisplay() {
-        view.dateText.setText(activityModel.getCurrDate().getValue().formatDate());
+        view.dateText.setText("Tomorrow, " + activityModel.getCurrDate().getValue().formatDate());
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }

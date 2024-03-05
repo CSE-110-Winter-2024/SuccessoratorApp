@@ -1,7 +1,5 @@
-
 package edu.ucsd.cse110.successorator.ui.goal;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,22 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
-import edu.ucsd.cse110.successorator.databinding.GoalListFragmentBinding;
+import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
 
-/**
- * Fragment associated with displaying the list of goals
- */
-public class TomorrowGoalListFragment extends Fragment {
+public class TomorrowGoalListFragment extends Fragment{
     private MainViewModel activityModel;
-    private GoalListFragmentBinding view;
-    private GoalListAdapter adapter;
+    private TomorrowGoalBinding view;
 
     public TomorrowGoalListFragment() {
-        // Required empty public constructor
     }
 
-    public static GoalListFragment newInstance() {
-        GoalListFragment fragment = new GoalListFragment();
+    public static TomorrowGoalListFragment newInstance() {
+        TomorrowGoalListFragment fragment = new TomorrowGoalListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -47,38 +40,12 @@ public class TomorrowGoalListFragment extends Fragment {
         var modelProvider = new ViewModelProvider(modelOwner, modelFactory);
         this.activityModel = modelProvider.get(MainViewModel.class);
 
-        // Initialize the Adapter (with an empty list for now)
-        this.adapter = new GoalListAdapter(
-                requireContext(),
-                List.of(),
-                goal -> {
-                    var newGoal = goal.withComplete(!goal.isComplete());
-                    activityModel.save(newGoal);
-                },
-                activityModel::remove
-        );
-
-        activityModel.getOrderedGoals().observe(cards -> {
-            if (cards == null) return;
-            adapter.clear();
-            adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!
-            adapter.notifyDataSetChanged();
-        });
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.view = GoalListFragmentBinding.inflate(inflater, container, false);
-
-        //If not goals, put prompt on screen
-        view.cardList.setEmptyView(view.empty);
-        // Set the adapter on the ListView
-        view.cardList.setAdapter(adapter);
-
+        this.view = TomorrowGoalBinding.inflate(inflater, container, false);
         return view.getRoot();
     }
 }
-
-
-
