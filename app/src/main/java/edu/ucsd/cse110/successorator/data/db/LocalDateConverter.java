@@ -3,9 +3,8 @@ package edu.ucsd.cse110.successorator.data.db;
 import androidx.room.TypeConverter;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 
-public class DateTimeConverter {
+public class LocalDateConverter {
     @TypeConverter
     public static LocalDate fromTimestamp(Long timestamp) {
         if(timestamp == null) { return null; }

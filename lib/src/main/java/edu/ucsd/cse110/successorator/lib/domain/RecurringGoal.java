@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class RecurringGoal implements Serializable {
     //Constants
-    private final int DAILY = 1;
-    private final int WEEKLY = 2;
-    private final int MONTHLY = 3;
-    private final int YEARLY = 4;
+    private final static int DAILY = 1;
+    private final static int WEEKLY = 2;
+    private final static int MONTHLY = 3;
+    private final static int YEARLY = 4;
 
     private final @Nullable Integer id;
     private final @NonNull String title;
@@ -59,23 +59,6 @@ public class RecurringGoal implements Serializable {
     //    return sortOrder;
     //}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RecurringGoal that = (RecurringGoal) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(frequency, that.frequency) &&
-                Objects.equals(startDate, that.startDate) &&
-                Objects.equals(nextDate, that.nextDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, frequency, startDate, nextDate);
-    }
-
     public RecurringGoal withId(int id) {
         return new RecurringGoal(this.title, id, this.frequency, this.startDate, this.nextDate);
     }
@@ -85,7 +68,7 @@ public class RecurringGoal implements Serializable {
 //    }
 
     public RecurringGoal withNextDate(LocalDate nextDate) {
-        return new RecurringGoal(this.title, id, this.frequency, this.startDate, nextDate);
+        return new RecurringGoal(this.title, this.id, this.frequency, this.startDate, nextDate);
     }
 
     public boolean isRecur(LocalDate currDate) {
@@ -103,5 +86,22 @@ public class RecurringGoal implements Serializable {
             default:
                 return withNextDate(nextDate.plusYears(1));
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecurringGoal that = (RecurringGoal) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(frequency, that.frequency) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(nextDate, that.nextDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, frequency, startDate, nextDate);
     }
 }
