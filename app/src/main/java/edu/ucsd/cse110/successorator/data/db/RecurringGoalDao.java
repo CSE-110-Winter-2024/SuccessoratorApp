@@ -20,7 +20,7 @@ public interface RecurringGoalDao {
     @Query("SELECT * FROM recurringGoals WHERE id = :id")
     RecurringGoalEntity find(int id);
 
-    @Query("SELECT * FROM recurringGoals ORDER BY sort_order")
+    @Query("SELECT * FROM recurringGoals ORDER BY start_date")
     List<RecurringGoalEntity> findAll();
 
     @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
@@ -29,7 +29,7 @@ public interface RecurringGoalDao {
     @Query("SELECT * FROM recurringGoals WHERE id = :id")
     LiveData<RecurringGoalEntity> findAsLiveData(int id);
 
-    @Query("SELECT * FROM recurringGoals ORDER BY sort_order")
+    @Query("SELECT * FROM recurringGoals ORDER BY start_date")
     LiveData<List<RecurringGoalEntity>> findAllAsLiveData();
 
     @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
@@ -38,19 +38,19 @@ public interface RecurringGoalDao {
     @Query("SELECT COUNT(*) FROM recurringGoals")
     int count();
 
-    @Query("SELECT MIN(sort_order) FROM recurringGoals")
+    /*@Query("SELECT MIN(sort_order) FROM recurringGoals")
     int getMinSortOrder();
 
     @Query("SELECT MAX(sort_order) FROM recurringGoals")
     int getMaxSortOrder();
 
     @Query("UPDATE recurringGoals SET sort_order = sort_order + :by " + "WHERE sort_order >= :from AND sort_order <= :to")
-    void shiftSortOrders(int from, int to, int by);
+    void shiftSortOrders(int from, int to, int by);*/
 
     @Query("DELETE FROM recurringGoals WHERE id = :id")
     void delete(int id);
 
-    @Transaction
+    /*@Transaction
     default void shiftOver(int from){
         shiftSortOrders(from, getMaxSortOrder(), 1);
     }
@@ -63,5 +63,5 @@ public interface RecurringGoalDao {
                 recurringGoal.startDate, maxSortOrder + 1
         );
         return Math.toIntExact(insert(newRecurringGoal));
-    }
+    }*/
 }

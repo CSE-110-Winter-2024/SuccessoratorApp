@@ -15,5 +15,5 @@ public interface RecurringGoalRepository {
 
 //    void save(List<RecurringGoal> recurringGoalList);
 
-    void append(RecurringGoal recurringGoal);
+    void add(RecurringGoal recurringGoal);
 }

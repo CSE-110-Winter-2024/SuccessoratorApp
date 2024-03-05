@@ -44,7 +44,7 @@ public class RoomRecurringGoalRepository implements RecurringGoalRepository {
     }
 
     @Override
-    public void append(RecurringGoal recurringGoal){
-        recurringGoalDao.append(RecurringGoalEntity.fromRecurringGoal(recurringGoal));
+    public void add(RecurringGoal recurringGoal){
+        recurringGoalDao.insert(RecurringGoalEntity.fromRecurringGoal(recurringGoal));
     }
 }
