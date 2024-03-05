@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
@@ -49,7 +52,12 @@ public class CreateGoalDialogFragment extends DialogFragment{
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
-        this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
+        view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
+
+        int num = activityModel.weekNumber();
+        view.Weekly.setText("Weekly, on " + dayOfWeek());
+        view.Monthly.setText("Monthly, " + num + "th of Month");
+        view.Yearly.setText("Yearly, on " + dayAndYear());
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("New Goal")
@@ -59,6 +67,15 @@ public class CreateGoalDialogFragment extends DialogFragment{
                 .setNegativeButton("Cancel", this::onNegativeButtonClick)
                 .create();
 
+    }
+
+    private String dayOfWeek(){
+        return LocalDate.now().getDayOfWeek().toString();
+    }
+
+    private String dayAndYear(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d");
+        return LocalDate.now().format(formatter);
     }
 
     private void onPositiveButtonClick(DialogInterface dialog, int which){

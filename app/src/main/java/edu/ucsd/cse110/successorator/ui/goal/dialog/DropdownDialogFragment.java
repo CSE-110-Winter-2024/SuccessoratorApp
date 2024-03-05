@@ -82,10 +82,6 @@ public class DropdownDialogFragment extends DialogFragment {
         dialog.dismiss();
     }
 
-    private void swapFragment(String text){
-
-    }
-
     private void onNegativeButtonClick(DialogInterface dialog, int which){
         dialog.cancel();
     }

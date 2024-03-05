@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
@@ -128,5 +129,16 @@ public class MainViewModel extends ViewModel {
             lastLogDate.setDate(LocalDateTime.now());
             lastLog.setValue(lastLogDate);
         }
+    }
+
+    public int weekNumber(){
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+        int daysUntilFirstOccurrence = today.getDayOfWeek().getValue() - firstDayOfMonth.getDayOfWeek().getValue();
+        if(daysUntilFirstOccurrence < 0){
+            daysUntilFirstOccurrence += 7;
+        }
+        int weeks = (today.getDayOfMonth() - daysUntilFirstOccurrence + 6) / 7;
+        return weeks;
     }
 }
