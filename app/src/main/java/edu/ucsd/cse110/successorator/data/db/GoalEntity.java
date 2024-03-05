@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import edu.ucsd.cse110.successorator.lib.State;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
 @Entity(tableName = "goals")
@@ -24,12 +25,12 @@ public class GoalEntity {
     public int sortOrder;
 
     @ColumnInfo(name = "state")
-    public Enum state;
+    public State state;
 
     @ColumnInfo(name = "recurringId")
     public Integer recurringId;
 
-    GoalEntity(@NonNull String title, boolean isComplete, int sortOrder, Enum state, int recurringId){
+    GoalEntity(@NonNull String title, boolean isComplete, int sortOrder, State state, int recurringId){
         this.title = title;
         this.isComplete = isComplete;
         this.sortOrder = sortOrder;

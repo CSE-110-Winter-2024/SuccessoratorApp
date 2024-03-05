@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 
+import edu.ucsd.cse110.successorator.lib.State;
+
 /**
  * Goal class
  * title The title of the goal.
@@ -18,7 +20,7 @@ public class Goal implements Serializable {
     private final boolean isComplete;
     private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
 
-    private final @NonNull Enum state;
+    private final State state;
 
     private final Integer recurringId;
 
@@ -27,7 +29,7 @@ public class Goal implements Serializable {
             @Nullable Integer id,
             boolean isComplete,
             Integer sortOrder, // Corrected parameter type and removed the semicolon.
-            Enum state,
+            State state,
             Integer recurringId
     ) {
         this.id = id;
@@ -55,7 +57,7 @@ public class Goal implements Serializable {
         return sortOrder;
     }
 
-    public Enum getState(){return state;}
+    public State getState(){return state;}
 
     public Integer getRecurringId(){return recurringId;}
     @Override
@@ -88,7 +90,7 @@ public class Goal implements Serializable {
         return new Goal(this.title, this.id, isComplete, this.sortOrder, this.state, this.recurringId);
     }
 
-    public Goal withState(Enum state){
+    public Goal withState(State state){
         return new Goal(this.title, this.id, this.isComplete, this.sortOrder, state, this.recurringId);
     }
 
