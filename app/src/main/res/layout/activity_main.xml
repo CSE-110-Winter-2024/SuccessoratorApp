@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/date_fragment_container"
         android:name="edu.ucsd.cse110.successorator.ui.date.DateFragment"
@@ -19,8 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_date" />
 
-
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/goalList"
         android:layout_width="0dp"
@@ -29,4 +28,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_fragment_container" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
