@@ -83,4 +83,59 @@ public interface GoalDao {
         );
         return Math.toIntExact(insert(newGoal));
     }
+
+    // RECURRING GOALS //
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Long insertRecur(RecurringGoalEntity recurringGoal);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    List<Long> insertRecur(List<RecurringGoalEntity> recurringGoals);
+
+    @Query("SELECT * FROM recurringGoals WHERE id = :id")
+    RecurringGoalEntity findRecur(int id);
+
+    @Query("SELECT * FROM recurringGoals ORDER BY sort_order")
+    List<RecurringGoalEntity> findAllRecur();
+
+    @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
+    List<RecurringGoalEntity> findAllRecurToAdd(String start_date);
+
+    @Query("SELECT * FROM recurringGoals WHERE id = :id")
+    LiveData<RecurringGoalEntity> findRecurAsLiveData(int id);
+
+    @Query("SELECT * FROM recurringGoals ORDER BY sort_order")
+    LiveData<List<RecurringGoalEntity>> findAllRecurAsLiveData();
+
+    @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
+    LiveData<List<RecurringGoalEntity>> findAllRecurToAddAsLiveData(String start_date);
+
+    @Query("SELECT COUNT(*) FROM recurringGoals")
+    int countRecur();
+
+    @Query("SELECT MIN(sort_order) FROM recurringGoals")
+    int getMinSortOrderRecur();
+
+    @Query("SELECT MAX(sort_order) FROM recurringGoals")
+    int getMaxSortOrderRecur();
+
+    @Query("UPDATE recurringGoals SET sort_order = sort_order + :by " + "WHERE sort_order >= :from AND sort_order <= :to")
+    void shiftSortOrdersRecur(int from, int to, int by);
+
+    @Query("DELETE FROM recurringGoals WHERE id = :id")
+    void deleteRecur(int id);
+
+    @Transaction
+    default void shiftOverRecur(int from){
+        shiftSortOrdersRecur(from, getMaxSortOrderRecur(), 1);
+    }
+
+    @Transaction
+    default int appendRecur(RecurringGoalEntity recurringGoal) {
+        var maxSortOrder = getMaxSortOrderRecur();
+        var newRecurringGoal = new RecurringGoalEntity (
+                recurringGoal.title, recurringGoal.frequency,
+                recurringGoal.startDate, maxSortOrder + 1
+        );
+        return Math.toIntExact(insertRecur(newRecurringGoal));
+    }
 }

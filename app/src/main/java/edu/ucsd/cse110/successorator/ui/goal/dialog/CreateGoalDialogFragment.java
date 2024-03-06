@@ -64,7 +64,8 @@ public class CreateGoalDialogFragment extends DialogFragment{
         var goalText = view.addGoalText.getText().toString();
 
         //sort order is an invalid value here, because append/prepend will replace it
-        var card = new Goal(goalText, null, false, -1);
+
+        var card = new Goal(goalText, null, false, -1, "Today", -1);
 
         activityModel.addGoal(card);
 

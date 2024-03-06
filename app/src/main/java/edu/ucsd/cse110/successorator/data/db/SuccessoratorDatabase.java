@@ -6,5 +6,4 @@ import androidx.room.RoomDatabase;
 @Database(entities = {GoalEntity.class, RecurringGoalEntity.class}, version = 2)
 public abstract class SuccessoratorDatabase extends RoomDatabase{
     public abstract GoalDao goalDao();
-    public abstract RecurringGoalDao recurringGoalDao();
 }

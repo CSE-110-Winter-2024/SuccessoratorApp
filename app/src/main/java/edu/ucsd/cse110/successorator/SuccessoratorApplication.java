@@ -28,6 +28,7 @@ public class SuccessoratorApplication extends Application {
                         "successorator-database"
                 )
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build();
 
         this.goalRepository = new RoomGoalRepository(database.goalDao());
