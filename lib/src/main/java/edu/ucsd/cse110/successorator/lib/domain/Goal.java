@@ -6,8 +6,6 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 
-import edu.ucsd.cse110.successorator.lib.State;
-
 /**
  * Goal class
  * title The title of the goal.

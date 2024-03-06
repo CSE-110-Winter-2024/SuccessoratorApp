@@ -1,11 +1,9 @@
 package edu.ucsd.cse110.successorator;
-import edu.ucsd.cse110.successorator.lib.State;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
-import edu.ucsd.cse110.successorator.lib.util.Subject;
 
 import org.junit.Before;
 import org.junit.Test;
