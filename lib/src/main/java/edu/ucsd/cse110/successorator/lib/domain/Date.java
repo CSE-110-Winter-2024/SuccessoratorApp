@@ -27,5 +27,9 @@ public class Date {
 
     public LocalDateTime getDate() {return this.dateTime; }
 
+    public int getWeekOfMonthForDayOfWeek() { return (this.dateTime.getDayOfMonth() + 6) / 7; }
+
+    public int getDayOfWeek() { return this.dateTime.getDayOfWeek().getValue(); }
+
     public void advanceDate() { this.dateTime = dateTime.plusDays(1); }
 }
