@@ -32,8 +32,8 @@ public class AddGoalTest {
         // Initialize your data source and repository before each test
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1, State.TODAY, -1),
-                new Goal("Grocery shopping", 2, false, 2, State.TODAY, -1)
+                new Goal("Prepare for midterm", 1, false, 1, "Today", -1),
+                new Goal("Grocery shopping", 2, false, 2, "Today", -1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
@@ -44,7 +44,7 @@ public class AddGoalTest {
     @Test
     public void testAddGoal() {
         // Adds a new goal into the list
-        Goal newGoal = new Goal("Text Maria", 3, false, 3, State.TODAY, -1);
+        Goal newGoal = new Goal("Text Maria", 3, false, 3, "Today", -1);
         model.addGoal(newGoal); //add goal to model
         Goal actual = dataSource.getGoal(3); //retrieve goal from dataSource
 
@@ -61,7 +61,7 @@ public class AddGoalTest {
 
 
         // Adds a Second new goal into the list
-        Goal newGoal2 = new Goal("Finish addGoal Test", 4, false, 4, State.TODAY, -1);
+        Goal newGoal2 = new Goal("Finish addGoal Test", 4, false, 4, "Today", -1);
         model.addGoal(newGoal2); //add goal to model
         actual = dataSource.getGoal(3); //retrieve goal from dataSource
 
@@ -85,7 +85,7 @@ public class AddGoalTest {
         //assertTrue(dataSource.getGoal(1).isComplete());
 
         // Adds a new goal into the list
-        Goal newGoal = new Goal("Text Maria", 3, false, null, State.TODAY, -1);
+        Goal newGoal = new Goal("Text Maria", 3, false, null, "Today", -1);
         model.addGoal(newGoal); //add goal to model
         Goal actual = dataSource.getGoal(3); //retrieve goal from dataSource
 
@@ -112,7 +112,7 @@ public class AddGoalTest {
 
 
         // Adds a fourth goal into the list
-        newGoal = new Goal("Write addTest", 4, false, null, State.TODAY, -1);
+        newGoal = new Goal("Write addTest", 4, false, null, "Today", -1);
         model.addGoal(newGoal); //add goal to model
         actual = dataSource.getGoal(4); //retrieve goal from dataSource
 
@@ -128,7 +128,7 @@ public class AddGoalTest {
 
 
         // Adds a fourth goal into the list
-        newGoal = new Goal("Push my progress", 5, false, null, State.TODAY, -1);
+        newGoal = new Goal("Push my progress", 5, false, null, "Today", -1);
         model.addGoal(newGoal); //add goal to model
         actual = dataSource.getGoal(5); //retrieve goal from dataSource
 
