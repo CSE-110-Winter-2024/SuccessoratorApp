@@ -16,8 +16,10 @@ import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
+import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.MockFragment;
+import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
 
 
 public class DropdownDialogFragment extends DialogFragment {
@@ -68,6 +70,11 @@ public class DropdownDialogFragment extends DialogFragment {
                     .commit();
         }else if(view.radioButton3.isChecked()){
             text = view.radioButton3.getText().toString();
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, TomorrowGoalListFragment.newInstance())
+                    .replace(R.id.date_fragment_container, TomorrowDataFragment.newInstance())
+                    .commit();
         }else if(view.radioButton4.isChecked()){
             text = view.radioButton4.getText().toString();
             getParentFragmentManager()
