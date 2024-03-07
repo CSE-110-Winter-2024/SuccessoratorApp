@@ -75,7 +75,7 @@ public class MainViewModel extends ViewModel {
         currDate.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
-            rollOverGoal();
+            rollOverGoal(lastLog.getValue(), currDate.getValue());
         });
 
     }
@@ -120,14 +120,12 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public void rollOverGoal() {
-        var lastLogDate = lastLog.getValue();
-        var currentDate = currDate.getValue();
+    public void rollOverGoal(Date lastLogDate, Date currentDate) {
         if(lastLogDate.getDate().toLocalDate()
                 .isBefore(currentDate.getDate().toLocalDate())) {
             goalRepository.removeCompleted();
             lastLogDate.setDate(LocalDateTime.now());
-            lastLog.setValue(lastLogDate);
+            updateTime(lastLogDate, true);
         }
     }
 

@@ -86,7 +86,8 @@ public class CreateGoalDialogFragment extends DialogFragment{
         var text = selectedRadioButton.getText().toString();
 
         //sort order is an invalid value here, because append/prepend will replace it
-        var card = new Goal(goalText, null, false, -1);
+
+        var card = new Goal(goalText, null, false, -1, "Today", -1);
 
 
 
