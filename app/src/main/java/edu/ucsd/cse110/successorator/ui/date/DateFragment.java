@@ -24,6 +24,7 @@ import edu.ucsd.cse110.successorator.databinding.FragmentDateBinding;
 import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
 /**
  * Referenced https://developer.android.com/guide/fragments/appbar
@@ -35,8 +36,6 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
 public class DateFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentDateBinding view;
-
-    Button adavanceDateButton;
 
     public DateFragment() {
         // Required empty public constructor
@@ -118,8 +117,18 @@ public class DateFragment extends Fragment {
             updateDisplay();
             return true;
         }
-        return super.onOptionsItemSelected(item);
 
+
+        if (item.getItemId() == R.id.action_bar_menu_add_goal) {
+            displayPopUp();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void displayPopUp() {
+        var dialogFragment = CreateGoalDialogFragment.newInstance();
+        dialogFragment.show(getParentFragmentManager(), "CreateCardDialogFragment");
     }
 
     public void updateDisplay() {

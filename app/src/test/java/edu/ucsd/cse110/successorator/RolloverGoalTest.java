@@ -29,21 +29,20 @@ public class RolloverGoalTest {
     public void testRolloverGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1),
-                new Goal("Text Maria", 2, true, 2)
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
         model = new MainViewModel(repo, timeKeeper);
+        dataSource.putGoal(new Goal("Text Maria", 2, true, 2,"Today", -1));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
 
-        model.updateTime(logDate, true);
-        model.updateTime(date, false);
+        model.rollOverGoal(logDate, date);
         assertEquals(1, dataSource.getGoals().size());
 
 
@@ -58,8 +57,8 @@ public class RolloverGoalTest {
     public void testNoRolloverGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1),
-                new Goal("Text Maria", 2, false, 2)
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1),
+                new Goal("Text Maria", 2, false, 2,"Today", -1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
@@ -69,10 +68,30 @@ public class RolloverGoalTest {
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        logDate.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
+
+        model.rollOverGoal(logDate, date);
+        assertEquals(2, dataSource.getGoals().size());
+    }
+
+    @Test
+    public void testRolloverGoalSameDay() {
+        dataSource = new InMemoryDataSource();
+        dataSource.putGoals(List.of(
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1)
+        ));
+        repo = new SimpleGoalRepository(dataSource);
+        timeKeeper = new SimpleTimeKeeper();
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        model = new MainViewModel(repo, timeKeeper);
+        dataSource.putGoal(new Goal("Text Maria", 2, true, 2,"Today", -1));
+
+        date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+        logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
 
-        model.updateTime(logDate, true);
-        model.updateTime(date, false);
+        model.rollOverGoal(logDate, date);
         assertEquals(2, dataSource.getGoals().size());
     }
 }

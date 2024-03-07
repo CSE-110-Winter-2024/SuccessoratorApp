@@ -1,8 +1,11 @@
 package edu.ucsd.cse110.successorator.lib.domain;
 
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
+import edu.ucsd.cse110.successorator.lib.util.Observer;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
 /**
@@ -22,6 +25,16 @@ public class SimpleGoalRepository implements GoalRepository {
 
     @Override
     public Subject<List<Goal>> findAll() {
+        return dataSource.getAllGoalsSubject();
+    }
+
+    // TODO
+    public Subject<List<Goal>> findAllToday(){
+        return dataSource.getAllGoalsSubject();
+    }
+
+    //TODO
+    public Subject<List<Goal>> findAllTmr(){
         return dataSource.getAllGoalsSubject();
     }
 
@@ -80,5 +93,54 @@ public class SimpleGoalRepository implements GoalRepository {
     @Override
     public void save(List<Goal> goals) {
         dataSource.putGoals(goals);
+    }
+
+
+    public Subject<RecurringGoal> findRecur(int id){
+        return new Subject<RecurringGoal>() {
+            @Nullable
+            @Override
+            public RecurringGoal getValue() {
+                return null;
+            }
+
+            @Override
+            public void observe(Observer<RecurringGoal> observer) {
+
+            }
+
+            @Override
+            public void removeObserver(Observer<RecurringGoal> observer) {
+
+            }
+        };
+    }
+
+    public Subject<List<RecurringGoal>> findAllRecur(){
+        return new Subject<List<RecurringGoal>>() {
+            @Nullable
+            @Override
+            public List<RecurringGoal> getValue() {
+                return null;
+            }
+
+            @Override
+            public void observe(Observer<List<RecurringGoal>> observer) {
+
+            }
+
+            @Override
+            public void removeObserver(Observer<List<RecurringGoal>> observer) {
+
+            }
+        };
+    }
+
+    public void removeRecur(int id){
+        return;
+    }
+
+    public void appendRecur(RecurringGoal recurringGoal){
+        return;
     }
 }

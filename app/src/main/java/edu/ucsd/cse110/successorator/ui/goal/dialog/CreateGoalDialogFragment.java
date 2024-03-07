@@ -84,11 +84,21 @@ public class CreateGoalDialogFragment extends DialogFragment{
         var id = view.radioGroup.getCheckedRadioButtonId();
         var selectedRadioButton = (RadioButton) view.getRoot().findViewById(id);
         var text = selectedRadioButton.getText().toString();
-
+        int recurringId;
+        if(text.equals("One-Time")){
+            recurringId = -1;
+        }else if (text.equals("Daily")){
+            recurringId = 1;
+        }else if(text.equals("Weekly")){
+            recurringId = 2;
+        }else if(text.equals("Monthly")){
+            recurringId = 3;
+        }else{
+            recurringId = 4;
+        }
         //sort order is an invalid value here, because append/prepend will replace it
-        var card = new Goal(goalText, null, false, -1);
 
-
+        var card = new Goal(goalText, null, false, -1, "Today", recurringId);
 
         activityModel.addGoal(card);
 

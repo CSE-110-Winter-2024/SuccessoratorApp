@@ -34,6 +34,7 @@ public class MainViewModel extends ViewModel {
     private final TimeKeeper timeKeeper;
     // UI state
     private final MutableSubject<List<Goal>> orderedGoals;
+    private final MutableSubject<List<Goal>> tmrGoals;
     private final MutableSubject<Boolean> hasGoal;
     private final MutableSubject<Date> currDate;
     private final MutableSubject<Date> lastLog;
@@ -44,6 +45,7 @@ public class MainViewModel extends ViewModel {
 
         // Create the observable subjects.
         this.orderedGoals = new SimpleSubject<>();
+        this.tmrGoals = new SimpleSubject<>();
         this.hasGoal = new SimpleSubject<>();
 
         //this.placeholderText = new SimpleSubject<>();
@@ -60,7 +62,7 @@ public class MainViewModel extends ViewModel {
         currDate.setValue(datetime);
 
         // When the list of cards changes (or is first loaded), reset the ordering.
-        goalRepository.findAll().observe(goals -> {
+        goalRepository.findAllToday().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
 
 
@@ -72,10 +74,22 @@ public class MainViewModel extends ViewModel {
             orderedGoals.setValue(newOrderedGoals);
         });
 
+        goalRepository.findAllTmr().observe(goals -> {
+            if (goals == null) return; // not ready yet, ignore
+
+
+            var newOrderedGoals = goals.stream()
+                    .sorted(Comparator.comparing(Goal::isComplete)
+                            .thenComparingInt(Goal::getSortOrder))
+                    .collect(Collectors.toList());
+
+            tmrGoals.setValue(newOrderedGoals);
+        });
+
         currDate.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
-            rollOverGoal();
+            rollOverGoal(lastLog.getValue(), currDate.getValue());
         });
 
     }
@@ -92,6 +106,10 @@ public class MainViewModel extends ViewModel {
 
     public Subject<List<Goal>> getOrderedGoals() {
         return orderedGoals;
+    }
+
+    public Subject<List<Goal>> getTmrGoals() {
+        return tmrGoals;
     }
 
     public void save(Goal goal) {
@@ -120,14 +138,12 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public void rollOverGoal() {
-        var lastLogDate = lastLog.getValue();
-        var currentDate = currDate.getValue();
+    public void rollOverGoal(Date lastLogDate, Date currentDate) {
         if(lastLogDate.getDate().toLocalDate()
                 .isBefore(currentDate.getDate().toLocalDate())) {
             goalRepository.removeCompleted();
             lastLogDate.setDate(LocalDateTime.now());
-            lastLog.setValue(lastLogDate);
+            updateTime(lastLogDate, true);
         }
     }
 

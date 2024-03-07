@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         var itemId = item.getItemId();
 
-        if (itemId == R.id.action_bar_menu_add_goal) {
-            displayPopUp();
-        }
+//        if (itemId == R.id.action_bar_menu_add_goal) {
+//            displayPopUp();
+//        }
 
         if (itemId == R.id.action_bar_menu_dropdown) {
             displayDropDown();
