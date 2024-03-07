@@ -1,13 +1,17 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -16,21 +20,30 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 
 /**
  * https://www.tutorialspoint.com/strikethrough-text-in-android
  * Adapter for GoalListFragment
+ *
+ * Long Hold Logic:
+ * https://stackoverflow.com/questions/49712663/how-to-properly-use-setonlongclicklistener-with-kotlin
+ * and ChatGPT
+ *
  */
 public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Goal> onGoalClicked;
+    Consumer<Goal> onGoalLongPressed;
     Consumer<Integer> onDeleteClick;
 
     Consumer<Integer> removeStrikethruClick;
 
     public GoalListAdapter(Context context, List<Goal> goals,
                            Consumer<Goal> onGoalClicked,
+                           Consumer<Goal> onGoalLongPressed,
                            Consumer<Integer> onDeleteClick) {
         // This sets a bunch of stuff internally, which we can access
         // with getContext() and getItem() for example.
@@ -39,6 +52,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         // or it will crash!
         super(context, 0, new ArrayList<>(goals));
         this.onGoalClicked = onGoalClicked;
+        this.onGoalLongPressed = onGoalLongPressed;
         this.onDeleteClick = onDeleteClick;
     }
 
@@ -74,6 +88,30 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         } else {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
+
+        binding.goalText.setOnLongClickListener(v-> {
+            if (getContext() instanceof Activity) {
+                Activity activity = (Activity) getContext();
+                PopupMenu popupMenu = new PopupMenu(activity, v);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.pending_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    if(item.getItemId() == R.id.today){
+                        onGoalLongPressed.accept(goal.withState(Constants.TODAY));
+                    }else if(item.getItemId() == R.id.tmr){
+                        onGoalLongPressed.accept(goal.withState(Constants.TOMORROW));
+                    }else if(item.getItemId() == R.id.finish){
+                        onGoalLongPressed.accept(goal.withComplete(!goal.isComplete()).withState(Constants.TODAY));
+                    }else if(item.getItemId() == R.id.delete){
+                        onDeleteClick.accept(goal.getId());
+                    }
+//
+                    return true;
+                });
+                popupMenu.show();
+            }
+            return true;
+        });
 
         // V -> M
         //Set listener for strikethrough
