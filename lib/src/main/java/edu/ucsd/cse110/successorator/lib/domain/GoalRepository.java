@@ -12,9 +12,17 @@ public interface GoalRepository {
 
     void save(Goal flashcard);
 
+    Subject<RecurringGoal> findRecur(int id);
+
+    Subject<List<RecurringGoal>> findAllRecur();
+
     void remove(int id);
 
     void appendCompleteGoal(Goal goal);
+
+    void removeRecur(int id);
+
+    void appendRecur(RecurringGoal recurringGoal);
 
     void save(List<Goal> goalList);
 
