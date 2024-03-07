@@ -35,6 +35,8 @@ public class MainViewModel extends ViewModel {
     // UI state
     private final MutableSubject<List<Goal>> orderedGoals;
     private final MutableSubject<List<Goal>> tmrGoals;
+
+    private final MutableSubject<List<Goal>> pendingGoals;
     private final MutableSubject<Boolean> hasGoal;
     private final MutableSubject<Date> currDate;
     private final MutableSubject<Date> lastLog;
@@ -46,6 +48,8 @@ public class MainViewModel extends ViewModel {
         // Create the observable subjects.
         this.orderedGoals = new SimpleSubject<>();
         this.tmrGoals = new SimpleSubject<>();
+        this.pendingGoals = new SimpleSubject<>();
+
         this.hasGoal = new SimpleSubject<>();
 
         //this.placeholderText = new SimpleSubject<>();
@@ -86,6 +90,17 @@ public class MainViewModel extends ViewModel {
             tmrGoals.setValue(newOrderedGoals);
         });
 
+        goalRepository.findAllPending().observe(goals -> {
+            if (goals == null) return; // not ready yet, ignore
+
+            var newOrderedGoals = goals.stream()
+                    .sorted(Comparator.comparing(Goal::isComplete)
+                            .thenComparingInt(Goal::getSortOrder))
+                    .collect(Collectors.toList());
+
+            pendingGoals.setValue(newOrderedGoals);
+        });
+
         currDate.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
@@ -110,6 +125,10 @@ public class MainViewModel extends ViewModel {
 
     public Subject<List<Goal>> getTmrGoals() {
         return tmrGoals;
+    }
+
+    public Subject<List<Goal>> getPendingGoals() {
+        return pendingGoals;
     }
 
     public void save(Goal goal) {

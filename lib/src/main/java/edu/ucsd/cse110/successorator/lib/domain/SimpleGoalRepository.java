@@ -38,6 +38,10 @@ public class SimpleGoalRepository implements GoalRepository {
         return dataSource.getAllGoalsSubject();
     }
 
+    //TODO
+    public Subject<List<Goal>> findAllPending(){
+        return dataSource.getAllGoalsSubject();
+    }
     @Override
     public void save(Goal goal) {
         if(goal.isComplete()){
