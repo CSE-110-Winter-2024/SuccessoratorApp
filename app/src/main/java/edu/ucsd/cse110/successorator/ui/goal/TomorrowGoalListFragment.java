@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
+import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
 
 public class TomorrowGoalListFragment extends Fragment{
@@ -33,13 +34,11 @@ public class TomorrowGoalListFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Initialize the Model
         var modelOwner = requireActivity();
         var modelFactory = ViewModelProvider.Factory.from(MainViewModel.initializer);
         var modelProvider = new ViewModelProvider(modelOwner, modelFactory);
         this.activityModel = modelProvider.get(MainViewModel.class);
-
     }
 
     @Nullable

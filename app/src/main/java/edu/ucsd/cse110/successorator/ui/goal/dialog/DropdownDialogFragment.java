@@ -98,7 +98,6 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.date_fragment_container, RecurringDataFragment.newInstance())
                     .commit();
         }
-
         dialog.dismiss();
     }
 
