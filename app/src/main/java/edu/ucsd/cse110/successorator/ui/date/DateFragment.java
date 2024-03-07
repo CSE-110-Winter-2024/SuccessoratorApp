@@ -103,10 +103,6 @@ public class DateFragment extends Fragment {
         return view.getRoot();
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.advance_date, menu);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
