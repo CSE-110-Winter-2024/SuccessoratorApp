@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 
 /**
  * Fragment associated with the pop up box for creating a new goal
@@ -58,7 +59,7 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment{
         var goalText = view.addGoalText.getText().toString();
 
         //sort order is an invalid value here, because append/prepend will replace it
-        var card = new Goal(goalText, null, false, -1, "Tomorrow", -1);
+        var card = new Goal(goalText, null, false, -1, Constants.TOMORROW, -1);
         activityModel.addGoal(card);
 
         dialog.dismiss();
