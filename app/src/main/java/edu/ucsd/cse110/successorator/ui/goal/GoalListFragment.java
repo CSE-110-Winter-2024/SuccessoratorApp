@@ -3,6 +3,7 @@ package edu.ucsd.cse110.successorator.ui.goal;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,7 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
+import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.GoalListFragmentBinding;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateTomorrowGoalDialogFragment;
 
 /**
  * Fragment associated with displaying the list of goals

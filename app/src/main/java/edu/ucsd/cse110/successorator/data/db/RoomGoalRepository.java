@@ -37,6 +37,28 @@ public class RoomGoalRepository implements GoalRepository {
     }
 
     @Override
+    public Subject<List<Goal>> findAllToday(){
+        var entitiesLiveData = goalDao.findAllTodayAsLiveData();
+        var goalsLiveData = Transformations.map(entitiesLiveData, entities -> {
+            return entities.stream()
+                    .map(GoalEntity::toGoal)
+                    .collect(Collectors.toList());
+        });
+        return new LiveDataSubjectAdapter<>(goalsLiveData);
+    }
+
+    @Override
+    public Subject<List<Goal>> findAllTmr(){
+        var entitiesLiveData = goalDao.findAllTmrAsLiveData();
+        var goalsLiveData = Transformations.map(entitiesLiveData, entities -> {
+            return entities.stream()
+                    .map(GoalEntity::toGoal)
+                    .collect(Collectors.toList());
+        });
+        return new LiveDataSubjectAdapter<>(goalsLiveData);
+    }
+
+    @Override
     public void save(Goal goal){
         if(goal.isComplete()){
             int firstCompleteGoal = goalDao.getMaxSortOrderInComplete() + 1;

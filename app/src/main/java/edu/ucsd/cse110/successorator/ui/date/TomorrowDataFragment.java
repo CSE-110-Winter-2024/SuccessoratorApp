@@ -1,29 +1,31 @@
 package edu.ucsd.cse110.successorator.ui.date;
 
-        import android.os.Bundle;
+import android.os.Bundle;
 
-        import androidx.annotation.NonNull;
-        import androidx.annotation.Nullable;
-        import androidx.fragment.app.Fragment;
-        import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-        import android.view.LayoutInflater;
-        import android.view.Menu;
-        import android.view.MenuInflater;
-        import android.view.MenuItem;
-        import android.view.MotionEvent;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
-        import java.time.LocalDateTime;
-        import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-        import edu.ucsd.cse110.successorator.MainViewModel;
-        import edu.ucsd.cse110.successorator.databinding.FragmentDateBinding;
-        import edu.ucsd.cse110.successorator.R;
-        import edu.ucsd.cse110.successorator.lib.domain.Date;
-        import edu.ucsd.cse110.successorator.lib.util.Subject;
+import edu.ucsd.cse110.successorator.MainViewModel;
+import edu.ucsd.cse110.successorator.databinding.FragmentDateBinding;
+import edu.ucsd.cse110.successorator.R;
+import edu.ucsd.cse110.successorator.lib.domain.Date;
+import edu.ucsd.cse110.successorator.lib.util.Subject;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateTomorrowGoalDialogFragment;
 
 /**
  * Referenced https://developer.android.com/guide/fragments/appbar
@@ -35,8 +37,6 @@ package edu.ucsd.cse110.successorator.ui.date;
 public class TomorrowDataFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentDateBinding view;
-
-    Button adavanceDateButton;
 
     public TomorrowDataFragment() {
         // Required empty public constructor
@@ -85,8 +85,10 @@ public class TomorrowDataFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.view = FragmentDateBinding.inflate(inflater, container, false);
-
+        //this.view = FragmentDateBinding.inflate(inflater, container, false);
+        //this.view = FragmentDateBinding.inflate(getLayoutInflater());
+        //view = (FragmentDateBinding) getParentFragmentManager().findFragmentById(R.id.date_fragment_container);
+        this.view = FragmentDateBinding.inflate(getLayoutInflater());
         setHasOptionsMenu(true);
 
         view.dateText.setOnTouchListener(new View.OnTouchListener() {
@@ -105,11 +107,6 @@ public class TomorrowDataFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.advance_date, menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_bar_menu_advance_date) {// Navigate to settings screen.
             Date date = activityModel.getCurrDate().getValue();
@@ -118,11 +115,23 @@ public class TomorrowDataFragment extends Fragment {
             updateDisplay();
             return true;
         }
-        return super.onOptionsItemSelected(item);
 
+
+        if (item.getItemId() == R.id.action_bar_menu_add_goal) {
+            displayPopUp();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void displayPopUp() {
+        var dialogFragment = CreateTomorrowGoalDialogFragment.newInstance();
+        dialogFragment.show(getParentFragmentManager(), "CreateTmrCardDialogFragment");
     }
 
     public void updateDisplay() {
+        Date tmr = activityModel.getCurrDate().getValue();
+        tmr.advanceDate();
         view.dateText.setText("Tomorrow, " + activityModel.getCurrDate().getValue().formatDate());
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }

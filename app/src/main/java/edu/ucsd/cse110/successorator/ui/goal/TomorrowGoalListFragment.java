@@ -2,6 +2,7 @@ package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,11 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
+import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateTomorrowGoalDialogFragment;
 
 public class TomorrowGoalListFragment extends Fragment{
     private MainViewModel activityModel;
     private TomorrowGoalBinding view;
+
+    private GoalListAdapter adapter;
 
     public TomorrowGoalListFragment() {
     }
@@ -40,12 +45,32 @@ public class TomorrowGoalListFragment extends Fragment{
         var modelProvider = new ViewModelProvider(modelOwner, modelFactory);
         this.activityModel = modelProvider.get(MainViewModel.class);
 
+        // Initialize the Adapter (with an empty list for now)
+        this.adapter = new GoalListAdapter(
+                requireContext(),
+                List.of(),
+                goal -> {
+                    var newGoal = goal.withComplete(!goal.isComplete());
+                    activityModel.save(newGoal);
+                },
+                activityModel::remove
+        );
+
+        activityModel.getTmrGoals().observe(cards -> {
+            if (cards == null) return;
+            adapter.clear();
+            adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!
+            adapter.notifyDataSetChanged();
+        });
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = TomorrowGoalBinding.inflate(inflater, container, false);
+
+        view.cardList.setAdapter(adapter);
+
         return view.getRoot();
     }
 }

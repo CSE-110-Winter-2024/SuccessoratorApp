@@ -29,6 +29,12 @@ public interface GoalDao {
     @Query("SELECT * FROM goals ORDER BY sort_order")
     LiveData<List<GoalEntity>> findAllAsLiveData();
 
+    @Query("SELECT * FROM goals WHERE state = 'Today' ORDER BY sort_order")
+    LiveData<List<GoalEntity>> findAllTodayAsLiveData();
+
+    @Query("SELECT * FROM goals WHERE state = 'Tomorrow' ORDER BY sort_order")
+    LiveData<List<GoalEntity>> findAllTmrAsLiveData();
+
     @Query("SELECT COUNT(*) FROM goals")
     int count();
 
@@ -47,7 +53,7 @@ public interface GoalDao {
     @Query("DELETE FROM goals WHERE id = :id")
     void delete(int id);
 
-    @Query("DELETE FROM goals WHERE isComplete = 1")
+    @Query("DELETE FROM goals WHERE isComplete = 1 and state = 'Today'")
     void deleteCompleted();
 
     @Transaction
