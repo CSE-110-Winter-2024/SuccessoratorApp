@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogPendingBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 
 public class CreatePendingDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
@@ -61,7 +62,7 @@ public class CreatePendingDialogFragment extends DialogFragment {
 
         //sort order is an invalid value here, because append/prepend will replace it
 
-        var card = new Goal(goalText, null, false, -1, "Pending", -1);
+        var card = new Goal(goalText, null, false, -1, Constants.PENDING, -1);
 
         activityModel.addGoal(card);
 
