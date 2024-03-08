@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
@@ -34,6 +35,7 @@ public class MainViewModel extends ViewModel {
     private final TimeKeeper timeKeeper;
     // UI state
     private final MutableSubject<List<Goal>> orderedGoals;
+    private final MutableSubject<List<RecurringGoal>> orderedRecurringGoals;
     private final MutableSubject<List<Goal>> tmrGoals;
 
     private final MutableSubject<List<Goal>> pendingGoals;
@@ -47,6 +49,7 @@ public class MainViewModel extends ViewModel {
 
         // Create the observable subjects.
         this.orderedGoals = new SimpleSubject<>();
+        this.orderedRecurringGoals = new SimpleSubject<>();
         this.tmrGoals = new SimpleSubject<>();
         this.pendingGoals = new SimpleSubject<>();
 
@@ -101,6 +104,16 @@ public class MainViewModel extends ViewModel {
             pendingGoals.setValue(newOrderedGoals);
         });
 
+        goalRepository.findAllRecur().observe(goals -> {
+            if (goals == null) return; // not ready yet, ignore
+
+            var newOrderedGoals = goals.stream()
+                    .sorted(Comparator.comparing(RecurringGoal::getStartDate))
+                    .collect(Collectors.toList());
+
+            orderedRecurringGoals.setValue(newOrderedGoals);
+        });
+
         currDate.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
@@ -123,6 +136,10 @@ public class MainViewModel extends ViewModel {
         return orderedGoals;
     }
 
+    public Subject<List<RecurringGoal>> getOrderedRecurringGoals() {
+        return orderedRecurringGoals;
+    }
+
     public Subject<List<Goal>> getTmrGoals() {
         return tmrGoals;
     }
@@ -138,6 +155,10 @@ public class MainViewModel extends ViewModel {
 
     public void addGoal(Goal goal) {
         goalRepository.appendCompleteGoal(goal);
+    }
+
+    public void addRecurring(RecurringGoal recurring) {
+        goalRepository.appendRecur(recurring);
     }
 
     public Subject<Date> getCurrDate() { return currDate; }

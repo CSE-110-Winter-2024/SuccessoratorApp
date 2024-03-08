@@ -3,7 +3,6 @@ package edu.ucsd.cse110.successorator.ui.goal.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,23 +13,15 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
-import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
 
 import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
+import edu.ucsd.cse110.successorator.ui.date.RecurringFragment;
 import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
-import edu.ucsd.cse110.successorator.ui.goal.MockFragment;
 import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
+import edu.ucsd.cse110.successorator.ui.goal.RecurringListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
-
-import edu.ucsd.cse110.successorator.ui.date.PendingDataFragment;
-import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
-import edu.ucsd.cse110.successorator.ui.date.RecurringDataFragment;
-
-import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
-import edu.ucsd.cse110.successorator.ui.goal.PendingGoalListFragment;
-import edu.ucsd.cse110.successorator.ui.goal.RecurringGoalListFragment;
 
 public class DropdownDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
@@ -91,7 +82,11 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.date_fragment_container, PendingFragment.newInstance())
                     .commit();
         }else{
-            //Recurring
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, RecurringListFragment.newInstance())
+                    .replace(R.id.date_fragment_container, RecurringFragment.newInstance())
+                    .commit();
         }
         dialog.dismiss();
     }

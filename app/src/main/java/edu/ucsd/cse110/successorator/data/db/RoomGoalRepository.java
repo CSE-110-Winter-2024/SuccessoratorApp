@@ -83,7 +83,6 @@ public class RoomGoalRepository implements GoalRepository {
         }
         //goalDao.insert(GoalEntity.fromGoal(goal));
     }
-
     @Override
     public void appendCompleteGoal(Goal goal){
         goalDao.appendCompleteGoal(GoalEntity.fromGoal(goal));
