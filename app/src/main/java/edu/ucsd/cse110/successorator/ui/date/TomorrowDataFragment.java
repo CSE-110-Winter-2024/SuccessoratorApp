@@ -25,6 +25,7 @@ import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateTomorrowGoalDialogFragment;
 
 /**
  * Referenced https://developer.android.com/guide/fragments/appbar
@@ -33,16 +34,16 @@ import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
  * Use the {@link DateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DateFragment extends Fragment {
+public class TomorrowDataFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentDateBinding view;
 
-    public DateFragment() {
+    public TomorrowDataFragment() {
         // Required empty public constructor
     }
 
-    public static DateFragment newInstance() {
-        DateFragment fragment = new DateFragment();
+    public static TomorrowDataFragment newInstance() {
+        TomorrowDataFragment fragment = new TomorrowDataFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -84,8 +85,10 @@ public class DateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.view = FragmentDateBinding.inflate(inflater, container, false);
-
+        //this.view = FragmentDateBinding.inflate(inflater, container, false);
+        //this.view = FragmentDateBinding.inflate(getLayoutInflater());
+        //view = (FragmentDateBinding) getParentFragmentManager().findFragmentById(R.id.date_fragment_container);
+        this.view = FragmentDateBinding.inflate(getLayoutInflater());
         setHasOptionsMenu(true);
 
         view.dateText.setOnTouchListener(new View.OnTouchListener() {
@@ -102,6 +105,13 @@ public class DateFragment extends Fragment {
         updateDisplay();
         return view.getRoot();
     }
+    /* Adds the focus mode bar in the menu screen */
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.focus_mode, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 
 
     @Override
@@ -123,12 +133,15 @@ public class DateFragment extends Fragment {
     }
 
     private void displayPopUp() {
-        var dialogFragment = CreateGoalDialogFragment.newInstance();
-        dialogFragment.show(getParentFragmentManager(), "CreateCardDialogFragment");
+        var dialogFragment = CreateTomorrowGoalDialogFragment.newInstance();
+        dialogFragment.show(getParentFragmentManager(), "CreateTmrCardDialogFragment");
     }
 
     public void updateDisplay() {
-        view.dateText.setText("Today, " + activityModel.getCurrDate().getValue().formatDate());
+        Date tmr = activityModel.getCurrDate().getValue();
+        tmr.advanceDate();
+        view.dateText.setText("Tomorrow, " + activityModel.getCurrDate().getValue().formatDate());
+
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }

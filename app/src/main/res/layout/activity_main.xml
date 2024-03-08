@@ -20,7 +20,6 @@
         tools:layout="@layout/fragment_date" />
 
 
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/goalList"
         android:layout_width="0dp"

@@ -28,6 +28,16 @@ public class SimpleGoalRepository implements GoalRepository {
         return dataSource.getAllGoalsSubject();
     }
 
+    // TODO
+    public Subject<List<Goal>> findAllToday(){
+        return dataSource.getAllGoalsSubject();
+    }
+
+    //TODO
+    public Subject<List<Goal>> findAllTmr(){
+        return dataSource.getAllGoalsSubject();
+    }
+
     @Override
     public void save(Goal goal) {
         if(goal.isComplete()){

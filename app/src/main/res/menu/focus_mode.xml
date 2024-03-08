@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Focus mode -->
+    <item android:id="@+id/action_bar_menu_focus_mode"
+        android:title="@string/add_goal"
+        android:icon="@drawable/ic_waffle"
+        android:orderInCategory="1"
+        app:iconTint="@color/white"
+        app:showAsAction="always" />
+</menu>

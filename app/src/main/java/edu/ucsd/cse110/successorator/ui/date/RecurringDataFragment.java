@@ -1,12 +1,6 @@
 package edu.ucsd.cse110.successorator.ui.date;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,33 +10,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
-import edu.ucsd.cse110.successorator.databinding.FragmentDateBinding;
 import edu.ucsd.cse110.successorator.R;
+import edu.ucsd.cse110.successorator.databinding.FragmentDateBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
-import edu.ucsd.cse110.successorator.lib.util.Subject;
-import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 
-/**
- * Referenced https://developer.android.com/guide/fragments/appbar
- *
- * A simple {@link Fragment} subclass.
- * Use the {@link DateFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DateFragment extends Fragment {
+public class RecurringDataFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentDateBinding view;
 
-    public DateFragment() {
+    Button adavanceDateButton;
+
+    public RecurringDataFragment() {
         // Required empty public constructor
     }
 
-    public static DateFragment newInstance() {
-        DateFragment fragment = new DateFragment();
+    public static RecurringDataFragment newInstance() {
+        RecurringDataFragment fragment = new RecurringDataFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -103,6 +94,10 @@ public class DateFragment extends Fragment {
         return view.getRoot();
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.advance_date, menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -113,22 +108,12 @@ public class DateFragment extends Fragment {
             updateDisplay();
             return true;
         }
-
-
-        if (item.getItemId() == R.id.action_bar_menu_add_goal) {
-            displayPopUp();
-        }
-
         return super.onOptionsItemSelected(item);
-    }
 
-    private void displayPopUp() {
-        var dialogFragment = CreateGoalDialogFragment.newInstance();
-        dialogFragment.show(getParentFragmentManager(), "CreateCardDialogFragment");
     }
 
     public void updateDisplay() {
-        view.dateText.setText("Today, " + activityModel.getCurrDate().getValue().formatDate());
+        view.dateText.setText("Recurring, " + activityModel.getCurrDate().getValue().formatDate());
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }
