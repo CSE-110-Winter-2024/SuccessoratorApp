@@ -16,6 +16,7 @@ import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
+
 import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
 import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
@@ -23,6 +24,13 @@ import edu.ucsd.cse110.successorator.ui.goal.MockFragment;
 import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
 import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
 
+import edu.ucsd.cse110.successorator.ui.date.PendingDataFragment;
+import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
+import edu.ucsd.cse110.successorator.ui.date.RecurringDataFragment;
+
+import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
+import edu.ucsd.cse110.successorator.ui.goal.PendingGoalListFragment;
+import edu.ucsd.cse110.successorator.ui.goal.RecurringGoalListFragment;
 
 public class DropdownDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
@@ -68,12 +76,14 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.goalList, GoalListFragment.newInstance())
                     .replace(R.id.date_fragment_container, DateFragment.newInstance())
                     .commit();
+            //Tomorrow
         }else if(view.radioButton3.isChecked()){
             getParentFragmentManager()
                     .beginTransaction()
                     .replace(R.id.goalList, TomorrowGoalListFragment.newInstance())
                     .replace(R.id.date_fragment_container, TomorrowDataFragment.newInstance())
                     .commit();
+            //Pending
         }else if(view.radioButton4.isChecked()){
             getParentFragmentManager()
                     .beginTransaction()
@@ -83,7 +93,6 @@ public class DropdownDialogFragment extends DialogFragment {
         }else{
             //Recurring
         }
-
         dialog.dismiss();
     }
 
