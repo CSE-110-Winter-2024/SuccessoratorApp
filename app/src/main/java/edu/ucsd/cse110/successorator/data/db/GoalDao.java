@@ -35,6 +35,9 @@ public interface GoalDao {
     @Query("SELECT * FROM goals WHERE state = 'Tomorrow' ORDER BY sort_order")
     LiveData<List<GoalEntity>> findAllTmrAsLiveData();
 
+    @Query("SELECT * FROM goals WHERE state = 'Pending' ORDER BY sort_order")
+    LiveData<List<GoalEntity>> findAllPendingAsLiveData();
+
     @Query("SELECT COUNT(*) FROM goals")
     int count();
 

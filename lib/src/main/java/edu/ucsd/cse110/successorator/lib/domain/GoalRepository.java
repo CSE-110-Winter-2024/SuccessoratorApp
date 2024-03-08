@@ -14,6 +14,8 @@ public interface GoalRepository {
 
     Subject<List<Goal>> findAllTmr();
 
+    Subject<List<Goal>> findAllPending();
+
     void save(Goal flashcard);
 
     Subject<RecurringGoal> findRecur(int id);
@@ -35,5 +37,6 @@ public interface GoalRepository {
     void prepend(Goal goal);
 
     void removeCompleted();
+
 
 }

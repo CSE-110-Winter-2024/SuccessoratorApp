@@ -59,6 +59,17 @@ public class RoomGoalRepository implements GoalRepository {
     }
 
     @Override
+    public Subject<List<Goal>> findAllPending(){
+        var entitiesLiveData = goalDao.findAllPendingAsLiveData();
+        var goalsLiveData = Transformations.map(entitiesLiveData, entities -> {
+            return entities.stream()
+                    .map(GoalEntity::toGoal)
+                    .collect(Collectors.toList());
+        });
+        return new LiveDataSubjectAdapter<>(goalsLiveData);
+    }
+
+    @Override
     public void save(Goal goal){
         if(goal.isComplete()){
             int firstCompleteGoal = goalDao.getMaxSortOrderInComplete() + 1;
