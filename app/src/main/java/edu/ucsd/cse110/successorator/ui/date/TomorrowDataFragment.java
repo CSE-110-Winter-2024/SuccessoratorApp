@@ -105,6 +105,14 @@ public class TomorrowDataFragment extends Fragment {
         updateDisplay();
         return view.getRoot();
     }
+    /* Adds the focus mode bar in the menu screen */
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.focus_mode, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -133,6 +141,7 @@ public class TomorrowDataFragment extends Fragment {
         Date tmr = activityModel.getCurrDate().getValue();
         tmr.advanceDate();
         view.dateText.setText("Tomorrow, " + activityModel.getCurrDate().getValue().formatDate());
+
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }

@@ -25,16 +25,4 @@
     </ListView>
 
 
-    <!--   Data  [Giving me issues displaying data (duplicate) ]   -->
-
-    <!--    &lt;!&ndash;   Goal List     &ndash;&gt;-->
-    <!--    <androidx.fragment.app.FragmentContainerView-->
-    <!--        android:id="@+id/tomorrowGoalList"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/date_fragment_container" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
