@@ -8,5 +8,4 @@ import androidx.room.TypeConverters;
 @TypeConverters({LocalDateConverter.class})
 public abstract class SuccessoratorDatabase extends RoomDatabase{
     public abstract GoalDao goalDao();
-    public abstract RecurringGoalDao recurringGoalDao();
 }

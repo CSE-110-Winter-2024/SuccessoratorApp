@@ -1,9 +1,7 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,25 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
-import edu.ucsd.cse110.successorator.R;
-import edu.ucsd.cse110.successorator.databinding.GoalListFragmentBinding;
-import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
-import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateTomorrowGoalDialogFragment;
+import edu.ucsd.cse110.successorator.databinding.PendingGoalBinding;
+import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
 
-/**
- * Fragment associated with displaying the list of goals
- */
-public class GoalListFragment extends Fragment {
+public class PendingGoalFragment extends Fragment {
     private MainViewModel activityModel;
-    private GoalListFragmentBinding view;
+    private PendingGoalBinding view;
     private GoalListAdapter adapter;
 
-    public GoalListFragment() {
-        // Required empty public constructor
+    public PendingGoalFragment() {
     }
 
-    public static GoalListFragment newInstance() {
-        GoalListFragment fragment = new GoalListFragment();
+    public static PendingGoalFragment newInstance() {
+        PendingGoalFragment fragment = new PendingGoalFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -56,12 +48,12 @@ public class GoalListFragment extends Fragment {
                 List.of(),
                 goal -> {
                     var newGoal = goal.withComplete(!goal.isComplete());
-                    activityModel.save(newGoal);
+                    //activityModel.save(newGoal);
                 },
                 activityModel::remove
         );
 
-        activityModel.getOrderedGoals().observe(cards -> {
+        activityModel.getPendingGoals().observe(cards -> {
             if (cards == null) return;
             adapter.clear();
             adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!
@@ -72,14 +64,10 @@ public class GoalListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.view = GoalListFragmentBinding.inflate(inflater, container, false);
+        this.view = PendingGoalBinding.inflate(inflater, container, false);
 
-        //If not goals, put prompt on screen
-        view.cardList.setEmptyView(view.empty);
-        // Set the adapter on the ListView
         view.cardList.setAdapter(adapter);
 
         return view.getRoot();
     }
 }
-
