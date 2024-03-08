@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import edu.ucsd.cse110.successorator.lib.util.Constants;
@@ -15,6 +16,7 @@ public class RecurringGoal implements Serializable {
     private final @Nullable Integer id;
     private final @NonNull String title;
     //private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
+    //monthly frequency stored as 2 digit where ten's digit is number week and one's is day of week
     private final @NonNull Integer frequency;
     private final LocalDate startDate;
 
@@ -24,16 +26,29 @@ public class RecurringGoal implements Serializable {
             @NonNull String title,
             @Nullable Integer id,
             @NonNull Integer frequency,
-            LocalDate startDate,
-            LocalDate nextDate
+            LocalDate startDate
             //Integer sortOrder // Corrected parameter type and removed the semicolon.
     ) {
         this.title = title;
         this.id = id;
         this.frequency = frequency;
         this.startDate = startDate;
-        this.nextDate = nextDate;
+        this.nextDate = startDate;
         //this.sortOrder = sortOrder;
+    }
+
+    public RecurringGoal(
+            @NonNull String title,
+            @Nullable Integer id,
+            @NonNull Integer frequency,
+            LocalDate startDate,
+            LocalDate nextDate
+    ) {
+        this.title = title;
+        this.id = id;
+        this.frequency = frequency;
+        this.startDate = startDate;
+        this.nextDate = nextDate;
     }
 
     @NonNull
@@ -72,18 +87,71 @@ public class RecurringGoal implements Serializable {
         return nextDate.isBefore(currDate) || nextDate.isEqual(currDate);
     }
 
-    public RecurringGoal updateNextDate() {
+    public RecurringGoal updateNextDate(LocalDate currDate) {
         switch(frequency) {
             case Constants.DAILY:
-                return withNextDate(nextDate.plusDays(1));
+                return updateNextDateDaily(currDate);
             case Constants.WEEKLY:
-                return withNextDate(nextDate.plusWeeks(1));
+                return updateNextDateWeekly(currDate);
             case Constants.MONTHLY:
-                return withNextDate(nextDate.plusWeeks(4));
+                return updateNextDateMonthly(currDate);
             default:
-                return withNextDate(nextDate.plusYears(1));
+                return updateNextDateYearly(currDate);
         }
     }
+
+    private RecurringGoal updateNextDateDaily(LocalDate currDate) {
+        return withNextDate(currDate.plusDays(1));
+    }
+
+    private RecurringGoal updateNextDateWeekly(LocalDate currDate) {
+        int dayOfWeek = calcDayOfWeek(startDate);
+        int currDayOfWeek = calcDayOfWeek(currDate);
+        int daysToAdd = dayOfWeek <= currDayOfWeek ?
+                7 - (currDayOfWeek - dayOfWeek) : dayOfWeek - currDayOfWeek;
+        return withNextDate(currDate.plusDays(daysToAdd));
+    }
+
+    private RecurringGoal updateNextDateYearly(LocalDate currDate) {
+        LocalDate newDate = startDate.plusYears(currDate.getYear() - startDate.getYear());
+        if(newDate.isAfter(currDate)) {
+            return withNextDate(newDate);
+        }
+        return withNextDate(newDate.plusYears(1));
+    }
+
+    private RecurringGoal updateNextDateMonthly(LocalDate currDate) {
+        int weekOfMonth = calcWeekOfMonth(startDate);
+        int dayOfWeek = calcDayOfWeek(startDate);
+        int dayOfMonth = getDayOfMonth(dayOfWeek, weekOfMonth, currDate);
+        if(currDate.getDayOfMonth() < dayOfMonth) {
+            if(dayOfMonth>28) {
+                return withNextDate(currDate.withDayOfMonth(dayOfMonth - 7).plusWeeks(1));
+            }
+            return withNextDate(currDate.withDayOfMonth(dayOfMonth));
+        }
+        else {
+            if(dayOfMonth>28) {
+                return withNextDate(currDate.plusMonths(1).withDayOfMonth(getDayOfMonth(
+                        dayOfWeek, weekOfMonth, currDate.plusMonths(1)) - 7).plusWeeks(1));
+            }
+            return withNextDate(currDate.plusMonths(1).withDayOfMonth(getDayOfMonth(
+                    dayOfWeek, weekOfMonth, currDate.plusMonths(1))));
+        }
+    }
+
+    private int getDayOfMonth(int dayOfWeek, int weekOfMonth, LocalDate currDate) {
+        LocalDate startOfMonth = currDate.withDayOfMonth(1);
+        int firstDayOfWeek = calcDayOfWeek(startOfMonth);
+        int daysToAdd = dayOfWeek < firstDayOfWeek ?
+                7 - (firstDayOfWeek - dayOfWeek) : dayOfWeek - firstDayOfWeek;
+
+        return 7 * (weekOfMonth - 1) + daysToAdd + 1;
+    }
+
+    private int calcWeekOfMonth(LocalDate date) { return (date.getDayOfMonth() + 6) / 7; }
+
+    private int calcDayOfWeek(LocalDate date) { return date.getDayOfWeek().getValue(); }
 
     @Override
     public boolean equals(Object o) {

@@ -19,6 +19,9 @@ public class Date {
         this.dateTime = dateTime.minusHours(2);
     }
 
+    //use when time already adjusted for 2 hours
+    public void setAdjustedDate(LocalDateTime dateTime) { this.dateTime = dateTime; }
+
     public String formatDate() {
         return formatter.format(dateTime);
     }
