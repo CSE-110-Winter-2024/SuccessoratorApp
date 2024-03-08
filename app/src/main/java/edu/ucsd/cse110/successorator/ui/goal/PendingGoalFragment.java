@@ -23,6 +23,7 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
+
 import edu.ucsd.cse110.successorator.databinding.PendingGoalBinding;
 import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
 
@@ -72,7 +73,6 @@ public class PendingGoalFragment extends Fragment {
             adapter.notifyDataSetChanged();
         });
     }
-
 
     @Nullable
     @Override
