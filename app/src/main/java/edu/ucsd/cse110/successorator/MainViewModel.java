@@ -72,6 +72,7 @@ public class MainViewModel extends ViewModel {
 
             var newOrderedGoals = goals.stream()
                     .sorted(Comparator.comparing(Goal::isComplete)
+                            .thenComparingInt(Goal::getContextId)
                             .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
 
@@ -84,6 +85,7 @@ public class MainViewModel extends ViewModel {
 
             var newOrderedGoals = goals.stream()
                     .sorted(Comparator.comparing(Goal::isComplete)
+                            .thenComparingInt(Goal::getContextId)
                             .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
 
@@ -95,6 +97,7 @@ public class MainViewModel extends ViewModel {
 
             var newOrderedGoals = goals.stream()
                     .sorted(Comparator.comparing(Goal::isComplete)
+                            .thenComparingInt(Goal::getContextId)
                             .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
 

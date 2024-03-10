@@ -2,6 +2,8 @@ package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
@@ -65,12 +69,37 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             onDeleteClick.accept(id);
         });
 
+        var id = goal.getContextId();
+        if(id == 1){
+            binding.button2.setText("H");
+
+        }else if(id == 2){
+            binding.button2.setText("W");
+//            binding.button2.setSupportBackgroundTintList(
+//                    ColorStateList.valueOf(
+//                            ContextCompat.getColor(getContext(), R.color.work)));
+        }else if(id == 3){
+            binding.button2.setText("S");
+//            binding.button2.setSupportBackgroundTintList(
+//                    ColorStateList.valueOf(
+//                            ContextCompat.getColor(getContext(), R.color.school)));
+        }else{
+            binding.button2.setText("E");
+//            binding.button2.setSupportBackgroundTintList(
+//                    ColorStateList.valueOf(
+//                            ContextCompat.getColor(getContext(), R.color.errand)));
+        }
+
+
         // M -> V
         // Populate the view with the goal's data.
         binding.goalText.setText(goal.getTitle());
         // setup ST to match
         if (goal.isComplete()) {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//            binding.button2.setSupportBackgroundTintList(
+//                    ColorStateList.valueOf(
+//                            ContextCompat.getColor(getContext(), R.color.finish)));
         } else {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
