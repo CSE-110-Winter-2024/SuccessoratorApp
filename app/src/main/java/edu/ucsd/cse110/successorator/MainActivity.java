@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.add_goal, menu);
         getMenuInflater().inflate(R.menu.dropdown, menu);
         getMenuInflater().inflate(R.menu.advance_date, menu);
+        getMenuInflater().inflate(R.menu.focus_mode, menu);
         return true;
     }
 
@@ -65,20 +66,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         var itemId = item.getItemId();
 
-//        if (itemId == R.id.action_bar_menu_add_goal) {
-//            displayPopUp();
-//        }
-
         if (itemId == R.id.action_bar_menu_dropdown) {
             displayDropDown();
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+        if (itemId == R.id.action_bar_menu_focus_mode) {
+            // Code goes here TODO
+        }
 
-    private void displayPopUp() {
-        var dialogFragment = CreateGoalDialogFragment.newInstance();
-        dialogFragment.show(getSupportFragmentManager(), "CreateCardDialogFragment");
+        return super.onOptionsItemSelected(item);
     }
 
     private void displayDropDown(){
