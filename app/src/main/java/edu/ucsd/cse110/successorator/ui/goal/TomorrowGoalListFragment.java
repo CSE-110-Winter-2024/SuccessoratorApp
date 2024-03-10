@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
@@ -58,6 +59,14 @@ public class TomorrowGoalListFragment extends Fragment{
 
         activityModel.getTmrGoals().observe(cards -> {
             if (cards == null) return;
+
+            int context = activityModel.getFocusMode();
+            if(context != 0){
+                cards = cards.stream()
+                        .filter(goal -> goal.getContextId() == context)
+                        .collect(Collectors.toList());
+            }
+
             adapter.clear();
             adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!
             adapter.notifyDataSetChanged();

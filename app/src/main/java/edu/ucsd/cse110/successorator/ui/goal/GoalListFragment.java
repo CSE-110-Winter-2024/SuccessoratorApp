@@ -67,9 +67,12 @@ public class GoalListFragment extends Fragment {
         activityModel.getOrderedGoals().observe(cards -> {
             if (cards == null) return;
 
-            cards = cards.stream()
-                    .filter(goal -> goal.getContextId() == 4)
-                    .collect(Collectors.toList());
+            int context = activityModel.getFocusMode();
+            if(context != 0){
+                cards = cards.stream()
+                        .filter(goal -> goal.getContextId() == context)
+                        .collect(Collectors.toList());
+            }
 
             adapter.clear();
             adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!

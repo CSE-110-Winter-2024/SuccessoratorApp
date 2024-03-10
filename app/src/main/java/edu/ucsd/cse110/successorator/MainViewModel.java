@@ -174,7 +174,6 @@ public class MainViewModel extends ViewModel {
 
     public Subject<Date> getLastLog() { return lastLog; }
 
-    public
 
     public void updateTime(Date date, boolean logTime) {
         if(logTime) {
