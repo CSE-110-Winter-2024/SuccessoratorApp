@@ -60,6 +60,9 @@ public interface GoalDao {
     @Query("DELETE FROM goals WHERE isComplete = 1 and state = 'Today'")
     void deleteCompleted();
 
+    @Query("SELECT EXISTS(SELECT * FROM goals WHERE recurringId = :recurringId AND state = :state)")
+    boolean existsRecurringId(int recurringId, String state);
+
     @Transaction
     default void shiftOver(int from){
         shiftSortOrders(from, getMaxSortOrder(), 1);
@@ -107,17 +110,11 @@ public interface GoalDao {
     @Query("SELECT * FROM recurringGoals ORDER BY start_date")
     List<RecurringGoalEntity> findAllRecur();
 
-    @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
-    List<RecurringGoalEntity> findAllRecurToAdd(LocalDate start_date);
-
     @Query("SELECT * FROM recurringGoals WHERE id = :id")
     LiveData<RecurringGoalEntity> findRecurAsLiveData(int id);
 
     @Query("SELECT * FROM recurringGoals ORDER BY start_date")
     LiveData<List<RecurringGoalEntity>> findAllRecurAsLiveData();
-
-    @Query("SELECT * FROM recurringGoals WHERE start_date = :start_date")
-    LiveData<List<RecurringGoalEntity>> findAllRecurToAddAsLiveData(LocalDate start_date);
 
     @Query("SELECT COUNT(*) FROM recurringGoals")
     int countRecur();

@@ -89,6 +89,11 @@ public class RoomGoalRepository implements GoalRepository {
     }
 
     @Override
+    public boolean existsRecurringId(int recurringId, String state) {
+        return goalDao.existsRecurringId(recurringId, state);
+    }
+
+    @Override
     public Subject<RecurringGoal> findRecur(int id){
         var entityLiveData = goalDao.findRecurAsLiveData(id);
         var recurringGoalLiveData = Transformations.map(entityLiveData, RecurringGoalEntity::toRecurringGoal);

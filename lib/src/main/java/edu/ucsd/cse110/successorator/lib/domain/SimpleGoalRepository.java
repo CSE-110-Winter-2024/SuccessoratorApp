@@ -99,52 +99,30 @@ public class SimpleGoalRepository implements GoalRepository {
         dataSource.putGoals(goals);
     }
 
+    @Override
+    public boolean existsRecurringId(int recurringId, String state) {
+        var goals = dataSource.getGoals();
+        for(var goal : goals) {
+            if(goal.getRecurringId() == recurringId && goal.getState().equals(state)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Subject<RecurringGoal> findRecur(int id){
-        return new Subject<RecurringGoal>() {
-            @Nullable
-            @Override
-            public RecurringGoal getValue() {
-                return null;
-            }
-
-            @Override
-            public void observe(Observer<RecurringGoal> observer) {
-
-            }
-
-            @Override
-            public void removeObserver(Observer<RecurringGoal> observer) {
-
-            }
-        };
+        return dataSource.getRecurringGoalSubject(id);
     }
 
     public Subject<List<RecurringGoal>> findAllRecur(){
-        return new Subject<List<RecurringGoal>>() {
-            @Nullable
-            @Override
-            public List<RecurringGoal> getValue() {
-                return null;
-            }
-
-            @Override
-            public void observe(Observer<List<RecurringGoal>> observer) {
-
-            }
-
-            @Override
-            public void removeObserver(Observer<List<RecurringGoal>> observer) {
-
-            }
-        };
+        return dataSource.getAllRecurringGoalsSubject();
     }
 
     public void removeRecur(int id){
-        return;
+        dataSource.removeRecurringGoal(id);
     }
 
     public void appendRecur(RecurringGoal recurringGoal){
-        return;
+        dataSource.putRecurringGoal(recurringGoal);
     }
 }

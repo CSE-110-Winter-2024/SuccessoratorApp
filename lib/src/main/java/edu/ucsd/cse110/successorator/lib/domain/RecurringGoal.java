@@ -27,14 +27,12 @@ public class RecurringGoal implements Serializable {
             @Nullable Integer id,
             @NonNull Integer frequency,
             LocalDate startDate
-            //Integer sortOrder // Corrected parameter type and removed the semicolon.
     ) {
         this.title = title;
         this.id = id;
         this.frequency = frequency;
         this.startDate = startDate;
         this.nextDate = startDate;
-        //this.sortOrder = sortOrder;
     }
 
     public RecurringGoal(
@@ -67,17 +65,9 @@ public class RecurringGoal implements Serializable {
 
     public LocalDate getNextDate() { return nextDate; }
 
-    //public Integer getSortOrder() {
-    //    return sortOrder;
-    //}
-
     public RecurringGoal withId(int id) {
         return new RecurringGoal(this.title, id, this.frequency, this.startDate, this.nextDate);
     }
-
-//    public RecurringGoal withSortOrder(int sortOrder) {
-//        return new RecurringGoal(this.title, this.id, this.frequency, this.startDate, sortOrder);
-//    }
 
     public RecurringGoal withNextDate(LocalDate nextDate) {
         return new RecurringGoal(this.title, this.id, this.frequency, this.startDate, nextDate);

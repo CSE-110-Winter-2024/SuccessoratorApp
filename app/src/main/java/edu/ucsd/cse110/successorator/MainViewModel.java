@@ -22,10 +22,12 @@ import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalFactory;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
@@ -33,6 +35,7 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
 public class MainViewModel extends ViewModel {
     private final GoalRepository goalRepository;
     private final TimeKeeper timeKeeper;
+    private final GoalFactory goalFactory;
     // UI state
     private final MutableSubject<List<Goal>> orderedGoals;
     private final MutableSubject<List<RecurringGoal>> orderedRecurringGoals;
@@ -46,6 +49,7 @@ public class MainViewModel extends ViewModel {
     public MainViewModel(GoalRepository goalRepository, TimeKeeper timeKeeper) {
         this.goalRepository = goalRepository;
         this.timeKeeper = timeKeeper;
+        this.goalFactory = new GoalFactory();
 
         // Create the observable subjects.
         this.orderedGoals = new SimpleSubject<>();
@@ -181,10 +185,32 @@ public class MainViewModel extends ViewModel {
     public void rollOverGoal(Date lastLogDate, Date currentDate) {
         if(lastLogDate.getDate().toLocalDate()
                 .isBefore(currentDate.getDate().toLocalDate())) {
+            //Remove completed goals
             goalRepository.removeCompleted();
+
+            //Move goals from tomorrow to today
+
+            //Copy recurring goals and update next recur date
+            LocalDate currDate = currentDate.getDate().toLocalDate();
+            rolloverRecurring(currDate, Constants.TODAY);
+            rolloverRecurring(currDate.plusDays(1), Constants.TOMORROW);
+
+            //update log time
             lastLogDate.setDate(LocalDateTime.now());
             updateTime(lastLogDate, true);
         }
+    }
+
+    private void rolloverRecurring(LocalDate currDate, String state) {
+        var goalsToAdd = getOrderedRecurringGoals().getValue()
+                .stream()
+                .filter(goal -> goal.isRecur(currDate))
+                .filter(goal -> !goalRepository.existsRecurringId(goal.getId(), state))
+                .collect(Collectors.toList());
+        goalsToAdd.forEach(goal -> {
+            addGoal(goalFactory.goalFromRecurring(goal, state));
+            addRecurring(goal.updateNextDate(currDate));
+        });
     }
 
     public int weekNumber(){
@@ -197,4 +223,5 @@ public class MainViewModel extends ViewModel {
         int weeks = (today.getDayOfMonth() - daysUntilFirstOccurrence + 6) / 7;
         return weeks;
     }
+
 }
