@@ -1,28 +1,25 @@
 package edu.ucsd.cse110.successorator;
 
-        import static androidx.test.core.app.ActivityScenario.launch;
         import static androidx.test.espresso.Espresso.onView;
         import static org.hamcrest.Matchers.containsString;
-        import edu.ucsd.cse110.successorator.lib.domain.Date;
+        import static org.junit.Assert.assertEquals;
+
+        import java.time.LocalDate;
         import java.time.LocalDateTime;
-        import edu.ucsd.cse110.successorator.ui.goal.GoalListAdapter;
-        import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateTomorrowGoalDialogFragment;
+
         import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
+        import edu.ucsd.cse110.successorator.lib.domain.Date;
+        import edu.ucsd.cse110.successorator.ui.goal.GoalListAdapter;
+        import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
         import static androidx.test.espresso.action.ViewActions.click;
         import static androidx.test.espresso.action.ViewActions.typeText;
-        import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
         import static androidx.test.espresso.assertion.ViewAssertions.matches;
         import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
         import static androidx.test.espresso.matcher.ViewMatchers.withId;
         import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-        import static junit.framework.TestCase.assertEquals;
-
-        import androidx.lifecycle.Lifecycle;
-        import androidx.test.core.app.ActivityScenario;
         import androidx.test.ext.junit.rules.ActivityScenarioRule;
         import androidx.test.ext.junit.runners.AndroidJUnit4;
-
+        import org.junit.Assert;
         import org.junit.Rule;
         import org.junit.Test;
         import org.junit.runner.RunWith;
@@ -35,7 +32,7 @@ package edu.ucsd.cse110.successorator;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class SwitchViewsUITest {
+public class SwitchViewsUITest extends TomorrowGoalListFragment{
     private MainViewModel activityModel;
     private TomorrowGoalBinding view;
     private GoalListAdapter adapter;
@@ -43,23 +40,26 @@ public class SwitchViewsUITest {
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
+    public SwitchViewsUITest() {
+    }
+
+
     @Test
     public void displaysTomorrowFragment() {
-
-
-
-       /* Switch VIEW To Tomorrow */
+        /* Switch VIEW To Tomorrow */
 
         /* As a User I want to be able to click on the dropdown bar */
         onView(withId(R.id.action_bar_menu_dropdown)).perform(click());
 
-        /* So that I can add goals for tomorrow
-        * 'Press The Option For Tomorrow' */
-        onView(withId(R.id.radioButton3)).perform(click());
+        /* So that I can add goals for tomorrow */
+        onView(withId(R.id.radioButton3)).perform(click()); //'Press The Option For Tomorrow'
         onView(withText("GO TO")).perform((click()));
-        /* And be Presented with the Tomorrow title/ date */
+
+        //todo: Check if the date has changed
+// Today Fragment: "Today, Sunday 3/10" -> Tomorrow Fragment: Tomorrow, "Monday 3/11"
         onView(withId(R.id.date_text))
-                .check(matches(withText(containsString("Tomorrow")))); //Must be on tomorrow page
+                .check(matches(withText(containsString("Tomorrow")))); //Must be on Tomorrow page
+
 
         /* Add a Goal: "Prepare for Midterm */
        onView(withId(R.id.action_bar_menu_add_goal)).perform(click());
@@ -70,11 +70,12 @@ public class SwitchViewsUITest {
         onView(withText("Prepare for midterm")).check(matches(isDisplayed()));
 
 
+        //todo: check for pending changes
+
         /* Switch VIEW To Pending */
 
-        /* As a User I want to be able to click on the action bar */
         onView(withId(R.id.action_bar_menu_dropdown)).perform(click());
-        /* Press The Option For Pending */
+        /* Press The Option For Pending Goals */
         onView(withId(R.id.radioButton4)).perform(click());
         onView(withText("GO TO")).perform((click()));
         onView(withId(R.id.date_text))
@@ -106,7 +107,7 @@ public class SwitchViewsUITest {
         onView(withText("Add a Recurring Goal")).check(matches(isDisplayed()));
 
 
-
+        //todo: Check for recurring changes
 
         //Switch VIEW To Recurring
         /* Checks if Prepare for midterm is on the list */
