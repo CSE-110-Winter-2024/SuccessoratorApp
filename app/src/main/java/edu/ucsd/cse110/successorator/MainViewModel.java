@@ -2,29 +2,21 @@ package edu.ucsd.cse110.successorator;
 
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
-import android.content.SharedPreferences;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
-import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
@@ -70,11 +62,22 @@ public class MainViewModel extends ViewModel {
             if (goals == null) return; // not ready yet, ignore
 
 
+//            var newOrderedGoals = goals.stream()
+//                    .sorted(Comparator.comparing(Goal::isComplete)
+//                            .thenComparingInt(Goal::getContextId)
+//                            .thenComparingInt(Goal::getSortOrder))
+//                    .collect(Collectors.toList());
+
             var newOrderedGoals = goals.stream()
-                    .sorted(Comparator.comparing(Goal::isComplete)
-                            .thenComparingInt(Goal::getContextId)
+                    .filter(goal -> !goal.isComplete())
+                    .sorted(Comparator.comparingInt(Goal::getContextId)
                             .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
+            var complete = goals.stream()
+                    .filter(goal -> goal.isComplete())
+                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                    .collect(Collectors.toList());
+            newOrderedGoals.addAll(complete);
 
             orderedGoals.setValue(newOrderedGoals);
         });
@@ -83,11 +86,22 @@ public class MainViewModel extends ViewModel {
             if (goals == null) return; // not ready yet, ignore
 
 
+//            var newOrderedGoals = goals.stream()
+//                    .sorted(Comparator.comparing(Goal::isComplete)
+//                            .thenComparingInt(Goal::getContextId)
+//                            .thenComparingInt(Goal::getSortOrder))
+//                    .collect(Collectors.toList());
+
             var newOrderedGoals = goals.stream()
-                    .sorted(Comparator.comparing(Goal::isComplete)
-                            .thenComparingInt(Goal::getContextId)
+                    .filter(goal -> !goal.isComplete())
+                    .sorted(Comparator.comparingInt(Goal::getContextId)
                             .thenComparingInt(Goal::getSortOrder))
                     .collect(Collectors.toList());
+            var complete = goals.stream()
+                    .filter(goal -> goal.isComplete())
+                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                    .collect(Collectors.toList());
+            newOrderedGoals.addAll(complete);
 
             tmrGoals.setValue(newOrderedGoals);
         });
@@ -95,6 +109,7 @@ public class MainViewModel extends ViewModel {
         goalRepository.findAllPending().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
 
+            //
             var newOrderedGoals = goals.stream()
                     .sorted(Comparator.comparing(Goal::isComplete)
                             .thenComparingInt(Goal::getContextId)
