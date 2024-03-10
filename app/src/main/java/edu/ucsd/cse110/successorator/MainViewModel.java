@@ -24,6 +24,8 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
 public class MainViewModel extends ViewModel {
     private final GoalRepository goalRepository;
     private final TimeKeeper timeKeeper;
+
+    private final MutableSubject<Integer> focusMode;
     // UI state
     private final MutableSubject<List<Goal>> orderedGoals;
     private final MutableSubject<List<Goal>> tmrGoals;
@@ -37,6 +39,8 @@ public class MainViewModel extends ViewModel {
         this.goalRepository = goalRepository;
         this.timeKeeper = timeKeeper;
 
+        this.focusMode = new SimpleSubject<>();
+        focusMode.setValue(0);
         // Create the observable subjects.
         this.orderedGoals = new SimpleSubject<>();
         this.tmrGoals = new SimpleSubject<>();
@@ -149,6 +153,14 @@ public class MainViewModel extends ViewModel {
         return pendingGoals;
     }
 
+    public Integer getFocusMode() {
+        return focusMode.getValue();
+    }
+
+    public void setFocusMode(Integer context){
+        focusMode.setValue(context);
+    }
+
     public void save(Goal goal) {
         //updateGoal(goal);
         goalRepository.save(goal);
@@ -161,6 +173,8 @@ public class MainViewModel extends ViewModel {
     public Subject<Date> getCurrDate() { return currDate; }
 
     public Subject<Date> getLastLog() { return lastLog; }
+
+    public
 
     public void updateTime(Date date, boolean logTime) {
         if(logTime) {
