@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="home">#EAD082</color>
     <color name="work">#3DB4C3</color>
     <color name="school">#CC85EA</color>
     <color name="errand">#90BA9F</color>

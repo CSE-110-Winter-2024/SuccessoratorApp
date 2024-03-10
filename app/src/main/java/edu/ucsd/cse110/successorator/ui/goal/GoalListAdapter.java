@@ -1,15 +1,12 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -31,7 +28,6 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Goal> onGoalClicked;
     Consumer<Integer> onDeleteClick;
 
-    Consumer<Integer> removeStrikethruClick;
 
     public GoalListAdapter(Context context, List<Goal> goals,
                            Consumer<Goal> onGoalClicked,
@@ -71,23 +67,21 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
 
         var id = goal.getContextId();
         if(id == 1){
-            binding.button2.setText("H");
-
+            binding.contextText.setText("H");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.home)));
         }else if(id == 2){
-            binding.button2.setText("W");
-//            binding.button2.setSupportBackgroundTintList(
-//                    ColorStateList.valueOf(
-//                            ContextCompat.getColor(getContext(), R.color.work)));
+            binding.contextText.setText("W");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.work)));
         }else if(id == 3){
-            binding.button2.setText("S");
-//            binding.button2.setSupportBackgroundTintList(
-//                    ColorStateList.valueOf(
-//                            ContextCompat.getColor(getContext(), R.color.school)));
+            binding.contextText.setText("S");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.school)));
         }else{
-            binding.button2.setText("E");
-//            binding.button2.setSupportBackgroundTintList(
-//                    ColorStateList.valueOf(
-//                            ContextCompat.getColor(getContext(), R.color.errand)));
+            binding.contextText.setText("E");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.errand)));
         }
 
 
@@ -97,9 +91,8 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         // setup ST to match
         if (goal.isComplete()) {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//            binding.button2.setSupportBackgroundTintList(
-//                    ColorStateList.valueOf(
-//                            ContextCompat.getColor(getContext(), R.color.finish)));
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.finish)));
         } else {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
