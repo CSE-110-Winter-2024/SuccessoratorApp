@@ -65,17 +65,19 @@ public class FocusDialogFragment extends DialogFragment {
     private void onPositiveButtonClick(DialogInterface dialog, int which){
         //todo: Add color changes to focus mode (hamburger)
         //Home
-        if(view.homeContext.isChecked()){
+        if(view.homeFocus.isChecked()){//home
             activityModel.setFocusMode(1);
-            //Work
-        }else if(view.schoolContext.isChecked()){
+
+        }else if(view.workFocus.isChecked()){//work
             activityModel.setFocusMode(2);
-            //School
-        }else if(view.errandContext.isChecked()){
+
+        }else if(view.schoolFocus.isChecked()){//school
             activityModel.setFocusMode(3);
-        }else{
-            //Errands
-            activityModel.setFocusMode(4);
+        }else if(view.errandFocus.isChecked()){
+            activityModel.setFocusMode(4);//errand
+        }
+        else if(view.cancelFocus.isChecked()){
+            activityModel.setFocusMode(0);//cancel
         }
         dialog.dismiss();
     }

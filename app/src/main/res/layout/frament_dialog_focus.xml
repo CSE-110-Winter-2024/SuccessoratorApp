@@ -16,32 +16,39 @@
         app:layout_constraintTop_toBottomOf="@+id/addGoalText">
 
         <RadioButton
-            android:id="@+id/workContext"
+            android:id="@+id/workFocus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#3DB4C3"
             android:text="Work" />
 
         <RadioButton
-            android:id="@+id/schoolContext"
+            android:id="@+id/schoolFocus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#CC85EA"
             android:text="School" />
 
         <RadioButton
-            android:id="@+id/errandContext"
+            android:id="@+id/errandFocus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#90BA9F"
             android:text="Errand" />
 
         <RadioButton
-            android:id="@+id/homeContext"
+            android:id="@+id/homeFocus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#EAD082"
             android:text="Home" />
+
+        <RadioButton
+            android:id="@+id/cancelFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
 
     </RadioGroup>
 
