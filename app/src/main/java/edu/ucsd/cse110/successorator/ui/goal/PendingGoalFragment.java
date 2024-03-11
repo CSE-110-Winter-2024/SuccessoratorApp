@@ -10,11 +10,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.PopupMenu;
+import android.view.MenuItem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
+import edu.ucsd.cse110.successorator.R;
+
 import edu.ucsd.cse110.successorator.databinding.PendingGoalBinding;
 import edu.ucsd.cse110.successorator.databinding.TomorrowGoalBinding;
 
@@ -50,6 +60,9 @@ public class PendingGoalFragment extends Fragment {
                 goal -> {
                     var newGoal = goal.withComplete(!goal.isComplete());
                     //activityModel.save(newGoal);
+                },
+                goals -> {
+                    activityModel.save(goals);
                 },
                 activityModel::remove
         );
