@@ -20,6 +20,7 @@ import edu.ucsd.cse110.successorator.ui.date.DateFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.DropdownDialogFragment;
+import edu.ucsd.cse110.successorator.ui.goal.dialog.FocusDialogFragment;
 
 public class MainActivity extends AppCompatActivity {
     boolean isEmpty = false;
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (itemId == R.id.action_bar_menu_focus_mode) {
             // Code goes here TODO
+            displayFocusMode();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -80,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
     private void displayDropDown(){
         var dialogFragment = DropdownDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "DropdownDialogFragment");
+    }
+    private void displayFocusMode(){
+        var dialogFragment = FocusDialogFragment.newInstance();
+        dialogFragment.show(getSupportFragmentManager(), "FocusDialogFragment");
     }
 
     private void swapFragments() {
