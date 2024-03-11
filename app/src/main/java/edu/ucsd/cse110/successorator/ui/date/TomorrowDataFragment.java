@@ -138,6 +138,7 @@ public class TomorrowDataFragment extends Fragment {
     }
 
     public void updateDisplay() {
+        /* Gets the data for tomorrow */
         Date tmr = activityModel.getCurrDate().getValue();
         tmr.advanceDate();
         view.dateText.setText("Tomorrow, " + activityModel.getCurrDate().getValue().formatDate());
