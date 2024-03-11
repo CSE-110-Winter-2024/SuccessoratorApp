@@ -105,12 +105,6 @@ public class TomorrowDataFragment extends Fragment {
         updateDisplay();
         return view.getRoot();
     }
-    /* Adds the focus mode bar in the menu screen */
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.focus_mode, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
 
 
