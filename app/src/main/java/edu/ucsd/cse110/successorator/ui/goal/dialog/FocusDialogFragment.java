@@ -3,6 +3,7 @@ package edu.ucsd.cse110.successorator.ui.goal.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import edu.ucsd.cse110.successorator.databinding.FramentDialogFocusBinding;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
 import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
 import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
+import edu.ucsd.cse110.successorator.ui.goal.GoalListAdapter;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
 import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
@@ -25,6 +27,8 @@ public class FocusDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
 
     private FramentDialogFocusBinding view;
+
+    private GoalListAdapter adapter;
 
     FocusDialogFragment(){ }
 

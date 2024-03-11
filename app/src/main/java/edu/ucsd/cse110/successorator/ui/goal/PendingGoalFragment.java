@@ -70,7 +70,7 @@ public class PendingGoalFragment extends Fragment {
         activityModel.getPendingGoals().observe(cards -> {
             if (cards == null) return;
 
-            int context = activityModel.getFocusMode();
+            int context = activityModel.getFocusMode().getValue();
             if(context != 0){
                 cards = cards.stream()
                         .filter(goal -> goal.getContextId() == context)
