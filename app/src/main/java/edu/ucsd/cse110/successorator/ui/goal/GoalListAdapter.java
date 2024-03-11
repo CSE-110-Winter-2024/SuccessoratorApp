@@ -112,7 +112,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         }
 
         binding.goalText.setOnLongClickListener(v-> {
-            if (getContext() instanceof Activity) {
+            if (getContext() instanceof Activity && onGoalLongPressed != null) {
                 Activity activity = (Activity) getContext();
                 PopupMenu popupMenu = new PopupMenu(activity, v);
                 MenuInflater inflater = popupMenu.getMenuInflater();

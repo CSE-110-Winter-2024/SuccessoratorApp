@@ -54,9 +54,7 @@ public class TomorrowGoalListFragment extends Fragment{
                     var newGoal = goal.withComplete(!goal.isComplete());
                     activityModel.save(newGoal);
                 },
-                goals -> {
-
-                },
+                null,
                 activityModel::remove
         );
 
