@@ -1,12 +1,14 @@
 package edu.ucsd.cse110.successorator.lib.data;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
@@ -41,7 +43,45 @@ public class InMemoryDataSource {
     }
 
     public List<Goal> getGoals() {
-        return List.copyOf(goals.values());
+        var goalsIncomplete = List.copyOf(goals
+                .values()
+                .stream()
+                .filter(goal -> !goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList()));
+        return goalsIncomplete;
+
+        var newOrderedGoals = goals.stream()
+                .filter(goal -> !goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        var complete = goals.stream()
+                .filter(goal -> goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+    }
+
+    public List<Goal> getTodayGoals() {
+        return List.copyOf(goals.values()
+                .stream()
+                .filter(goal -> goal.getState().equals(Constants.TODAY))
+                .collect(Collectors.toList()));
+    }
+
+    public List<Goal> getTomorrowGoals() {
+        return List.copyOf(goals.values()
+                .stream()
+                .filter(goal -> goal.getState().equals(Constants.TOMORROW))
+                .collect(Collectors.toList()));
+    }
+
+    public List<Goal> getPendingGoals() {
+        return List.copyOf(goals.values()
+                .stream()
+                .filter(goal -> goal.getState().equals(Constants.PENDING))
+                .collect(Collectors.toList()));
     }
 
     public Goal getGoal(int id) {
