@@ -17,14 +17,24 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentCreateRecurringDialogBinding;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalFactory;
 import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 import edu.ucsd.cse110.successorator.lib.util.Constants;
+import edu.ucsd.cse110.successorator.ui.date.DateFragment;
+import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
+import edu.ucsd.cse110.successorator.ui.date.RecurringFragment;
+import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
+import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
+import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
+import edu.ucsd.cse110.successorator.ui.goal.RecurringListFragment;
+import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
 
 /**
  * Fragment associated with the pop up box for creating a new recurring goal
@@ -57,7 +67,7 @@ public class CreateRecurringDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         this.view = FragmentCreateRecurringDialogBinding.inflate(getLayoutInflater());
 
         return new AlertDialog.Builder(getActivity())
@@ -70,13 +80,29 @@ public class CreateRecurringDialogFragment extends DialogFragment {
 
     }
 
-    private void onPositiveButtonClick(DialogInterface dialog, int which){
+    private void onPositiveButtonClick(DialogInterface dialog, int which) {
         var recurringText = view.addGoalText.getText().toString();
+        int frequency = 0;
 
-        var id = view.radioGroup.getCheckedRadioButtonId();
-        var selectedRadioButton = (RadioButton) view.getRoot().findViewById(id);
-        //sort order is an invalid value here, because append/prepend will replace it
-        var card = new RecurringGoal(recurringText, null, 1, LocalDate.now(), LocalDate.now());
+        if (view.radioButton.isChecked()) {
+            frequency = Constants.DAILY;
+        } else if (view.radioButton2.isChecked()) {
+            frequency = Constants.WEEKLY;
+        } else if (view.radioButton3.isChecked()) {
+            frequency = Constants.MONTHLY;
+        } else if (view.radioButton4.isChecked()) {
+            frequency = Constants.YEARLY;
+        }
+
+        LocalDate startDate = LocalDateTime.now().minusHours(2).toLocalDate();
+
+        var datePicker = view.datePicker;
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year = datePicker.getYear();
+        startDate = LocalDate.of(year, month, day);
+
+        var card = new RecurringGoal(recurringText, null, frequency, startDate);
         activityModel.addRecurring(card);
 
         dialog.dismiss();

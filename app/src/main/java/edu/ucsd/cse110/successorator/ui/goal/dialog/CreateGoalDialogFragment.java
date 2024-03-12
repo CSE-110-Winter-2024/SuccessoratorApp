@@ -79,6 +79,11 @@ public class CreateGoalDialogFragment extends DialogFragment{
         return LocalDate.now().format(formatter);
     }
 
+    // https://stackoverflow.com/a/63511272
+    private String toLowerCase(String str) {
+        return str.charAt(0) + str.substring(1).toLowerCase();
+    }
+
     private void onPositiveButtonClick(DialogInterface dialog, int which){
         var goalText = view.addGoalText.getText().toString();
 

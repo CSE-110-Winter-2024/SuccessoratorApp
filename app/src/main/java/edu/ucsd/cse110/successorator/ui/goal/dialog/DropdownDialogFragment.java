@@ -81,7 +81,7 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.goalList, PendingGoalFragment.newInstance())
                     .replace(R.id.date_fragment_container, PendingFragment.newInstance())
                     .commit();
-        }else{
+        }else if (view.radioButton5.isChecked()){
             getParentFragmentManager()
                     .beginTransaction()
                     .replace(R.id.goalList, RecurringListFragment.newInstance())
