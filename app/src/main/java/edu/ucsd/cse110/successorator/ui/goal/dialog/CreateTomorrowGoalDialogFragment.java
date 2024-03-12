@@ -10,20 +10,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
+import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.util.Constants;
 
 /**
  * Fragment associated with the pop up box for creating a new goal
  */
-public class CreateTomorrowGoalDialogFragment extends DialogFragment{
+public class CreateTomorrowGoalDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
     private FragmentDialogCreateGoalBinding view;
 
 
-    public static CreateTomorrowGoalDialogFragment newInstance(){
+    public static CreateTomorrowGoalDialogFragment newInstance() {
         var fragment = new CreateTomorrowGoalDialogFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -31,7 +35,7 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment{
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState){
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         var modelOwner = requireActivity();
@@ -40,10 +44,22 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment{
         this.activityModel = modelProvider.get(MainViewModel.class);
 
     }
+
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
+        var today = activityModel.getCurrDate().getValue();
+        Date tomorrow = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        tomorrow.setDate(today.getTomorrow());
+
+        // TODO: make sure this works
+
+        int num = tomorrow.getWeekOfMonth();
+        String dayOfWeek = tomorrow.dayOfWeek();
+        view.Weekly.setText("Weekly, on " + dayOfWeek);
+        view.Monthly.setText("Monthly, on " + tomorrow.getDayOfMonthWithSuffix(num) + " " + dayOfWeek);
+        view.Yearly.setText("Yearly, on " + tomorrow.getDayAndMonth());
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("New Goal")
@@ -52,10 +68,9 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment{
                 .setPositiveButton("Create", this::onPositiveButtonClick)
                 .setNegativeButton("Cancel", this::onNegativeButtonClick)
                 .create();
-
     }
 
-    private void onPositiveButtonClick(DialogInterface dialog, int which){
+    private void onPositiveButtonClick(DialogInterface dialog, int which) {
         var goalText = view.addGoalText.getText().toString();
 
         //sort order is an invalid value here, because append/prepend will replace it
@@ -65,7 +80,7 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment{
         dialog.dismiss();
     }
 
-    private void onNegativeButtonClick(DialogInterface dialog, int which){
+    private void onNegativeButtonClick(DialogInterface dialog, int which) {
         dialog.cancel();
     }
 }

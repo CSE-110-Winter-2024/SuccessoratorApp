@@ -54,11 +54,13 @@ public class CreateGoalDialogFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
         view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
+        var today = activityModel.getCurrDate().getValue();
 
-        int num = activityModel.weekNumber();
-        view.Weekly.setText("Weekly, on " + dayOfWeek());
-        view.Monthly.setText("Monthly, " + num + "th of Month");
-        view.Yearly.setText("Yearly, on " + dayAndYear());
+        int num = today.getWeekOfMonth();
+        String dayOfWeek = today.dayOfWeek();
+        view.Weekly.setText("Weekly, on " + dayOfWeek);
+        view.Monthly.setText("Monthly, on " + today.getDayOfMonthWithSuffix(num) + " " + dayOfWeek);
+        view.Yearly.setText("Yearly, on " + today.getDayAndMonth());
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("New Goal")
@@ -67,21 +69,6 @@ public class CreateGoalDialogFragment extends DialogFragment{
                 .setPositiveButton("Create", this::onPositiveButtonClick)
                 .setNegativeButton("Cancel", this::onNegativeButtonClick)
                 .create();
-
-    }
-
-    private String dayOfWeek(){
-        return LocalDate.now().getDayOfWeek().toString();
-    }
-
-    private String dayAndYear(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d");
-        return LocalDate.now().format(formatter);
-    }
-
-    // https://stackoverflow.com/a/63511272
-    private String toLowerCase(String str) {
-        return str.charAt(0) + str.substring(1).toLowerCase();
     }
 
     private void onPositiveButtonClick(DialogInterface dialog, int which){

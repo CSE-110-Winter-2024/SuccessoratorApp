@@ -94,13 +94,11 @@ public class CreateRecurringDialogFragment extends DialogFragment {
             frequency = Constants.YEARLY;
         }
 
-        LocalDate startDate = LocalDateTime.now().minusHours(2).toLocalDate();
-
         var datePicker = view.datePicker;
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
-        startDate = LocalDate.of(year, month, day);
+        var startDate = LocalDate.of(year, month, day);
 
         var card = new RecurringGoal(recurringText, null, frequency, startDate);
         activityModel.addRecurring(card);
