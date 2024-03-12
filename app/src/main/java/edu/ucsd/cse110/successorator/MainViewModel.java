@@ -157,6 +157,10 @@ public class MainViewModel extends ViewModel {
         goalRepository.save(goal);
     }
 
+    public void saveAndAppend(Goal goal) {
+        goalRepository.saveAndAppend(goal);
+    }
+
     public void addGoal(Goal goal) {
         goalRepository.appendCompleteGoal(goal);
     }
@@ -169,8 +173,8 @@ public class MainViewModel extends ViewModel {
 
     public Subject<Date> getLastLog() { return lastLog; }
 
-    public void updateTime(Date date, boolean logTime) {
-        if(logTime) {
+    public void updateTime(Date date, boolean isLogTime) {
+        if(isLogTime) {
             lastLog.setValue(date);
         }
         else {
@@ -189,6 +193,7 @@ public class MainViewModel extends ViewModel {
             goalRepository.removeCompleted();
 
             //Move goals from tomorrow to today
+            rollOverTomorrowToToday();
 
             //Copy recurring goals and update next recur date
             LocalDate currDate = currentDate.getDate().toLocalDate();
@@ -211,6 +216,12 @@ public class MainViewModel extends ViewModel {
             addGoal(goalFactory.goalFromRecurring(goal, state));
             addRecurring(goal.updateNextDate(currDate));
         });
+    }
+
+    //TODO Update for recurring duplicate
+    private void rollOverTomorrowToToday() {
+        var tomorrowGoals = getTmrGoals().getValue();
+        tomorrowGoals.forEach(goal -> saveAndAppend(goal.withState(Constants.TODAY)));
     }
 
     public int weekNumber(){

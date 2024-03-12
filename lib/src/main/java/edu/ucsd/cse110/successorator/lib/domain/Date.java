@@ -27,6 +27,8 @@ public class Date {
         return formatter.format(dateTime);
     }
 
+    public String formatTomorrowDate() { return formatter.format(dateTime.plusDays(1)); }
+
     public String formatDateTime() { return formatter.format(dateTime) + " " + dateTime.toLocalTime().toString(); }
 
     public LocalDateTime getDate() {return this.dateTime; }
