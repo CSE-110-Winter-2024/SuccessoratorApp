@@ -85,6 +85,19 @@ public class RoomGoalRepository implements GoalRepository {
     }
 
     @Override
+    public void saveAndAppend(Goal goal) {
+        if(!goal.isComplete()){
+            int firstCompleteGoal = goalDao.getMaxSortOrderInComplete() + 1;
+            goalDao.shiftSortOrders(firstCompleteGoal, goalDao.getMaxSortOrder(), 1);
+            var newGoal = goal.withSortOrder(firstCompleteGoal);
+            goalDao.insert(GoalEntity.fromGoal(newGoal));
+        }else{
+            var newGoal = goal.withSortOrder(goalDao.getMaxSortOrder() + 1);
+            goalDao.insert(GoalEntity.fromGoal(newGoal));
+        }
+    }
+
+    @Override
     public void appendCompleteGoal(Goal goal){
         goalDao.appendCompleteGoal(GoalEntity.fromGoal(goal));
     }

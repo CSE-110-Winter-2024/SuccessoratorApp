@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
@@ -29,6 +30,13 @@ public class InMemoryDataSource {
     private final MutableSubject<List<Goal>> allGoalsSubject
             = new SimpleSubject<>();
 
+    private final Map<Integer, Goal> tmrGoals
+            = new HashMap<>();
+    private final Map<Integer, MutableSubject<Goal>> tmrGoalSubjects
+            = new HashMap<>();
+    private final MutableSubject<List<Goal>> allTmrGoalsSubject
+            = new SimpleSubject<>();
+
     public InMemoryDataSource() {
     }
 
@@ -43,6 +51,8 @@ public class InMemoryDataSource {
     public List<Goal> getGoals() {
         return List.copyOf(goals.values());
     }
+
+    public List<Goal> getTmrGoals() { return List.copyOf(tmrGoals.values()); }
 
     public Goal getGoal(int id) {
         return goals.get(id);
@@ -59,6 +69,13 @@ public class InMemoryDataSource {
 
     public Subject<List<Goal>> getAllGoalsSubject() {
         return allGoalsSubject;
+    }
+
+    public Subject<List<Goal>> getAllTmrGoalsSubject() {
+        if(allTmrGoalsSubject.getValue() == null) {
+            allTmrGoalsSubject.setValue(List.of());
+        }
+        return allTmrGoalsSubject;
     }
 
     public int getMinSortOrder() {
@@ -80,6 +97,13 @@ public class InMemoryDataSource {
             goalSubjects.get(fixedGoal.getId()).setValue(fixedGoal);
         }
         allGoalsSubject.setValue(getGoals());
+
+        if(goal.getState().equals(Constants.TOMORROW)) {
+            if (tmrGoalSubjects.containsKey(fixedGoal.getId())) {
+                tmrGoalSubjects.get(fixedGoal.getId()).setValue(fixedGoal);
+            }
+        }
+        allTmrGoalsSubject.setValue(getTmrGoals());
     }
 
     public void putGoals(List<Goal> goalList) {
@@ -87,7 +111,12 @@ public class InMemoryDataSource {
                 .map(this::preInsert)
                 .collect(Collectors.toList());
 
-        fixedGoals.forEach(goal -> goals.put(goal.getId(), goal));
+        fixedGoals.forEach(goal -> {
+            goals.put(goal.getId(), goal);
+            if(goal.getState().equals(Constants.TOMORROW)) {
+                tmrGoals.put(goal.getId(), goal);
+            }
+        });
         postInsert();
         assertSortOrderConstraints();
 
@@ -95,8 +124,14 @@ public class InMemoryDataSource {
             if (goalSubjects.containsKey(goal.getId())) {
                 goalSubjects.get(goal.getId()).setValue(goal);
             }
+            if(goal.getState().equals(Constants.TOMORROW)) {
+                if (tmrGoalSubjects.containsKey(goal.getId())) {
+                    tmrGoalSubjects.get(goal.getId()).setValue(goal);
+                }
+            }
         });
         allGoalsSubject.setValue(getGoals());
+        allTmrGoalsSubject.setValue(getTmrGoals());
     }
 
     public void removeGoal(int id) {
@@ -109,7 +144,11 @@ public class InMemoryDataSource {
         if (goalSubjects.containsKey(id)) {
             goalSubjects.get(id).setValue(null);
         }
+        if (tmrGoalSubjects.containsKey(id)) {
+            tmrGoalSubjects.get(id).setValue(null);
+        }
         allGoalsSubject.setValue(getGoals());
+        allTmrGoalsSubject.setValue(getTmrGoals());
     }
 
     public void shiftSortOrders(int from, int to, int by) {

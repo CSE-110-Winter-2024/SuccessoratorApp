@@ -56,6 +56,23 @@ public class SimpleGoalRepositoryTest {
     }
 
     @Test
+    public void testSaveAndAppend() {
+        var dataSource = new InMemoryDataSource();
+        List<Goal> goals = List.of(
+                new Goal("Goal1", 0, false, 1,"Today", -1),
+                new Goal("Goal2", 1, false, 2,"Today", -1),
+                new Goal("Goal3", 2, true, 3,"Today", -1),
+                new Goal("Goal4", 3, true, 4,"Today", -1)
+        );
+        dataSource.putGoals(goals);
+        var repo = new SimpleGoalRepository(dataSource);
+
+        repo.saveAndAppend(new Goal("Goal5", null, false, -1,"Today", -1));
+        Goal expected = new Goal("Goal5", 4, false, 3,"Today", -1);
+        assertEquals(repo.find(4).getValue(), expected);
+    }
+
+    @Test
     public void testAppendCompleteGoal() {
         var dataSource = new InMemoryDataSource();
         List<Goal> goals = List.of(

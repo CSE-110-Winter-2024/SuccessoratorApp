@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 import edu.ucsd.cse110.successorator.lib.util.Observer;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
@@ -35,7 +36,7 @@ public class SimpleGoalRepository implements GoalRepository {
 
     //TODO
     public Subject<List<Goal>> findAllTmr(){
-        return dataSource.getAllGoalsSubject();
+        return dataSource.getAllTmrGoalsSubject();
     }
 
     //TODO
@@ -52,6 +53,19 @@ public class SimpleGoalRepository implements GoalRepository {
         }else{
             dataSource.shiftSortOrders(1, dataSource.getMaxSortOrder(), 1);
             var newGoal = goal.withSortOrder(1);
+            dataSource.putGoal(newGoal);
+        }
+    }
+
+    @Override
+    public void saveAndAppend(Goal goal) {
+        if(!goal.isComplete()){
+            int firstCompleteGoal = dataSource.getMaxSortOrderInComplete() + 1;
+            dataSource.shiftSortOrders(firstCompleteGoal, dataSource.getMaxSortOrder(), 1);
+            var newGoal = goal.withSortOrder(firstCompleteGoal);
+            dataSource.putGoal(newGoal);
+        }else{
+            var newGoal = goal.withSortOrder(dataSource.getMaxSortOrder() + 1);
             dataSource.putGoal(newGoal);
         }
     }
@@ -88,7 +102,7 @@ public class SimpleGoalRepository implements GoalRepository {
     public void removeCompleted() {
         var goals = dataSource.getGoals();
         for(var goal : goals) {
-            if(goal.isComplete()) {
+            if(goal.isComplete() && goal.getState().equals(Constants.TODAY)) {
                 dataSource.removeGoal(goal.getId());
             }
         }

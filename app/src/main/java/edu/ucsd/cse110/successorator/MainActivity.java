@@ -37,15 +37,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.date_fragment_container, DateFragment.newInstance())
-                .commit();
-        super.onResume();
-    }
-
-    @Override
     protected void onPause() {
         var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
         sharedPreferences.edit()
