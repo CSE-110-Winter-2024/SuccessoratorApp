@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
+import edu.ucsd.cse110.successorator.ui.date.UpdateTimeFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.CreateGoalDialogFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.dialog.DropdownDialogFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(view.getRoot());
         swapFragments();
+        startUpdateTime();
     }
 
     @Override
@@ -89,5 +91,12 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.goalList, GoalListFragment.newInstance())
                     .commit();
         }
+    }
+
+    private void startUpdateTime() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.update_time_container, UpdateTimeFragment.newInstance())
+                .commit();
     }
 }

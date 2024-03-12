@@ -53,23 +53,6 @@ public class RecurringDataFragment extends Fragment {
             this.activityModel = modelProvider.get(MainViewModel.class);
         }
 
-        @Override
-        public void onResume() {
-            Date date = activityModel.getCurrDate().getValue();
-            date.setDate(LocalDateTime.now());
-            activityModel.updateTime(date, false);
-            updateDisplay();
-            super.onResume();
-        }
-
-        @Override
-        public void onPause() {
-            Date date = activityModel.getLastLog().getValue();
-            date.setDate(LocalDateTime.now());
-            activityModel.updateTime(date, true);
-            super.onPause();
-        }
-
         //https://stackoverflow.com/questions/11690504/how-to-use-view-ontouchlistener-instead-of-onclick
         // for onTouchListener
         @Nullable
@@ -115,7 +98,7 @@ public class RecurringDataFragment extends Fragment {
         }
 
         public void updateDisplay() {
-            view.dateText.setText("Recurring, " + activityModel.getCurrDate().getValue().formatDate());
+            view.dateText.setText("Recurring");
             //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
         }
     }

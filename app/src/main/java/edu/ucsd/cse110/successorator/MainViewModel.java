@@ -149,8 +149,8 @@ public class MainViewModel extends ViewModel {
 
     public Subject<Date> getLastLog() { return lastLog; }
 
-    public void updateTime(Date date, boolean logTime) {
-        if(logTime) {
+    public void updateTime(Date date, boolean isLogTime) {
+        if(isLogTime) {
             lastLog.setValue(date);
         }
         else {

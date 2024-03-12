@@ -61,23 +61,6 @@ public class TomorrowDataFragment extends Fragment {
         this.activityModel = modelProvider.get(MainViewModel.class);
     }
 
-    @Override
-    public void onResume() {
-        Date date = activityModel.getCurrDate().getValue();
-        date.setDate(LocalDateTime.now());
-        activityModel.updateTime(date, false);
-        updateDisplay();
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Date date = activityModel.getLastLog().getValue();
-        date.setDate(LocalDateTime.now());
-        activityModel.updateTime(date, true);
-        super.onPause();
-    }
-
     //https://stackoverflow.com/questions/11690504/how-to-use-view-ontouchlistener-instead-of-onclick
     // for onTouchListener
     @Nullable
@@ -102,7 +85,11 @@ public class TomorrowDataFragment extends Fragment {
             }
         });
 
-        updateDisplay();
+        this.activityModel.getCurrDate().observe(date -> {
+            if(date == null) return;
+            updateDisplay();
+        });
+
         return view.getRoot();
     }
     /* Adds the focus mode bar in the menu screen */
