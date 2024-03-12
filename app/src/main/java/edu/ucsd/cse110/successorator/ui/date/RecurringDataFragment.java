@@ -80,11 +80,6 @@ public class RecurringDataFragment extends Fragment {
         }
 
         @Override
-        public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-            inflater.inflate(R.menu.advance_date, menu);
-        }
-
-        @Override
         public boolean onOptionsItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.action_bar_menu_advance_date) {// Navigate to settings screen.
                 Date date = activityModel.getCurrDate().getValue();
