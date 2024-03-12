@@ -90,6 +90,9 @@ public class InMemoryDataSource {
         var fixedGoal = preInsert(goal);
 
         goals.put(fixedGoal.getId(), fixedGoal);
+        if(goal.getState().equals(Constants.TOMORROW)) {
+            tmrGoals.put(fixedGoal.getId(), fixedGoal);
+        }
         postInsert();
         assertSortOrderConstraints();
 
