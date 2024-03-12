@@ -91,7 +91,11 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.date_fragment_container, PendingFragment.newInstance())
                     .commit();
         }else{
-            //Recurring
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, RecurringGoalListFragment.newInstance())
+                    .replace(R.id.date_fragment_container, RecurringDataFragment.newInstance())
+                    .commit();
         }
         dialog.dismiss();
     }

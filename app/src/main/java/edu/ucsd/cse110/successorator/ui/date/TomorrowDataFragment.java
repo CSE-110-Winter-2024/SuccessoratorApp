@@ -139,7 +139,6 @@ public class TomorrowDataFragment extends Fragment {
 
     public void updateDisplay() {
         view.dateText.setText("Tomorrow, " + activityModel.getCurrDate().getValue().formatTomorrowDate());
-
         //view.dateText.setText(activityModel.getCurrDate().getValue().formatDateTime());
     }
 }
