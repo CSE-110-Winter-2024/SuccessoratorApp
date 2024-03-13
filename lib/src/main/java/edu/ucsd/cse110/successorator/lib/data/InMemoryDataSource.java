@@ -153,6 +153,7 @@ public class InMemoryDataSource {
         var sortOrder = goal.getSortOrder();
 
         goals.remove(id);
+        tmrGoals.remove(id);
         shiftSortOrders(sortOrder, maxSortOrder, -1);
 
         if (goalSubjects.containsKey(id)) {

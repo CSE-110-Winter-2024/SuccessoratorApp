@@ -88,4 +88,41 @@ public class RolloverTomorrowGoalTest {
         model.rollOverGoal(logDate, date);
         assertEquals(1, dataSource.getGoals().size());
     }
+
+    @Test
+    public void testRolloverDuplicateRecurringGoal() {
+        dataSource = new InMemoryDataSource();
+        dataSource.putGoals(List.of(
+                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, 1)
+        ));
+        repo = new SimpleGoalRepository(dataSource);
+        timeKeeper = new SimpleTimeKeeper();
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        model = new MainViewModel(repo, timeKeeper);
+        dataSource.putGoals(List.of(
+                new Goal("Prepare for midterm", 2, false, 2, Constants.TOMORROW, 1),
+                new Goal("Other recurring goal", 3, false, 3, Constants.TOMORROW, 2)
+        ));
+
+        date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
+        logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+
+        var test = !repo.existsRecurringId(dataSource.getGoal(3).getRecurringId(), Constants.TODAY);
+        var test1 = repo.existsRecurringId(dataSource.getGoal(2).getRecurringId(), Constants.TODAY);
+
+        model.rollOverGoal(logDate, date);
+        assertEquals(2, dataSource.getGoals().size());
+
+
+        //Verify correct goal was moved
+        var completedtmrGoal = dataSource.getGoal(3);
+        assertEquals("Other recurring goal", completedtmrGoal.getTitle());
+        assertEquals(Integer.valueOf(3), completedtmrGoal.getId());
+        assertFalse(completedtmrGoal.isComplete());
+        assertEquals(Integer.valueOf(3), completedtmrGoal.getSortOrder());
+        assertEquals(Constants.TODAY, completedtmrGoal.getState());
+        assertEquals(Integer.valueOf(2), completedtmrGoal.getRecurringId());
+    }
 }

@@ -103,7 +103,7 @@ public class RoomGoalRepository implements GoalRepository {
 
     @Override
     public boolean existsRecurringId(int recurringId, String state) {
-        return goalDao.existsRecurringId(recurringId, state);
+        return recurringId >= 0 && goalDao.existsRecurringId(recurringId, state);
     }
 
     @Override

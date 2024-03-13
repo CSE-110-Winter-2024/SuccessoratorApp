@@ -212,16 +212,19 @@ public class MainViewModel extends ViewModel {
                 .filter(goal -> goal.isRecur(currDate))
                 .filter(goal -> !goalRepository.existsRecurringId(goal.getId(), state))
                 .collect(Collectors.toList());
-        goalsToAdd.forEach(goal -> {
-            addGoal(goalFactory.goalFromRecurring(goal, state));
-            addRecurring(goal.updateNextDate(currDate));
-        });
+        goalsToAdd.forEach(goal -> addGoal(goalFactory.goalFromRecurring(goal, state)));
+        getOrderedRecurringGoals().getValue()
+                .forEach(goal -> addRecurring(goal.updateNextDate(currDate)));
     }
 
-    //TODO Update for recurring duplicate
     private void rollOverTomorrowToToday() {
         var tomorrowGoals = getTmrGoals().getValue();
-        tomorrowGoals.forEach(goal -> saveAndAppend(goal.withState(Constants.TODAY)));
+        tomorrowGoals.stream()
+                .filter(goal -> goalRepository.existsRecurringId(goal.getRecurringId(), Constants.TODAY))
+                .forEach(goal -> remove(goal.getId()));
+        tomorrowGoals.stream()
+                .filter(goal -> !goalRepository.existsRecurringId(goal.getRecurringId(), Constants.TODAY))
+                .forEach(goal -> saveAndAppend(goal.withState(Constants.TODAY)));
     }
 
     public int weekNumber(){

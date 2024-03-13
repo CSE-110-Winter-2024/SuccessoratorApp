@@ -34,7 +34,7 @@ public class SimpleGoalRepository implements GoalRepository {
         return dataSource.getAllGoalsSubject();
     }
 
-    //TODO
+    @Override
     public Subject<List<Goal>> findAllTmr(){
         return dataSource.getAllTmrGoalsSubject();
     }
@@ -115,6 +115,7 @@ public class SimpleGoalRepository implements GoalRepository {
 
     @Override
     public boolean existsRecurringId(int recurringId, String state) {
+        if(recurringId<0) return false;
         var goals = dataSource.getGoals();
         for(var goal : goals) {
             if(goal.getRecurringId() == recurringId && goal.getState().equals(state)) {
@@ -124,18 +125,22 @@ public class SimpleGoalRepository implements GoalRepository {
         return false;
     }
 
+    @Override
     public Subject<RecurringGoal> findRecur(int id){
         return dataSource.getRecurringGoalSubject(id);
     }
 
+    @Override
     public Subject<List<RecurringGoal>> findAllRecur(){
         return dataSource.getAllRecurringGoalsSubject();
     }
 
+    @Override
     public void removeRecur(int id){
         dataSource.removeRecurringGoal(id);
     }
 
+    @Override
     public void appendRecur(RecurringGoal recurringGoal){
         dataSource.putRecurringGoal(recurringGoal);
     }
