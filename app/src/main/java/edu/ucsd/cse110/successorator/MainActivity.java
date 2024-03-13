@@ -112,6 +112,20 @@ public class MainActivity extends AppCompatActivity {
         dialogFragment.show(getSupportFragmentManager(), "FocusDialogFragment");
     }
 
+    private void swapFragments() {
+        if (isEmpty) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, CreateGoalDialogFragment.newInstance())
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, GoalListFragment.newInstance())
+                    .commit();
+        }
+    }
+
     private void startUpdateTime() {
         getSupportFragmentManager()
                 .beginTransaction()
