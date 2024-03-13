@@ -18,6 +18,9 @@ import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
 import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
+import edu.ucsd.cse110.successorator.ui.date.RecurringDataFragment;
+
+import edu.ucsd.cse110.successorator.ui.goal.RecurringGoalListFragment;
 
 public class DropdownDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
@@ -76,7 +79,11 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.date_fragment_container, PendingFragment.newInstance())
                     .commit();
         }else{
-            //Recurring
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.goalList, RecurringGoalListFragment.newInstance())
+                    .replace(R.id.date_fragment_container, RecurringDataFragment.newInstance())
+                    .commit();
         }
         dialog.dismiss();
     }

@@ -18,6 +18,8 @@ public interface GoalRepository {
 
     void save(Goal flashcard);
 
+    void saveAndAppend(Goal flashcard);
+
     Subject<RecurringGoal> findRecur(int id);
 
     Subject<List<RecurringGoal>> findAllRecur();
