@@ -12,6 +12,7 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.Observer;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
@@ -93,6 +94,41 @@ public class InMemoryDataSourceTest {
                 new Goal("Grocery shopping", 2, true, 2,"Today", -1, 1)));
         expectedSize = 2;
         actualSize = dataSource.getGoals().size();
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    public void testTmrGetters(){
+        dataSource.putGoals(List.of(new Goal("6", 6, false, 6,Constants.TOMORROW, -1),
+                new Goal("7", 7, false, 7, Constants.TOMORROW, -1)
+        ));
+
+        List<Goal> expected = List.of(
+                new Goal("6", 6, false, 6,Constants.TOMORROW, -1),
+                new Goal("7", 7, false, 7, Constants.TOMORROW, -1)
+        );
+
+        List<Goal> actual = dataSource.getTmrGoals();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTmrPutGoalAndPutGoals(){
+        dataSource.putGoal(new Goal("6", 6, true, 6, Constants.TOMORROW, -1));
+        int expectedSize = 1;
+        int actualSize = dataSource.getTmrGoals().size();
+        assertEquals(expectedSize, actualSize);
+
+        Goal expectedGoal = new Goal("6", 6, true, 6, Constants.TOMORROW, -1);
+        Goal actualGoal = dataSource.getGoal(6);
+        assertEquals(expectedGoal, actualGoal);
+
+        dataSource = new InMemoryDataSource();
+        dataSource.putGoals(List.of(
+                new Goal("Prepare for midterm", 1, false, 1,Constants.TOMORROW, -1),
+                new Goal("Grocery shopping", 2, true, 2,Constants.TOMORROW, -1)));
+        expectedSize = 2;
+        actualSize = dataSource.getTmrGoals().size();
         assertEquals(expectedSize, actualSize);
     }
 
