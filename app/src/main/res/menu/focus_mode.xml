@@ -10,20 +10,6 @@
         android:title="focusMode"
         app:iconTint="@color/white"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_bar_menu_focus_mode_home"
-        android:title="@string/add_goal"
-        android:icon="@drawable/ic_waffle_with_school_highlight"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/action_bar_menu_focus_mode_school"
-        android:title="@string/add_goal"
-        android:icon="@drawable/ic_waffle_with_school_highlight"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        />
 
 </menu>
 

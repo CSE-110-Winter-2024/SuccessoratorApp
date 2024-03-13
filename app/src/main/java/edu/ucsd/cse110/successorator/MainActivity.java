@@ -16,7 +16,6 @@ import edu.ucsd.cse110.successorator.ui.goal.dialog.FocusDialogFragment;
 
 public class MainActivity extends AppCompatActivity {
     boolean isEmpty = false;
-    private MainViewModel activityModel;
     private int currentFocusMode = 0; // Default or initial focus mode
 
     ActivityMainBinding view;
@@ -38,63 +37,47 @@ public class MainActivity extends AppCompatActivity {
                 .apply();
         super.onPause();
     }
-    public int test = 0;
+
     public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.add_goal, menu);
-            getMenuInflater().inflate(R.menu.dropdown, menu);
-            getMenuInflater().inflate(R.menu.advance_date, menu);
-            getMenuInflater().inflate(R.menu.focus_mode, menu);
+        getMenuInflater().inflate(R.menu.add_goal, menu);
+        getMenuInflater().inflate(R.menu.dropdown, menu);
+        getMenuInflater().inflate(R.menu.advance_date, menu);
+        getMenuInflater().inflate(R.menu.focus_mode, menu);
         return true;
     }
 
     /* This method is used to update the current Focus mode the user is in
        Which is later used to update the menu. */
-public void updateFocusMode(int focusMode) {
-    this.currentFocusMode = focusMode;
-    invalidateOptionsMenu(); // This will trigger onPrepareOptionsMenu
-}
+    public void updateFocusMode(int focusMode) {
+        this.currentFocusMode = focusMode;
+        invalidateOptionsMenu(); // This will trigger onPrepareOptionsMenu
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        menu.clear();
+        getMenuInflater().inflate(R.menu.add_goal, menu);
+        getMenuInflater().inflate(R.menu.dropdown, menu);
+        getMenuInflater().inflate(R.menu.advance_date, menu);
 
         //Home
         if (currentFocusMode == 1) { // Assuming 1 represents "Home"
-            menu.clear();
-            getMenuInflater().inflate(R.menu.add_goal, menu);
-            getMenuInflater().inflate(R.menu.dropdown, menu);
-            getMenuInflater().inflate(R.menu.advance_date, menu);
             getMenuInflater().inflate(R.menu.focus_mode_home, menu);
         }
         //Work
         else if (currentFocusMode == 2) {
-            menu.clear();
-            getMenuInflater().inflate(R.menu.add_goal, menu);
-            getMenuInflater().inflate(R.menu.dropdown, menu);
-            getMenuInflater().inflate(R.menu.advance_date, menu);
             getMenuInflater().inflate(R.menu.focus_mode_work, menu);
         }
         //School
         else if (currentFocusMode == 3) { // Assuming 1 represents "School"
-            menu.clear();
-            getMenuInflater().inflate(R.menu.add_goal, menu);
-            getMenuInflater().inflate(R.menu.dropdown, menu);
-            getMenuInflater().inflate(R.menu.advance_date, menu);
             getMenuInflater().inflate(R.menu.focus_mode_school, menu);
         }
         //Errand
         else if (currentFocusMode == 4){
-            menu.clear();
-            getMenuInflater().inflate(R.menu.add_goal, menu);
-            getMenuInflater().inflate(R.menu.dropdown, menu);
-            getMenuInflater().inflate(R.menu.advance_date, menu);
             getMenuInflater().inflate(R.menu.focus_mode_errand, menu);
         //Cancel
         }else if(currentFocusMode == 0){
-            menu.clear();
-            getMenuInflater().inflate(R.menu.add_goal, menu);
-            getMenuInflater().inflate(R.menu.dropdown, menu);
-            getMenuInflater().inflate(R.menu.advance_date, menu);
             getMenuInflater().inflate(R.menu.focus_mode, menu);
         }
         return true;
@@ -127,20 +110,6 @@ public void updateFocusMode(int focusMode) {
     private void displayFocusMode(){
         var dialogFragment = FocusDialogFragment.newInstance();
         dialogFragment.show(getSupportFragmentManager(), "FocusDialogFragment");
-    }
-
-    private void swapFragments() {
-        if (isEmpty) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.goalList, CreateGoalDialogFragment.newInstance())
-                    .commit();
-        } else {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.goalList, GoalListFragment.newInstance())
-                    .commit();
-        }
     }
 
     private void startUpdateTime() {
