@@ -22,15 +22,9 @@ public class AddGoalUnitTests {
     @Test
     public void testAddFirstGoal() {
         var dataSource = new InMemoryDataSource();
-        List<Goal> goals = List.of(
-                new Goal("Goal1", 0, false, 1,"Today", -1, 1),
-                new Goal("Goal2", 1, false, 2,"Today", -1, 1),
-                new Goal("Goal3", 2, false, 3,"Today", -1, 1),
-                new Goal("Goal4", 3, false, 4,"Today", -1, 1)
-        );
         var repo = new SimpleGoalRepository(dataSource);
         TimeKeeper timeKeeper = new SimpleTimeKeeper();
-        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 3, 14, 12, 21));
         var model = new MainViewModel(repo, timeKeeper);
 
         var expected = new Goal("Goal1", 0, false, 1,"Today", -1, 1);

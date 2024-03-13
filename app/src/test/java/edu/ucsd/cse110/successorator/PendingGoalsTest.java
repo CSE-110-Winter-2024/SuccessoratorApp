@@ -34,7 +34,7 @@ public class PendingGoalsTest {
         dataSource = new InMemoryDataSource();
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
-        timeKeeper.setDateTime(LocalDateTime.of(2024, 3, 11, 2, 21));
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 3, 17, 2, 21));
         model = new MainViewModel(repo, timeKeeper);
     }
 

@@ -35,7 +35,6 @@ public class SimpleGoalRepository implements GoalRepository {
 
     public Subject<List<Goal>> findAllTmr(){
         return dataSource.getAllTomorrowGoalsSubject();
-        return dataSource.getAllTmrGoalsSubject();
     }
 
     public Subject<List<Goal>> findAllPending(){

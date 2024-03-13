@@ -97,38 +97,24 @@ public class InMemoryDataSourceTest {
         assertEquals(expectedSize, actualSize);
     }
 
-    @Test
-    public void testTmrGetters(){
-        dataSource.putGoals(List.of(new Goal("6", 6, false, 6,Constants.TOMORROW, -1),
-                new Goal("7", 7, false, 7, Constants.TOMORROW, -1)
-        ));
-
-        List<Goal> expected = List.of(
-                new Goal("6", 6, false, 6,Constants.TOMORROW, -1),
-                new Goal("7", 7, false, 7, Constants.TOMORROW, -1)
-        );
-
-        List<Goal> actual = dataSource.getTmrGoals();
-        assertEquals(expected, actual);
-    }
 
     @Test
     public void testTmrPutGoalAndPutGoals(){
-        dataSource.putGoal(new Goal("6", 6, true, 6, Constants.TOMORROW, -1));
-        int expectedSize = 1;
-        int actualSize = dataSource.getTmrGoals().size();
+        dataSource.putGoal(new Goal("6", 6, true, 6, Constants.TOMORROW, -1, 1));
+        int expectedSize = 2;
+        int actualSize = dataSource.getTomorrowGoals().size();
         assertEquals(expectedSize, actualSize);
 
-        Goal expectedGoal = new Goal("6", 6, true, 6, Constants.TOMORROW, -1);
+        Goal expectedGoal = new Goal("6", 6, true, 6, Constants.TOMORROW, -1, 1);
         Goal actualGoal = dataSource.getGoal(6);
         assertEquals(expectedGoal, actualGoal);
 
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,Constants.TOMORROW, -1),
-                new Goal("Grocery shopping", 2, true, 2,Constants.TOMORROW, -1)));
+                new Goal("Prepare for midterm", 1, false, 1,Constants.TOMORROW, -1, 1),
+                new Goal("Grocery shopping", 2, true, 2,Constants.TOMORROW, -1, 1)));
         expectedSize = 2;
-        actualSize = dataSource.getTmrGoals().size();
+        actualSize = dataSource.getTomorrowGoals().size();
         assertEquals(expectedSize, actualSize);
     }
 

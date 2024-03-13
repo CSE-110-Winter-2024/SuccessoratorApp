@@ -197,6 +197,7 @@ public class MainViewModel extends ViewModel {
 
     private void rollOverTomorrowToToday() {
         var tomorrowGoals = getTmrGoals().getValue();
+        assert tomorrowGoals != null;
         tomorrowGoals.forEach(goal -> saveAndAppend(goal.withState(Constants.TODAY)));
     }
 
