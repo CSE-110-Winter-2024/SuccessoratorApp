@@ -9,12 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
-
 import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
 import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
@@ -48,14 +46,12 @@ public class DropdownDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
         this.view = FragmentDialogDropdownBinding.inflate(getLayoutInflater());
-
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Select A Page")
                 .setView(view.getRoot())
                 .setPositiveButton("Go To", this::onPositiveButtonClick)
                 .setNegativeButton("Cancel", this::onNegativeButtonClick)
                 .create();
-
     }
 
     private void onPositiveButtonClick(DialogInterface dialog, int which){

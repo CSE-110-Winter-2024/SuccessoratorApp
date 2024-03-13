@@ -1,34 +1,30 @@
 package edu.ucsd.cse110.successorator.ui.goal.dialog;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import edu.ucsd.cse110.successorator.MainActivity;
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
-import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.databinding.FramentDialogFocusBinding;
-import edu.ucsd.cse110.successorator.ui.date.DateFragment;
-import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
-import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
+import edu.ucsd.cse110.successorator.lib.util.Subject;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListAdapter;
-import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
-import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
-import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
-
-public class FocusDialogFragment extends DialogFragment {
+public class FocusDialogFragment extends DialogFragment  {
     private MainViewModel activityModel;
+    private MainActivity activity;
 
     private FramentDialogFocusBinding view;
 
     private GoalListAdapter adapter;
+
 
     FocusDialogFragment(){ }
 
@@ -65,20 +61,39 @@ public class FocusDialogFragment extends DialogFragment {
     private void onPositiveButtonClick(DialogInterface dialog, int which){
         //todo: Add color changes to focus mode (hamburger)
         //Home
-        if(view.homeFocus.isChecked()){//home
+        if(view.homeFocus.isChecked()) {
             activityModel.setFocusMode(1);
+
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updateFocusMode(1);
+            }
 
         }else if(view.workFocus.isChecked()){//work
             activityModel.setFocusMode(2);
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updateFocusMode(2);
+            }
 
         }else if(view.schoolFocus.isChecked()){//school
             activityModel.setFocusMode(3);
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updateFocusMode(3);
+            }
+
         }else if(view.errandFocus.isChecked()){
-            activityModel.setFocusMode(4);//errand
+            activityModel.setFocusMode(4); //errand
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updateFocusMode(4);
+            }
         }
+
         else if(view.cancelFocus.isChecked()){
             activityModel.setFocusMode(0);//cancel
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updateFocusMode(0);
+            }
         }
+
         dialog.dismiss();
     }
 
