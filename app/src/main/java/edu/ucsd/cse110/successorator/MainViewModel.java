@@ -63,13 +63,6 @@ public class MainViewModel extends ViewModel {
         goalRepository.findAllToday().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
 
-
-//            var newOrderedGoals = goals.stream()
-//                    .sorted(Comparator.comparing(Goal::isComplete)
-//                            .thenComparingInt(Goal::getContextId)
-//                            .thenComparingInt(Goal::getSortOrder))
-//                    .collect(Collectors.toList());
-
             var newOrderedGoals = goals.stream()
                     .filter(goal -> !goal.isComplete())
                     .sorted(Comparator.comparingInt(Goal::getContextId)
@@ -86,13 +79,6 @@ public class MainViewModel extends ViewModel {
 
         goalRepository.findAllTmr().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
-
-
-//            var newOrderedGoals = goals.stream()
-//                    .sorted(Comparator.comparing(Goal::isComplete)
-//                            .thenComparingInt(Goal::getContextId)
-//                            .thenComparingInt(Goal::getSortOrder))
-//                    .collect(Collectors.toList());
 
             var newOrderedGoals = goals.stream()
                     .filter(goal -> !goal.isComplete())
@@ -111,7 +97,6 @@ public class MainViewModel extends ViewModel {
         goalRepository.findAllPending().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
 
-            //
             var newOrderedGoals = goals.stream()
                     .sorted(Comparator.comparing(Goal::isComplete)
                             .thenComparingInt(Goal::getContextId)

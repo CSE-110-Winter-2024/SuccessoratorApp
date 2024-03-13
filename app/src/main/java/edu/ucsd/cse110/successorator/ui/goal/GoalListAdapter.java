@@ -126,7 +126,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                     }else if(item.getItemId() == R.id.delete){
                         onDeleteClick.accept(goal.getId());
                     }
-//
+
                     return true;
                 });
                 popupMenu.show();
