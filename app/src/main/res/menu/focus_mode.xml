@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Focus mode -->
-    <item android:id="@+id/action_bar_menu_focus_mode"
-        android:title="@string/add_goal"
+    <item
+        android:id="@+id/action_bar_menu_focus_mode"
         android:icon="@drawable/ic_waffle"
         android:orderInCategory="1"
+        android:title="focusMode"
         app:iconTint="@color/white"
         app:showAsAction="always" />
 </menu>
