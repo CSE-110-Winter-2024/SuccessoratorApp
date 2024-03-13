@@ -31,6 +31,15 @@ public class InMemoryDataSource {
     private final MutableSubject<List<Goal>> allGoalsSubject
             = new SimpleSubject<>();
 
+    private final MutableSubject<List<Goal>> allTodayGoalsSubject
+            = new SimpleSubject<>();
+
+    private final MutableSubject<List<Goal>> allTomorrowGoalsSubject
+            = new SimpleSubject<>();
+
+    private final MutableSubject<List<Goal>> allPendingGoalsSubject
+            = new SimpleSubject<>();
+
     public InMemoryDataSource() {
     }
 
@@ -46,42 +55,53 @@ public class InMemoryDataSource {
         var goalsIncomplete = List.copyOf(goals
                 .values()
                 .stream()
-                .filter(goal -> !goal.isComplete())
                 .sorted(Comparator.comparingInt(Goal::getContextId)
                         .thenComparingInt(Goal::getSortOrder))
                 .collect(Collectors.toList()));
         return goalsIncomplete;
 
-        var newOrderedGoals = goals.stream()
-                .filter(goal -> !goal.isComplete())
-                .sorted(Comparator.comparingInt(Goal::getContextId)
-                        .thenComparingInt(Goal::getSortOrder))
-                .collect(Collectors.toList());
-        var complete = goals.stream()
-                .filter(goal -> goal.isComplete())
-                .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                .collect(Collectors.toList());
     }
 
     public List<Goal> getTodayGoals() {
-        return List.copyOf(goals.values()
-                .stream()
-                .filter(goal -> goal.getState().equals(Constants.TODAY))
-                .collect(Collectors.toList()));
+        var newOrderedGoals = goals.values().stream()
+                .filter(goal -> !goal.isComplete() && goal.getState().equals(Constants.TODAY))
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        var complete = goals.values().stream()
+                .filter(goal -> goal.isComplete() && goal.getState().equals(Constants.TODAY))
+                .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        newOrderedGoals.addAll(complete);
+        return newOrderedGoals;
     }
 
     public List<Goal> getTomorrowGoals() {
-        return List.copyOf(goals.values()
-                .stream()
-                .filter(goal -> goal.getState().equals(Constants.TOMORROW))
-                .collect(Collectors.toList()));
+        var newOrderedGoals = goals.values().stream()
+                .filter(goal -> !goal.isComplete() && goal.getState().equals(Constants.TOMORROW))
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        var complete = goals.values().stream()
+                .filter(goal -> goal.isComplete() && goal.getState().equals(Constants.TOMORROW))
+                .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        newOrderedGoals.addAll(complete);
+        return newOrderedGoals;
     }
 
     public List<Goal> getPendingGoals() {
-        return List.copyOf(goals.values()
-                .stream()
-                .filter(goal -> goal.getState().equals(Constants.PENDING))
-                .collect(Collectors.toList()));
+        var newOrderedGoals = goals.values().stream()
+                .filter(goal -> !goal.isComplete() && goal.getState().equals(Constants.PENDING))
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        var complete = goals.values().stream()
+                .filter(goal -> goal.isComplete() && goal.getState().equals(Constants.PENDING))
+                .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        newOrderedGoals.addAll(complete);
+        return newOrderedGoals;
     }
 
     public Goal getGoal(int id) {
@@ -99,6 +119,18 @@ public class InMemoryDataSource {
 
     public Subject<List<Goal>> getAllGoalsSubject() {
         return allGoalsSubject;
+    }
+
+    public Subject<List<Goal>> getAllTodayGoalsSubject() {
+        return allTodayGoalsSubject;
+    }
+
+    public Subject<List<Goal>> getAllTomorrowGoalsSubject() {
+        return allTomorrowGoalsSubject;
+    }
+
+    public Subject<List<Goal>> getAllPendingGoalsSubject() {
+        return allPendingGoalsSubject;
     }
 
     public int getMinSortOrder() {
@@ -120,6 +152,9 @@ public class InMemoryDataSource {
             goalSubjects.get(fixedGoal.getId()).setValue(fixedGoal);
         }
         allGoalsSubject.setValue(getGoals());
+        allTodayGoalsSubject.setValue(getTodayGoals());
+        allTomorrowGoalsSubject.setValue(getTomorrowGoals());
+        allPendingGoalsSubject.setValue(getPendingGoals());
     }
 
     public void putGoals(List<Goal> goalList) {
@@ -137,6 +172,9 @@ public class InMemoryDataSource {
             }
         });
         allGoalsSubject.setValue(getGoals());
+        allTodayGoalsSubject.setValue(getTodayGoals());
+        allTomorrowGoalsSubject.setValue(getTomorrowGoals());
+        allPendingGoalsSubject.setValue(getPendingGoals());
     }
 
     public void removeGoal(int id) {
@@ -150,6 +188,9 @@ public class InMemoryDataSource {
             goalSubjects.get(id).setValue(null);
         }
         allGoalsSubject.setValue(getGoals());
+        allTodayGoalsSubject.setValue(getTodayGoals());
+        allTomorrowGoalsSubject.setValue(getTomorrowGoals());
+        allPendingGoalsSubject.setValue(getPendingGoals());
     }
 
     public void shiftSortOrders(int from, int to, int by) {

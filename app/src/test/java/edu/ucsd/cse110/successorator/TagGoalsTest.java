@@ -10,7 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -92,7 +95,61 @@ public class TagGoalsTest {
                 new Goal("get groceries", 4, false, 4, "Today", -1, 4)
                 ));
 
+        var todayGoals = model.getOrderedGoals().getValue()
+                .stream()
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        var expected = new Goal("do laundry", 1, false, 1, "Today", -1, 1);
+        assertEquals(todayGoals.get(0), expected);
+        expected = new Goal("study for midterm", 3, false, 3, "Today", -1, 3);
+        assertEquals(todayGoals.get(2), expected);
 
+        Goal tapped = dataSource.getGoal(1);
+        Goal completed = tapped.withComplete(!tapped.isComplete());
+        model.save(completed);
+
+        todayGoals = model.getOrderedGoals().getValue()
+                .stream()
+                .filter(goal -> !goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        var part2 = model.getOrderedGoals().getValue()
+                .stream()
+                .filter(goal -> goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        todayGoals.addAll(part2);
+
+        expected = new Goal("do laundry", 1, true, 5, "Today", -1, 1);
+        assertEquals(todayGoals.get(3), expected);
+
+        Goal newGoal = new Goal("do dishes", 5, false, 1, "Today", -1, 1);
+        model.addGoal(newGoal);
+
+        int expectedSize = 5;
+        int actualSize = dataSource.getTodayGoals().size();
+        assertEquals(expectedSize, actualSize);
+
+        todayGoals = model.getOrderedGoals().getValue()
+                .stream()
+                .filter(goal -> !goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getContextId)
+                        .thenComparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        part2 = model.getOrderedGoals().getValue()
+                .stream()
+                .filter(goal -> goal.isComplete())
+                .sorted(Comparator.comparingInt(Goal::getSortOrder))
+                .collect(Collectors.toList());
+        todayGoals.addAll(part2);
+
+        expected = new Goal("do dishes", 5, false, 5, "Today", -1, 1);
+        assertEquals(todayGoals.get(0), expected);
+
+        expected = new Goal("study for midterm", 3, false, 3, "Today", -1, 3);
+        assertEquals(todayGoals.get(2), expected);
     }
 }
 
