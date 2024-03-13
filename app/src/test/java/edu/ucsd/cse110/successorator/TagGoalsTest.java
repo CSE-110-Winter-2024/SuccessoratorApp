@@ -17,6 +17,10 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+/**
+ * BDD Scenarios for US10
+ */
 public class TagGoalsTest {
     private InMemoryDataSource dataSource;
     private SimpleGoalRepository repo;

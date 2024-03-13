@@ -27,7 +27,11 @@ public class InMemoryDataSourceTest {
                 new Goal("2", 2, false, 2,"Today", -1, 1),
                 new Goal("3", 3, false, 3,"Today", -1, 1),
                 new Goal("4", 4, true, 4,"Today", -1, 1),
-                new Goal("5", 5, true, 5,"Today", -1, 1)
+                new Goal("5", 5, true, 5,"Tomorrow", -1, 1),
+                new Goal("6", 6, true, 6,"Tomorrow", -1, 1),
+                new Goal("7", 7, true, 7,"Pending", -1, 1),
+                new Goal("8", 8, true, 8,"Pending", -1, 1),
+                new Goal("9", 9, true, 9,"Pending", -1, 1)
         ));
         //dataSource = InMemoryDataSource.fromDefault();
     }
@@ -36,17 +40,16 @@ public class InMemoryDataSourceTest {
         List<Goal> expected = List.of(new Goal("1", 1, false, 1,"Today", -1, 1),
                 new Goal("2", 2, false, 2,"Today", -1, 1),
                 new Goal("3", 3, false, 3,"Today", -1, 1),
-                new Goal("4", 4, true, 4,"Today", -1, 1),
-                new Goal("5", 5, true, 5,"Today", -1, 1)
+                new Goal("4", 4, true, 4,"Today", -1, 1)
         );
-        List<Goal> actual = dataSource.getGoals();
+        List<Goal> actual = dataSource.getTodayGoals();
         assertEquals(expected, actual);
 
         Goal expected1 = new Goal("2", 2, false, 2,"Today", -1, 1);
         Goal actual1 = dataSource.getGoal(2);
         assertEquals(expected1, actual1);
 
-        int expected2 = 5;
+        int expected2 = 9;
         int actual2 = dataSource.getMaxSortOrder();
         assertEquals(expected2, actual2);
 
@@ -57,17 +60,31 @@ public class InMemoryDataSourceTest {
         int expected4 = 1;
         int actual4 = dataSource.getMinSortOrder();
         assertEquals(expected4, actual4);
+
+        expected = List.of(new Goal("5", 5, true, 5,"Tomorrow", -1, 1),
+                new Goal("6", 6, true, 6,"Tomorrow", -1, 1)
+        );
+        actual = dataSource.getTomorrowGoals();
+        assertEquals(expected, actual);
+
+        expected = List.of(new Goal("7", 7, true, 7,"Pending", -1, 1),
+                new Goal("8", 8, true, 8,"Pending", -1, 1),
+                new Goal("9", 9, true, 9,"Pending", -1, 1)
+        );
+        actual = dataSource.getPendingGoals();
+        assertEquals(expected, actual);
+
     }
 
     @Test
     public void testPutGoalAndPutGoals(){
-        dataSource.putGoal(new Goal("6", 6, true, 6,"Today", -1, 1));
-        int expectedSize = 6;
+        dataSource.putGoal(new Goal("10", 10, true, 10,"Today", -1, 1));
+        int expectedSize = 10;
         int actualSize = dataSource.getGoals().size();
         assertEquals(expectedSize, actualSize);
 
-        Goal expectedGoal = new Goal("6", 6, true, 6,"Today", -1, 1);
-        Goal actualGoal = dataSource.getGoal(6);
+        Goal expectedGoal = new Goal("10", 10, true, 10,"Today", -1, 1);
+        Goal actualGoal = dataSource.getGoal(10);
         assertEquals(expectedGoal, actualGoal);
 
         dataSource = new InMemoryDataSource();
@@ -93,7 +110,7 @@ public class InMemoryDataSourceTest {
     @Test
     public void testRemove(){
         dataSource.removeGoal(2);
-        int expectedSize = 4;
+        int expectedSize = 8;
         int actualSize = dataSource.getGoals().size();
         assertEquals(expectedSize, actualSize);
     }

@@ -15,6 +15,9 @@ public class GoalTest {
         assertEquals("Do Dishes", goal.getTitle());
         assertFalse(goal.isComplete());
         assertEquals((Integer)0, goal.getSortOrder());
+        assertEquals("Today", goal.getState());
+        assertEquals((Integer)(-1), goal.getRecurringId());
+        assertEquals((Integer)1, goal.getContextId());
     }
 
     @Test
@@ -52,6 +55,33 @@ public class GoalTest {
         Goal goal = new Goal("Study midterm", 1, true, 1,"Today", -1, 1);
         Goal expected = new Goal("Study midterm", 1, false, 1,"Today", -1, 1);
         Goal actual = goal.withComplete(false);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testWithState(){
+        Goal goal = new Goal("Study midterm", 1, true, 1,"Today", -1, 1);
+        Goal expected = new Goal("Study midterm", 1, true, 1,"Pending", -1, 1);
+        Goal actual = goal.withState("Pending");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testWithRecurringID(){
+        Goal goal = new Goal("Study midterm", 1, true, 1,"Today", -1, 1);
+        Goal expected = new Goal("Study midterm", 1, true, 1,"Today", 3, 1);
+        Goal actual = goal.withRecurringId(3);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testWithContextID(){
+        Goal goal = new Goal("Study midterm", 1, true, 1,"Today", -1, 1);
+        Goal expected = new Goal("Study midterm", 1, true, 1,"Today", -1, 3);
+        Goal actual = goal.withContextId(3);
 
         assertEquals(expected, actual);
     }

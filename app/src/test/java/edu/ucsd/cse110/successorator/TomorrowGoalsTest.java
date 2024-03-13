@@ -19,6 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * BDD Scenarios for US7
+ */
 public class TomorrowGoalsTest {
     private InMemoryDataSource dataSource;
     private SimpleGoalRepository repo;

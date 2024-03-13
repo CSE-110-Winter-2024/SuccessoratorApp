@@ -19,6 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * BDD Scenarios for US 8 and 13
+ */
 public class PendingGoalsTest {
     private InMemoryDataSource dataSource;
     private SimpleGoalRepository repo;

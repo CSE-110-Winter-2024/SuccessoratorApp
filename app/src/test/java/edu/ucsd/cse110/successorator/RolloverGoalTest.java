@@ -17,6 +17,9 @@ import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 
+/**
+ * BDD Scenario for US 15
+ */
 public class RolloverGoalTest {
     private InMemoryDataSource dataSource;
     private SimpleGoalRepository repo;
