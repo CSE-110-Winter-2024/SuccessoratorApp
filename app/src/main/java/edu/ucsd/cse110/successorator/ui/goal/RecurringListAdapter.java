@@ -16,8 +16,10 @@ import java.util.function.Consumer;
 
 import edu.ucsd.cse110.successorator.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.databinding.ListItemRecurringBinding;
+import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
+import edu.ucsd.cse110.successorator.lib.util.Constants;
 
 /**
  * Adapter for RecurringListFragment
@@ -65,7 +67,7 @@ public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
 
         // M -> V
         // Populate the view with the goal's data.
-        binding.recurringText.setText(recurring.getTitle());
+        binding.recurringText.setText(getText(recurring));
 
         // V -> M
         //Set listener for strikethrough
@@ -74,6 +76,29 @@ public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
         });
 
         return binding.getRoot();
+    }
+
+    private String getText(RecurringGoal recurring) {
+        int frequency = recurring.getFrequency();
+        Date date = new Date(null);
+        date.setAdjustedDate(recurring.getStartDate().atStartOfDay());
+
+        int num = date.getWeekOfMonth();
+        String dayOfWeek = date.dayOfWeek();
+        String text = recurring.getTitle();
+        if(frequency == Constants.DAILY) {
+            text += ", daily";
+        }
+        else if(frequency == Constants.WEEKLY) {
+            text += ", weekly on " + dayOfWeek;
+        }
+        else if(frequency == Constants.MONTHLY) {
+            text += ", monthly on " + date.getDayOfMonthWithSuffix(num) + " " + dayOfWeek;
+        }
+        else if(frequency == Constants.YEARLY) {
+            text += ", yearly on " + date.getDayAndMonth();
+        }
+        return text;
     }
 
     // The below methods aren't strictly necessary, usually.
