@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.dropdown, menu);
         getMenuInflater().inflate(R.menu.advance_date, menu);
         getMenuInflater().inflate(R.menu.focus_mode, menu);
+
         return true;
     }
 
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     private void displayDropDown(){
         var dialogFragment = DropdownDialogFragment.newInstance();

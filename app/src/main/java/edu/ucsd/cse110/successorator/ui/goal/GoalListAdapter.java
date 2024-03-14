@@ -40,7 +40,6 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Goal> onGoalLongPressed;
     Consumer<Integer> onDeleteClick;
 
-
     public GoalListAdapter(Context context, List<Goal> goals,
                            Consumer<Goal> onGoalClicked,
                            Consumer<Goal> onGoalLongPressed,
@@ -127,7 +126,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                     }else if(item.getItemId() == R.id.delete){
                         onDeleteClick.accept(goal.getId());
                     }
-//
+
                     return true;
                 });
                 popupMenu.show();
