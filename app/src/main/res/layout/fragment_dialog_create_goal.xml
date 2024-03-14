@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="500dp"
+    android:alwaysDrawnWithCache="false">
 
     <EditText
         android:id="@+id/addGoalText"
@@ -12,10 +13,11 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="80dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/enter_a_goal"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/contexts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,50 @@
         tools:ignore="Autofill" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/contexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/homeContext"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recurring"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addGoalText">
+
+        <RadioButton
+            android:id="@+id/homeContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#EAD082"
+            android:buttonTintMode="src_in"
+            android:text="Home" />
+
+        <RadioButton
+            android:id="@+id/workContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3DB4C3"
+            android:buttonTintMode="src_in"
+            android:text="Work" />
+
+        <RadioButton
+            android:id="@+id/schoolContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#CC85EA"
+            android:buttonTintMode="src_in"
+            android:text="School" />
+
+        <RadioButton
+            android:id="@+id/errandContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#90BA9F"
+            android:text="Errand" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/recurring"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,7 +78,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addGoalText">
+        app:layout_constraintTop_toBottomOf="@+id/contexts">
 
         <RadioButton
             android:id="@+id/onetime"

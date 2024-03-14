@@ -29,22 +29,32 @@ public class GoalEntity {
     @ColumnInfo(name = "recurringId")
     public Integer recurringId;
 
-    GoalEntity(@NonNull String title, boolean isComplete, int sortOrder, String state, int recurringId){
+    @ColumnInfo(name = "contextId")
+    public int contextId;
+
+    GoalEntity(@NonNull String title, boolean isComplete,
+               int sortOrder, String state,
+               int recurringId, int contextId){
         this.title = title;
         this.isComplete = isComplete;
         this.sortOrder = sortOrder;
         this.state = state;
         this.recurringId = recurringId;
+        this.contextId = contextId;
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal){
-        var goalGoal = new GoalEntity(goal.getTitle(), goal.isComplete(), goal.getSortOrder(), goal.getState(), goal.getRecurringId());
+        var goalGoal = new GoalEntity(goal.getTitle(),
+                goal.isComplete(), goal.getSortOrder(),
+                goal.getState(), goal.getRecurringId(),
+                goal.getContextId());
         goalGoal.id = goal.getId();
         return goalGoal;
     }
 
     public @NonNull Goal toGoal(){
-        return new Goal(title, id, isComplete, sortOrder, state, recurringId);
+        return new Goal(title, id, isComplete,
+                sortOrder, state, recurringId, contextId);
     }
 
 }

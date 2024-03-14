@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,8 +62,24 @@ public class CreatePendingDialogFragment extends DialogFragment {
         var goalText = view.addGoalText.getText().toString();
 
         //sort order is an invalid value here, because append/prepend will replace it
+        var contextId = view.contexts.getCheckedRadioButtonId();
+        var contextSelected = (RadioButton) view.getRoot().findViewById(contextId);
+        var context = contextSelected.getText().toString();
 
-        var card = new Goal(goalText, null, false, -1, Constants.PENDING, -1);
+        if(context.equals("Home")){
+            contextId = 1;
+        }else if(context.equals("Work")){
+            contextId = 2;
+        }else if(context.equals("School")){
+            contextId = 3;
+        }else{
+            contextId = 4;
+        }
+
+        var card = new Goal(goalText, null,
+                false, -1,
+                Constants.PENDING, -1,
+                contextId);
 
         activityModel.addGoal(card);
 

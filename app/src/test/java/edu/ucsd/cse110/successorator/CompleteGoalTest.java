@@ -23,7 +23,7 @@ public class CompleteGoalTest {
     public void onlyOneGoal(){
         //Given...
         InMemoryDataSource dataSource = new InMemoryDataSource();
-        dataSource.putGoal(new Goal("Prepare for midterm", 1, false, 1,"Today", -1));
+        dataSource.putGoal(new Goal("Prepare for midterm", 1, false, 1,"Today", -1, 1));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
         TimeKeeper timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
@@ -37,7 +37,7 @@ public class CompleteGoalTest {
 
         //Then...
         // * text gets marked as strikethrough *
-        Goal expected = new Goal("Prepare for midterm", 1, true, 2,"Today", -1);
+        Goal expected = new Goal("Prepare for midterm", 1, true, 2,"Today", -1, 1);
         Goal actual = dataSource.getGoal(1);
         assertEquals(expected, actual);
 
@@ -58,8 +58,8 @@ public class CompleteGoalTest {
         //Given...
         InMemoryDataSource dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,"Today", -1),
-                new Goal("Grocery shopping", 2, false, 2,"Today", -1)));
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1, 1),
+                new Goal("Grocery shopping", 2, false, 2,"Today", -1, 1)));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
         TimeKeeper timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
@@ -74,10 +74,10 @@ public class CompleteGoalTest {
         //Then...
         // * "Prepare for midterm" gets marked as strikethrough *
         // * Goals are rearranged *
-        Goal expected = new Goal("Prepare for midterm", 1, true, 3,"Today", -1);
+        Goal expected = new Goal("Prepare for midterm", 1, true, 3,"Today", -1, 1);
         Goal actual = dataSource.getGoal(1);
         assertEquals(expected, actual);
-        expected = new Goal("Grocery shopping", 2, false, 2,"Today", -1);
+        expected = new Goal("Grocery shopping", 2, false, 2,"Today", -1, 1);
         actual = dataSource.getGoal(2);
         assertEquals(expected, actual);
 
@@ -98,8 +98,8 @@ public class CompleteGoalTest {
         //Given...
         InMemoryDataSource dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,"Today", -1),
-                new Goal("Grocery shopping", 2, true, 2,"Today", -1)));
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1, 1),
+                new Goal("Grocery shopping", 2, true, 2,"Today", -1, 1)));
         SimpleGoalRepository repo = new SimpleGoalRepository(dataSource);
         TimeKeeper timeKeeper = new SimpleTimeKeeper();
         //timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
@@ -115,10 +115,10 @@ public class CompleteGoalTest {
         //Then...
         // * "Prepare for midterm" gets marked as strikethrough *
         // * Goals are rearranged *
-        Goal expected = new Goal("Prepare for midterm", 1, true, 2,"Today", -1);
+        Goal expected = new Goal("Prepare for midterm", 1, true, 2,"Today", -1, 1);
         Goal actual = dataSource.getGoal(1);
         assertEquals(expected, actual);
-        expected = new Goal("Grocery shopping", 2, true, 3,"Today", -1);
+        expected = new Goal("Grocery shopping", 2, true, 3,"Today", -1, 1);
         actual = dataSource.getGoal(2);
         assertEquals(expected, actual);
 

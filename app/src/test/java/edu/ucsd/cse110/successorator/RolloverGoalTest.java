@@ -17,6 +17,9 @@ import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.SimpleTimeKeeper;
 import edu.ucsd.cse110.successorator.lib.domain.TimeKeeper;
 
+/**
+ * BDD Scenario for US 15
+ */
 public class RolloverGoalTest {
     private InMemoryDataSource dataSource;
     private SimpleGoalRepository repo;
@@ -29,13 +32,13 @@ public class RolloverGoalTest {
     public void testRolloverGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,"Today", -1)
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1, 1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
         model = new MainViewModel(repo, timeKeeper);
-        dataSource.putGoal(new Goal("Text Maria", 2, true, 2,"Today", -1));
+        dataSource.putGoal(new Goal("Text Maria", 2, true, 2,"Today", -1, 1));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
@@ -57,8 +60,8 @@ public class RolloverGoalTest {
     public void testNoRolloverGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,"Today", -1),
-                new Goal("Text Maria", 2, false, 2,"Today", -1)
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1, 1),
+                new Goal("Text Maria", 2, false, 2,"Today", -1, 1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
@@ -78,13 +81,13 @@ public class RolloverGoalTest {
     public void testRolloverGoalSameDay() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,"Today", -1)
+                new Goal("Prepare for midterm", 1, false, 1,"Today", -1, 1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
         model = new MainViewModel(repo, timeKeeper);
-        dataSource.putGoal(new Goal("Text Maria", 2, true, 2,"Today", -1));
+        dataSource.putGoal(new Goal("Text Maria", 2, true, 2,"Today", -1, 1));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
