@@ -96,7 +96,7 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment {
             var card = new RecurringGoal(goalText, null, frequency, startDate);
             activityModel.addRecurring(card);
         } else {
-            var card = new Goal(goalText, null, false, -1, Constants.TODAY, -1);
+            var card = new Goal(goalText, null, false, -1, Constants.TOMORROW, -1);
             activityModel.addGoal(card);
         }
 

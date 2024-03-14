@@ -196,6 +196,7 @@ public class MainViewModel extends ViewModel {
             rollOverTomorrowToToday();
 
             //Copy recurring goals and update next recur date
+            //copyRecurring(currentDate.getDate().toLocalDate());
             copyRecurring(currentDate.getDate().toLocalDate());
 
             //update log time
@@ -204,21 +205,23 @@ public class MainViewModel extends ViewModel {
         }
     }
 
-    public void copyRecurring(LocalDate currDate) {
-        rolloverRecurring(currDate, Constants.TODAY);
-        rolloverRecurring(currDate.plusDays(1), Constants.TOMORROW);
-    }
-
-    private void rolloverRecurring(LocalDate currDate, String state) {
-        var goalsToAdd = getOrderedRecurringGoals().getValue()
-                .stream()
-                .filter(goal -> goal.isRecur(currDate))
-                .filter(goal -> !goalRepository.existsRecurringId(goal.getId(), state))
-                .collect(Collectors.toList());
-        goalsToAdd.forEach(goal -> {
-            addGoal(goalFactory.goalFromRecurring(goal, state));
-            addRecurring(goal.updateNextDate(currDate));
+    private void copyRecurring(LocalDate currDate) {
+        getOrderedRecurringGoals().getValue().forEach(goal -> {
+            RecurringGoal newGoal = goal;
+            if(goal.isRecur(currDate) && !goalRepository.existsRecurringId(goal.getId(), Constants.TODAY)) {
+                addGoal(goalFactory.goalFromRecurring(goal, Constants.TODAY));
+                newGoal = goal.updateNextDate(currDate);
+            }
+            LocalDate tmr = currDate.plusDays(1);
+            if(newGoal.isRecur(tmr) && !goalRepository.existsRecurringId(newGoal.getId(), Constants.TOMORROW)) {
+                addGoal(goalFactory.goalFromRecurring(newGoal, Constants.TOMORROW));
+                newGoal = newGoal.updateNextDate(tmr);
+            }
+            if(!newGoal.equals(goal)) {
+                addRecurring(newGoal);
+            }
         });
+
     }
 
     private void rollOverTomorrowToToday() {

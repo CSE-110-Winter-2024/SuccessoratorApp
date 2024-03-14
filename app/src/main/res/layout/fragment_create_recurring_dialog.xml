@@ -37,13 +37,14 @@
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:checked="true"
+            android:checked="false"
             android:text="Daily" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:checked="true"
             android:text="Weekly" />
 
         <RadioButton

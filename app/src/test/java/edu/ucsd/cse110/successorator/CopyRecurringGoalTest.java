@@ -42,12 +42,14 @@ public class CopyRecurringGoalTest {
     public void testCopyRecurringGoalToToday() {
         startDate = LocalDate.of(2024, 2, 13);
         nextDate = LocalDate.of(2024, 2, 20);
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
+        model.updateTime(date, false);
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate));
 
         model.rollOverGoal(logDate, date);
         assertEquals(1, dataSource.getGoals().size());
@@ -68,12 +70,14 @@ public class CopyRecurringGoalTest {
     @Test
     public void testDoNotCopyRecurringGoalToToday() {
         startDate = LocalDate.of(2024, 2, 14);
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         date.setDate(LocalDateTime.of(2024, 2, 12, 12, 21));
+        model.updateTime(date, false);
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 11, 12, 21));
+
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate));
 
         model.rollOverGoal(logDate, date);
         assertEquals(0, dataSource.getGoals().size());
@@ -85,15 +89,19 @@ public class CopyRecurringGoalTest {
 
     @Test
     public void testCopyRecurringGoalToTodayAndTomorrow() {
-        startDate = LocalDate.of(2024, 2, 13);
+        startDate = LocalDate.of(2024, 2, 12);
         nextDate = LocalDate.of(2024, 2, 15);
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.DAILY, startDate));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+        date.setDate(LocalDateTime.of(2024, 2, 12, 12, 21));
+        model.updateTime(date, false);
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 12, 12, 21));
+        model.updateTime(logDate, true);
 
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.DAILY, startDate));
+
+        date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
         model.rollOverGoal(logDate, date);
         assertEquals(2, dataSource.getGoals().size());
 
@@ -111,7 +119,7 @@ public class CopyRecurringGoalTest {
 
         var addedTomorrow = dataSource.getGoals().get(1);
         assertEquals("Prepare for midterm", addedTomorrow.getTitle());
-        assertEquals(Integer.valueOf(1), addedTomorrow.getId());
+        assertEquals(Integer.valueOf(2), addedTomorrow.getId());
         assertEquals(Constants.TOMORROW, addedTomorrow.getState());
         assertEquals(Integer.valueOf(2), addedTomorrow.getSortOrder());
         assertEquals(Integer.valueOf(1), addedTomorrow.getRecurringId());
@@ -122,13 +130,16 @@ public class CopyRecurringGoalTest {
         startDate = LocalDate.of(2024, 2, 8);
         nextDate = LocalDate.of(2024, 2, 15);
         LocalDate newNextDate = LocalDate.of(2024, 2, 22);
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate, nextDate));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
+        date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+        model.updateTime(date, false);
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
 
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate, nextDate));
+
+        date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
         model.rollOverGoal(logDate, date);
         assertEquals(1, dataSource.getGoals().size());
 
