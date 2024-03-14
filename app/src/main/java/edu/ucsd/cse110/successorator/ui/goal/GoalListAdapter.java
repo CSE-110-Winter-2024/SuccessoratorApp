@@ -2,7 +2,7 @@ package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,6 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Goal> onGoalClicked;
     Consumer<Goal> onGoalLongPressed;
     Consumer<Integer> onDeleteClick;
-
-    Consumer<Integer> removeStrikethruClick;
 
     public GoalListAdapter(Context context, List<Goal> goals,
                            Consumer<Goal> onGoalClicked,
@@ -79,18 +78,40 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             onDeleteClick.accept(id);
         });
 
+        var id = goal.getContextId();
+        if(id == 1){
+            binding.contextText.setText("H");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.home)));
+        }else if(id == 2){
+            binding.contextText.setText("W");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.work)));
+        }else if(id == 3){
+            binding.contextText.setText("S");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.school)));
+        }else{
+            binding.contextText.setText("E");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.errand)));
+        }
+
+
         // M -> V
         // Populate the view with the goal's data.
         binding.goalText.setText(goal.getTitle());
         // setup ST to match
         if (goal.isComplete()) {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.finish)));
         } else {
             binding.goalText.setPaintFlags(binding.goalText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
         binding.goalText.setOnLongClickListener(v-> {
-            if (getContext() instanceof Activity) {
+            if (getContext() instanceof Activity && onGoalLongPressed != null) {
                 Activity activity = (Activity) getContext();
                 PopupMenu popupMenu = new PopupMenu(activity, v);
                 MenuInflater inflater = popupMenu.getMenuInflater();
@@ -105,7 +126,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                     }else if(item.getItemId() == R.id.delete){
                         onDeleteClick.accept(goal.getId());
                     }
-//
+
                     return true;
                 });
                 popupMenu.show();

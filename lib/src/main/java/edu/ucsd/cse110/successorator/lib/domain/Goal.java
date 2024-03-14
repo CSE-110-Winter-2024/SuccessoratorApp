@@ -21,6 +21,7 @@ public class Goal implements Serializable {
     private final String state;//State state;
 
     private final Integer recurringId;
+    private final Integer contextId;
 
     public Goal(
             @NonNull String title,
@@ -28,7 +29,8 @@ public class Goal implements Serializable {
             boolean isComplete,
             Integer sortOrder, // Corrected parameter type and removed the semicolon.
             String state, //State state,
-            Integer recurringId
+            Integer recurringId,
+            Integer contextId
     ) {
         this.id = id;
         this.title = title;
@@ -36,6 +38,7 @@ public class Goal implements Serializable {
         this.sortOrder = sortOrder;
         this.state = state;
         this.recurringId = recurringId;
+        this.contextId = contextId;
     }
 
     public @Nullable Integer getId() {
@@ -58,6 +61,8 @@ public class Goal implements Serializable {
     public String getState(){return state;}
 
     public Integer getRecurringId(){return recurringId;}
+
+    public Integer getContextId(){return contextId;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,33 +73,57 @@ public class Goal implements Serializable {
                 Objects.equals(title, goal.title) &&
                 Objects.equals(sortOrder, goal.sortOrder) &&
                 Objects.equals(state, goal.state) &&
-                Objects.equals(recurringId, goal.recurringId);
+                Objects.equals(recurringId, goal.recurringId) &&
+                Objects.equals(contextId, goal.contextId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isComplete, sortOrder);
+        return Objects.hash(id, title,
+                isComplete, sortOrder,
+                state, recurringId, contextId);
     }
 
     public Goal withId(int id) {
-        return new Goal(this.title, id, this.isComplete, this.sortOrder, this.state, this.recurringId);
+        return new Goal(this.title, id,
+                this.isComplete, this.sortOrder,
+                this.state, this.recurringId,
+                this.contextId);
     }
 
     public Goal withSortOrder(int sortOrder) {
-        return new Goal(this.title, this.id, this.isComplete, sortOrder, this.state, this.recurringId);
+        return new Goal(this.title, this.id,
+                this.isComplete, sortOrder,
+                this.state, this.recurringId,
+                this.contextId);
     }
 
     public Goal withComplete(boolean isComplete){
-        return new Goal(this.title, this.id, isComplete, this.sortOrder, this.state, this.recurringId);
+        return new Goal(this.title, this.id,
+                isComplete, this.sortOrder,
+                this.state, this.recurringId,
+                this.contextId);
     }
 
     public Goal withState(String state){
-        return new Goal(this.title, this.id, this.isComplete, this.sortOrder, state, this.recurringId);
+        return new Goal(this.title, this.id,
+                this.isComplete, this.sortOrder,
+                state, this.recurringId,
+                this.contextId);
     }
 
     public Goal withRecurringId(Integer recurringId){
-        return new Goal(this.title, this.id, this.isComplete, this.sortOrder, this.state, recurringId);
+        return new Goal(this.title, this.id,
+                this.isComplete, this.sortOrder,
+                this.state, recurringId,
+                this.contextId);
     }
-    public void setComplete(boolean b) {
+
+    public Goal withContextId(Integer contextId){
+        return new Goal(this.title, this.id,
+                this.isComplete, this.sortOrder,
+                this.state, this.recurringId,
+                contextId);
     }
+
 }

@@ -28,21 +28,25 @@ public class RecurringGoalEntity {
     @ColumnInfo(name = "next_date")
     public LocalDate nextDate;
 
-    RecurringGoalEntity(@NonNull String title, int frequency, LocalDate startDate, LocalDate nextDate) {
+    @ColumnInfo(name = "contextId")
+    public int contextId;
+
+    RecurringGoalEntity(@NonNull String title, int frequency, LocalDate startDate, LocalDate nextDate, int contextId) {
         this.title = title;
         this.frequency = frequency;
         this.startDate = startDate;
         this.nextDate = nextDate;
+        this.contextId = contextId;
     }
 
     public static RecurringGoalEntity fromRecurringGoal(@NonNull RecurringGoal recurringGoal) {
         var recurringGoalGoal = new RecurringGoalEntity(recurringGoal.getTitle(), recurringGoal.getFrequency(),
-                recurringGoal.getStartDate(), recurringGoal.getNextDate());
+                recurringGoal.getStartDate(), recurringGoal.getNextDate(), recurringGoal.getContextId());
         recurringGoalGoal.id = recurringGoal.getId();
         return recurringGoalGoal;
     }
 
     public @NonNull RecurringGoal toRecurringGoal() {
-        return new RecurringGoal(title, id, frequency, startDate, nextDate);
+        return new RecurringGoal(title, id, frequency, startDate, nextDate, contextId);
     }
 }

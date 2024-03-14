@@ -1,6 +1,7 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.databinding.ListItemRecurringBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
@@ -64,6 +67,25 @@ public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
             var id = Objects.requireNonNull(recurring.getId());
             onDeleteClick.accept(id);
         });
+
+        var id = recurring.getContextId();
+        if(id == 1){
+            binding.contextText.setText("H");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.home)));
+        }else if(id == 2){
+            binding.contextText.setText("W");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.work)));
+        }else if(id == 3){
+            binding.contextText.setText("S");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.school)));
+        }else{
+            binding.contextText.setText("E");
+            binding.circle.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(getContext(), R.color.errand)));
+        }
 
         // M -> V
         // Populate the view with the goal's data.

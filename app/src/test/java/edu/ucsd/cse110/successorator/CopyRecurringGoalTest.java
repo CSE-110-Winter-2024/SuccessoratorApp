@@ -49,7 +49,7 @@ public class CopyRecurringGoalTest {
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
 
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate));
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate,1));
 
         model.rollOverGoal(logDate, date);
         assertEquals(1, dataSource.getGoals().size());
@@ -77,7 +77,7 @@ public class CopyRecurringGoalTest {
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 11, 12, 21));
 
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate));
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate,1));
 
         model.rollOverGoal(logDate, date);
         assertEquals(0, dataSource.getGoals().size());
@@ -99,7 +99,7 @@ public class CopyRecurringGoalTest {
         logDate.setDate(LocalDateTime.of(2024, 2, 12, 12, 21));
         model.updateTime(logDate, true);
 
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.DAILY, startDate));
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.DAILY, startDate,1));
 
         date.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
         model.rollOverGoal(logDate, date);
@@ -137,7 +137,7 @@ public class CopyRecurringGoalTest {
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
         logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
 
-        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate, nextDate));
+        dataSource.putRecurringGoal(new RecurringGoal("Prepare for midterm", 1, Constants.WEEKLY, startDate, nextDate,1));
 
         date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
         model.rollOverGoal(logDate, date);

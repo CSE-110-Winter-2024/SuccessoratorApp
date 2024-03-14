@@ -31,21 +31,21 @@ public class RolloverTomorrowGoalTest {
     public void testRolloverTmrGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, -1)
+                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, -1, 1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
-        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 3, 17, 12, 21));
         model = new MainViewModel(repo, timeKeeper);
         dataSource.putGoals(List.of(
-                new Goal("Tomorrow goal", 2, false, 2, Constants.TOMORROW, -1),
-                new Goal("Completed tomorrow goal", 3, true, 3, Constants.TOMORROW, -1)
+                new Goal("Tomorrow goal", 2, false, 2, Constants.TOMORROW, -1, 1),
+                new Goal("Completed tomorrow goal", 3, true, 3, Constants.TOMORROW, -1, 1)
         ));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
+        date.setDate(LocalDateTime.of(2024, 3, 17, 12, 21));
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+        logDate.setDate(LocalDateTime.of(2024, 3, 17, 12, 21));
 
         model.rollOverGoal(logDate, date);
         assertEquals(3, dataSource.getGoals().size());
@@ -56,16 +56,16 @@ public class RolloverTomorrowGoalTest {
         assertEquals("Tomorrow goal", tmrGoal.getTitle());
         assertEquals(Integer.valueOf(2), tmrGoal.getId());
         assertFalse(tmrGoal.isComplete());
-        assertEquals(Integer.valueOf(3), tmrGoal.getSortOrder());
-        assertEquals(Constants.TODAY, tmrGoal.getState());
+        assertEquals(Integer.valueOf(2), tmrGoal.getSortOrder());
+        assertEquals(Constants.TOMORROW, tmrGoal.getState());
         assertEquals(Integer.valueOf(-1), tmrGoal.getRecurringId());
 
         var completedtmrGoal = dataSource.getGoal(3);
         assertEquals("Completed tomorrow goal", completedtmrGoal.getTitle());
         assertEquals(Integer.valueOf(3), completedtmrGoal.getId());
         assertTrue(completedtmrGoal.isComplete());
-        assertEquals(Integer.valueOf(5), completedtmrGoal.getSortOrder());
-        assertEquals(Constants.TODAY, completedtmrGoal.getState());
+        assertEquals(Integer.valueOf(3), completedtmrGoal.getSortOrder());
+        assertEquals(Constants.TOMORROW, completedtmrGoal.getState());
         assertEquals(Integer.valueOf(-1), completedtmrGoal.getRecurringId());
     }
 
@@ -73,17 +73,17 @@ public class RolloverTomorrowGoalTest {
     public void testNoRolloverTmrGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, -1)
+                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, -1, 1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
-        timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
+        timeKeeper.setDateTime(LocalDateTime.of(2024, 3, 17, 12, 21));
         model = new MainViewModel(repo, timeKeeper);
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        date.setDate(LocalDateTime.of(2024, 2, 14, 12, 21));
+        date.setDate(LocalDateTime.of(2024, 3, 17, 12, 21));
         logDate = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        logDate.setDate(LocalDateTime.of(2024, 2, 13, 12, 21));
+        logDate.setDate(LocalDateTime.of(2024, 3, 17, 12, 21));
 
         model.rollOverGoal(logDate, date);
         assertEquals(1, dataSource.getGoals().size());
@@ -93,15 +93,15 @@ public class RolloverTomorrowGoalTest {
     public void testRolloverDuplicateRecurringGoal() {
         dataSource = new InMemoryDataSource();
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, 1)
+                new Goal("Prepare for midterm", 1, false, 1,Constants.TODAY, 1,1)
         ));
         repo = new SimpleGoalRepository(dataSource);
         timeKeeper = new SimpleTimeKeeper();
         timeKeeper.setDateTime(LocalDateTime.of(2024, 2, 13, 12, 21));
         model = new MainViewModel(repo, timeKeeper);
         dataSource.putGoals(List.of(
-                new Goal("Prepare for midterm", 2, false, 2, Constants.TOMORROW, 1),
-                new Goal("Other recurring goal", 3, false, 3, Constants.TOMORROW, 2)
+                new Goal("Prepare for midterm", 2, false, 2, Constants.TOMORROW, 1,1),
+                new Goal("Other recurring goal", 3, false, 3, Constants.TOMORROW, 2,1)
         ));
 
         date = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));

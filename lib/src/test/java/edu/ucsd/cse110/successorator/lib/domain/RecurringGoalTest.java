@@ -27,10 +27,10 @@ public class RecurringGoalTest {
         startDate = LocalDate.of(2024, 2, 13);
         nextDate = LocalDate.of(2024, 2, 20);
         currDate = LocalDate.of(2024, 2, 16);
-        goal = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate);
-        goalDaily = new RecurringGoal("Do dishes", 1, Constants.DAILY, startDate);
-        goalWithNextDate = new RecurringGoal("Do laundry", 1, Constants.WEEKLY, startDate, nextDate);
-        goalMonthly = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate);
+        goal = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate,1);
+        goalDaily = new RecurringGoal("Do dishes", 1, Constants.DAILY, startDate,1);
+        goalWithNextDate = new RecurringGoal("Do laundry", 1, Constants.WEEKLY, startDate, nextDate,1);
+        goalMonthly = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate,1);
     }
 
     @Test
@@ -44,13 +44,13 @@ public class RecurringGoalTest {
 
     @Test
     public void testWithId() {
-        RecurringGoal expected = new RecurringGoal("Do dishes", 2, Constants.WEEKLY, startDate);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 2, Constants.WEEKLY, startDate,1);
         assertEquals(expected, goal.withId(2));
     }
 
     @Test
     public void testWithNextDate() {
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, nextDate);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, nextDate,1);
         assertEquals(expected, goal.withNextDate(nextDate));
     }
 
@@ -69,20 +69,20 @@ public class RecurringGoalTest {
 
     @Test
     public void testUpdateNextDateDaily() {
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.DAILY, startDate, currDate.plusDays(1));
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.DAILY, startDate, currDate.plusDays(1),1);
         assertEquals(expected, goalDaily.updateNextDate(currDate));
     }
 
     @Test
     public void testUpdateNextDateWeeklyCurrBeforeNext() {
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, nextDate);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, nextDate,1);
         assertEquals(expected, goal.updateNextDate(currDate));
     }
 
     @Test
     public void testUpdateNextDateWeeklyCurrAfterNext() {
         currDate = LocalDate.of(2024, 2, 19);
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, nextDate);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, nextDate,1);
         assertEquals(expected, goal.updateNextDate(currDate));
 
         assertEquals(expected, goal.updateNextDate(startDate));
@@ -90,8 +90,8 @@ public class RecurringGoalTest {
 
     @Test
     public void testUpdateNextDateYearly() {
-        goal = new RecurringGoal("Do dishes", 1, Constants.YEARLY, startDate);
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.YEARLY, startDate, startDate.plusYears(2));
+        goal = new RecurringGoal("Do dishes", 1, Constants.YEARLY, startDate,1);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.YEARLY, startDate, startDate.plusYears(2),1);
         assertEquals(expected, goal.updateNextDate(currDate.plusYears(1)));
 
         assertEquals(expected.withNextDate(startDate.plusYears(1)),
@@ -101,15 +101,15 @@ public class RecurringGoalTest {
     @Test
     public void testUpdateNextDateMonthlyNextMonth() {
         nextDate = LocalDate.of(2024, 3, 12);
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate,1);
         assertEquals(expected, goalMonthly.updateNextDate(currDate));
 
         //nextDate is first date of month
         startDate = LocalDate.of(2024, 2, 2);
         nextDate = LocalDate.of(2024, 3, 1);
         currDate = LocalDate.of(2024, 2, 16);
-        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate);
-        expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate);
+        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate,1);
+        expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate,1);
         assertEquals(expected, goal.updateNextDate(currDate));
     }
 
@@ -119,8 +119,8 @@ public class RecurringGoalTest {
         nextDate = LocalDate.of(2024, 3, 3);
         currDate = LocalDate.of(2024, 3, 2);
 
-        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate);
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate);
+        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate,1);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate,1);
         assertEquals(expected, goal.updateNextDate(currDate));
     }
 
@@ -130,8 +130,8 @@ public class RecurringGoalTest {
         nextDate = LocalDate.of(2024, 4, 4);
         currDate = LocalDate.of(2024, 3, 5);
 
-        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate);
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate);
+        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate,1);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate,1);
         assertEquals(expected, goal.updateNextDate(currDate));
     }
 
@@ -141,8 +141,8 @@ public class RecurringGoalTest {
         nextDate = LocalDate.of(2024, 5, 3);
         currDate = LocalDate.of(2024, 4, 30);
 
-        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate);
-        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate);
+        goal = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate,1);
+        RecurringGoal expected = new RecurringGoal("Do dishes", 1, Constants.MONTHLY, startDate, nextDate,1);
         assertEquals(expected, goal.updateNextDate(currDate));
     }
 }

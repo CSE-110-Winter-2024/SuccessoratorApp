@@ -14,9 +14,9 @@ public class GoalFactoryTest {
     @Test
     public void testGoalFromRecurring() {
         LocalDate startDate = LocalDate.of(2024, 2, 13);
-        RecurringGoal recurringGoal = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate);
+        RecurringGoal recurringGoal = new RecurringGoal("Do dishes", 1, Constants.WEEKLY, startDate, 1);
         GoalFactory goalFactory = new GoalFactory();
-        Goal expected = new Goal("Do dishes", null, false, -1, Constants.TODAY, 1);
+        Goal expected = new Goal("Do dishes", null, false, -1, Constants.TODAY, 1,1);
         assertEquals(expected, goalFactory.goalFromRecurring(recurringGoal, Constants.TODAY));
     }
 }

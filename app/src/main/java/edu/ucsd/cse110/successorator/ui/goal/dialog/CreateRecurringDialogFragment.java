@@ -94,13 +94,27 @@ public class CreateRecurringDialogFragment extends DialogFragment {
             frequency = Constants.YEARLY;
         }
 
+        var contextId = view.contexts.getCheckedRadioButtonId();
+        var contextSelected = (RadioButton) view.getRoot().findViewById(contextId);
+        var context = contextSelected.getText().toString();
+
+        if(context.equals("Home")){
+            contextId = 1;
+        }else if(context.equals("Work")){
+            contextId = 2;
+        }else if(context.equals("School")){
+            contextId = 3;
+        }else{
+            contextId = 4;
+        }
+
         var datePicker = view.datePicker;
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth() + 1;
         int year = datePicker.getYear();
         var startDate = LocalDate.of(year, month, day);
 
-        var card = new RecurringGoal(recurringText, null, frequency, startDate);
+        var card = new RecurringGoal(recurringText, null, frequency, startDate, contextId);
         activityModel.addRecurring(card);
 
         dialog.dismiss();

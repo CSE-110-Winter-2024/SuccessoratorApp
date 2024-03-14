@@ -21,18 +21,21 @@ public class RecurringGoal implements Serializable {
     private final LocalDate startDate;
 
     private final LocalDate nextDate;
+    private final Integer contextId;
 
     public RecurringGoal(
             @NonNull String title,
             @Nullable Integer id,
             @NonNull Integer frequency,
-            LocalDate startDate
+            LocalDate startDate,
+            Integer contextId
     ) {
         this.title = title;
         this.id = id;
         this.frequency = frequency;
         this.startDate = startDate;
         this.nextDate = startDate;
+        this.contextId = contextId;
     }
 
     public RecurringGoal(
@@ -40,13 +43,15 @@ public class RecurringGoal implements Serializable {
             @Nullable Integer id,
             @NonNull Integer frequency,
             LocalDate startDate,
-            LocalDate nextDate
+            LocalDate nextDate,
+            Integer contextId
     ) {
         this.title = title;
         this.id = id;
         this.frequency = frequency;
         this.startDate = startDate;
         this.nextDate = nextDate;
+        this.contextId = contextId;
     }
 
     @NonNull
@@ -64,13 +69,14 @@ public class RecurringGoal implements Serializable {
     public LocalDate getStartDate() { return startDate; }
 
     public LocalDate getNextDate() { return nextDate; }
+    public Integer getContextId() { return contextId; }
 
     public RecurringGoal withId(int id) {
-        return new RecurringGoal(this.title, id, this.frequency, this.startDate, this.nextDate);
+        return new RecurringGoal(this.title, id, this.frequency, this.startDate, this.nextDate, this.contextId);
     }
 
     public RecurringGoal withNextDate(LocalDate nextDate) {
-        return new RecurringGoal(this.title, this.id, this.frequency, this.startDate, nextDate);
+        return new RecurringGoal(this.title, this.id, this.frequency, this.startDate, nextDate, this.contextId);
     }
 
     public boolean isRecur(LocalDate currDate) {
@@ -148,15 +154,11 @@ public class RecurringGoal implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecurringGoal that = (RecurringGoal) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(frequency, that.frequency) &&
-                Objects.equals(startDate, that.startDate) &&
-                Objects.equals(nextDate, that.nextDate);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(frequency, that.frequency) && Objects.equals(startDate, that.startDate) && Objects.equals(nextDate, that.nextDate) && Objects.equals(contextId, that.contextId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, frequency, startDate, nextDate);
+        return Objects.hash(id, title, frequency, startDate, nextDate, contextId);
     }
 }
