@@ -96,7 +96,7 @@ public class CreateRecurringDialogFragment extends DialogFragment {
 
         var datePicker = view.datePicker;
         int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
+        int month = datePicker.getMonth() + 1;
         int year = datePicker.getYear();
         var startDate = LocalDate.of(year, month, day);
 

@@ -116,6 +116,7 @@ public class MainViewModel extends ViewModel {
                     .collect(Collectors.toList());
 
             orderedRecurringGoals.setValue(newOrderedGoals);
+            copyRecurring(currDate.getValue().getDate().toLocalDate());
         });
 
         currDate.observe(date -> {
@@ -123,7 +124,6 @@ public class MainViewModel extends ViewModel {
 
             rollOverGoal(lastLog.getValue(), currDate.getValue());
         });
-
     }
 
     // Initialize the view model
@@ -196,14 +196,17 @@ public class MainViewModel extends ViewModel {
             rollOverTomorrowToToday();
 
             //Copy recurring goals and update next recur date
-            LocalDate currDate = currentDate.getDate().toLocalDate();
-            rolloverRecurring(currDate, Constants.TODAY);
-            rolloverRecurring(currDate.plusDays(1), Constants.TOMORROW);
+            copyRecurring(currentDate.getDate().toLocalDate());
 
             //update log time
             lastLogDate.setDate(LocalDateTime.now());
             updateTime(lastLogDate, true);
         }
+    }
+
+    public void copyRecurring(LocalDate currDate) {
+        rolloverRecurring(currDate, Constants.TODAY);
+        rolloverRecurring(currDate.plusDays(1), Constants.TOMORROW);
     }
 
     private void rolloverRecurring(LocalDate currDate, String state) {
