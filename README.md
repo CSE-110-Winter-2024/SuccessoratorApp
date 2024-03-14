@@ -1,269 +1,1039 @@
+# Postmortem Analysis
 
-# <a name="_xwb8um4xqj9w"></a>Risk Analysis:
+**What went well:**
+- Working together in pairs
+- Communicating issues & splitting up the tasks and work
 
-[ ](https://www.when2meet.com/?23477466-2DA4m)[https://www.when2meet.com/?23477466-2DA4m**](https://www.when2meet.com/?23477466-2DA4m)
+**What did not go well:**
+- Integrating the different parts together especially when there were multiple pull requests pending at once
+  - Could be fixed by doing merge checks by pulling main branch and resolving merge before sending the pull requests
+- Being descriptive when writing and reviewing pull requests.
+- Move issues/tasks as they are in progress/completed
+- Time tracking:
+  - Solution: [<u>Clock in, Clock out</u>](https://docs.google.com/spreadsheets/d/1Jfxms3ZYwZeqm03pL8pP_nACPbMGrL5nCE0G5Ao2iQo/edit?usp=sharing)
 
-**Risk:** Team Risk [Conflict of Schedule]
+# Risk Analysis:
+<u>Ordered from highest priority to lowest</u>
+[**<span class="mark"><u>https://www.when2meet.com/?23477466-2DA4m</u></span>**](https://www.when2meet.com/?23477466-2DA4m)
 
-**Description:** Team not being able to meet at the same time due to conflicts of schedule. The majority of people might be able to make it one day, however one or two others might have a class or work during that time frame.
+**Risk:** Team Risk \[Conflict of Schedule\]
+
+**Description:** Team not being able to meet at the same time due to
+conflicts of schedule. The majority of people might be able to make it
+one day, however one or two others might have a class or work during
+that time frame.
 
 **Severity:** High
 
-**Resolution:** stand-up meetings for check-ins 5 min before lecture MWF, Wednesday evening online meeting from 7-8pm to sort out major issues (group coding/structural issues)
+**Resolution:** stand-up meetings for check-ins 5 min before lecture
+MWF, Wednesday evening online meeting from 7-8pm to sort out major
+issues (group coding/structural issues)
 
 **Status:** Resolved
 
-**Risk:** Team Risk [Learning Android Development]
+**Risk:** Project Risk \[Integrating code when doing pull requests\]
 
-**Description:** Team is not familiar with Android development so there will be difficulties implementing everything properly
+**Description:** It took time to integrate the different branches
+together with the master branch especially when there were multiple pull
+requests pending at once
 
 **Severity:** Med
 
-**Resolution:** We are starting with a low velocity to account for having to refer to stack overflow and documentation. [*maybe even ChatGPT*]  REMEMBER TO CITE SOURCES
+**Resolution:** Could be fixed by doing merge checks by pulling main
+branch and resolving merge before sending the pull requests
 
-**Status:** Resolved
+**Status**: In Progress
+
+**Risk:** Project Risk \[Undescriptive Pull Requests\]
+
+**Description:** We were not descriptive when writing and reviewing pull
+requests.
+
+**Severity:** Med
+
+**Resolution:** We will be more discerning when reviewing pull requests,
+commenting if the pull request itself is not descriptive enough, or if
+it is lacking anything
+
+**Status:** In progress
+
+**Risk:** Project Risk \[Inaccurate velocity\]
+
+**Description:** We did not fully keep track of the time we worked
+during the last Milestone and did not move issues/tasks into the correct
+category on the Big Board as we completed them so our velocity may not
+necessarily be accurate
+
+**Severity:** Med
+
+**Resolution:** We made a google sheet to [<u>Clock in, Clock
+out</u>](https://docs.google.com/spreadsheets/d/1Jfxms3ZYwZeqm03pL8pP_nACPbMGrL5nCE0G5Ao2iQo/edit?usp=sharing)
+our working hours so that we can have a more accurate velocity for the
+second iteration of Milestone 2. We will also update the Big Board as
+tasks are completed
+
+**Status:** In progress
 
 **Risk:** Schedule Business varies due to other classes
 
-**Description:** We’re in Midterms so schedules and time availability will vary. 
+**Description:** We’re in Midterms so schedules and time availability
+will vary.
 
 **Severity:** Med
 
-**Resolution:** Maintain strong communication via frequent check-ins and mentions of any time issues via online-chat.
+**Resolution:** Maintain strong communication via frequent check-ins and
+mentions of any time issues via online-chat.
 
 **Status**: Resolved
 
+**  
+Risk:** Team Risk \[Letting the workload of classes overwhelm us as
+finals week approaches\]
+
+**Description:** If time is not managed properly, finals week could
+overwhelm team members.
+
+**Severity:** Med
+
+**Resolution:** Strong time management starting now (week 8)
+
+**Status:** In progress
+
+**Risk:** Team Risk \[Connor’s concurrent projects\]
+
+**Description:** Connor has a lot of concurrent projects (like 5) that
+might get in the way of being able to focus on this project  
+**Severity:** Low (we have other people)  
+**Resolution:** Connor communicates if any support is needed and does as
+much as he can.
+
+**Status:** In Progress
+
+# **Calculation of Velocity with justification based on MS 1 results:**
+
+## **From milestone 1:**
+
 **Iteration Length:** 1 week (30 hrs (5 hrs/ person))
 
-**Initial Velocity:** 0.4 as the team is unfamiliar with each other and our workspeeds in a project setting; will adjust accordingly after seeing results from the first iteration 
+**Iteration 2 Velocity:** Calculated 0.3 because we completed 9 hrs of
+work in 30 work hours however, our velocity was likely **0.5** because
+we underestimated the time each user story would take in our Milestone 1
+planning phase, specifically, we did not think about testing or having
+to search for how to do certain tasks. Additionally, we now know what to
+expect working on Successorator and feel that our estimates for this
+Milestone are more accurate than those in Milestone 1.
 
-30 \* 0.5 = 15 hrs of actual work 
+So, we begin Milestone 2 and Iteration 1 with a velocity of 0.5.
 
+## **Milestone 2**
 
+**Iteration 1 Length:** 1 week (60 hrs (10 hrs/ person))
 
+60 \* 0.5 = 30 hrs of actual work we can complete
 
+Work Done: 
+18 hours of estimated work
+32.5 hours of actual work
+Velocity for Iteration 2: 16/32.5 = 0.554
 
-
-# <a name="_leczm6s9r00r"></a>Planning Poker Results:
-
-
-Increments (In hours): 1, 2, 3, 4, 8, 16 
-
-|**User Story**|**Name**|**Hand**|**Assumptions Revealed**|
-| :- | :- | :- | :-: |
-|1|Add Goal|4 4 8 8 16 8|<p>- Develop UI</p><p>- developing backend structure will take a while</p><p>- Would require cache (no experience in lab)</p><p>- Assuming very first task completed</p>|
-|1|Add Goal|8 8 8 8 8 8|(None)|
-|2|Complete Goal|3 3 2 4 4 3|<p>- Requirements: add a true/false flag for complete</p><p>- On click listener to implement</p><p>- Rearranging the list and the UI stuff will probably be the hardest part (strikethrough in addition)</p><p>- Much of the time consuming stuff is already implemented</p>|
-|2|Complete Goal|3 3 3 3 3 3|(None)|
-|3|Display Goal|3 2 3 2 2 4|- Similar implementation to the list in lab 4 (would just require the on-click for story 2 but can be handled during that time)|
-|3|Display Goal|2 2 2 2 2 2 |(None) |
-|4|Un-Complete Goal|4 2 2 2 3 2|<p>- Similar to User Story (2)</p><p>- Only difficult part being proper implementation/testing</p>|
-|4|Un-Complete Goal|2 2 2 2 2 2|(None)|
-|5|Display Date|2 2 3 1 1 2|<p>- Just UI and dealing with API</p><p>- Challenge is making sure date updates and proper format</p><p>- <https://stackoverflow.com/questions/5369682/how-to-get-current-time-and-date-in-android></p><p>- Strftime strptime implementation (or similar)</p>|
-|5|Display Date|1 2 1 2 1 1 |<p>- Dates can be finicky</p><p>- Mac and windows have differences regarding time</p><p>&emsp;- Should not be a problem for us as we are using an emulator</p>|
-|5|Display Date|1 1 1 1 2 1|<p>- We may encounter problems </p><p>&emsp;- (velocity should account for it)</p>|
-|5|Display Date|1 1 1 1 1 1|(None)|
-|6|Rollover Goal|3 3 3 3 3 4|<p>- Keep correct and delete correct</p><p>- Once again time stuff</p><p>- Continuous time check?</p><p>- Does the app need to auto refresh time or just on restart</p><p>&emsp;</p><p>&emsp;- Will require some sort of alarm to look into</p>|
-|6|Rollover Goal|3 4 4 4 4 3|- Testing might take time (how to change the system date for it?)	|
-|6|Rollover Goal|4 4 4 4 4 4|(None)|
-
-# <a name="_xjcycognofb9"></a>User Stories:
-- (1.) Add Goal 
-  - As a user, I want to be able to add a goal so I can keep track of what I want to accomplish today.
-  - Priority: High
-  - Dependency: None
-  - Time Estimate: 8
-  - Task:
-    - Goal Repository (some sort of backend)
-    - Goal Object/Class
-    - Implement “Add” button, when clicked, display pop-up/fragment for goal creation
-      - Design UI for display 
-      - Submit and cancel button
-      - Fragment/pop-up for goal creation
-    - Implement keyboard w/ voice dictation
-    - Testing
-  - Scenarios:
-    - Adding First Goal: Given that there are no goals in the list, when Jessica presses the “+” on the upper right corner of the app, then a display pops up for Jessica to type “Prepare for midterm”, when Jessica presses “Submit” on the display, then the goal “Prepare for midterm” shows up on the app.
-    - Canceling First Goal: Given that there are no goals in the list, when Jessica presses the “+” on the upper right corner of the app, then a display pops up for Jessica to type “Prepare for midterm”, when Jessica presses “Cancel” on the display, then the display disappears and Jessica sees a blank app with the message "No goals for the Day. Click the + at the upper right to enter your Most Important Thing.".
-    - Adding to a List of Goals: Given that there is one goal in the list “Prepare for midterm”, when Jessica presses the “+” on the upper right corner of the app, then a display pops up for Jessica to type “Grocery shopping”, when Jessica presses “Submit” on the display, then the goal “Grocery shopping” shows up below the goal “Grocery shopping”.
-    - Given Jessica wants to add a new goal but has a completed goal “Prepare for the midterm” and an unfinished goal “Grocery Shopping”. The newly added goal “Text Maria” would be inserted in between the two.
-    - Voice Dictation: Given that the user is adding a task, when the user taps on the microphone at the upper right of the keyboard, then the user can say a phrase, when the user says a phrase, then the app displays the phrase said, when the user clicks the check mark at the bottom right, the task is added
-
-- (2.) Complete Goal
-  - As a user, I want to be able to mark a goal as completed so that I do not have to worry about completing or repeating a goal
-  - Priority: High
-  - Dependencies: User Story #3
-  - Time Estimate: 3
-  - Task:
-    - Onclick event for goal
-    - Shift completed goal to top of finished goals list
-    - Update goal repository
-    - Add strikethrough on goal text
-    - Testing
-  - Scenarios: 
-    - Only One Goal: Given that there is one goal “Prepare for midterm”, when Jessica taps on “Prepare for midterm”, then the “Prepare for midterm text will be crossed out in strikethrough.
-    - Multiple Goals: Given that there are two goals “Prepare for midterm” and “Grocery shopping”, when Jessica taps on “Prepare for midterm” to mark the goal as complete, then the “Prepare for midterm” text will be crossed out in strikethrough and moved to below “Grocery shopping”. 
-    - Already Completed Goals: Given that there is one unfinished goal “Prepare for midterm” and one finished goal “Grocery shopping”, when Jessica taps on “Prepare for midterm”, then the “Prepare for midterm” text will be crossed out in strikethrough and put above “Grocery shopping”.
-
-- (3.) Display Goals
-  - As a user, I want to be able to see the goals I have completed and not completed so that I know what *needs* to be done today. 
-  - Priority: High
-  - Dependency: None
-  - Time Estimate: 2
-  - Task: 
-    - UI
-      - Using a list style of page
-    - Fetch goals (2 lists, “active goals” and “completed goals”)
-      - Observers for the goals
-    - Testing
-  - Scenarios:
-    - No Goals: Given that there are no goals in the list, when Jessica opens the app, then the message "No goals for the Day.  Click the + at the upper right to enter your Most Important Thing." is displayed on screen in gray text.
-    - Already populated goals 
-      - Completed Goals: Given that the goal “Prepare for midterm” has been marked as completed, when Jessica opens the app, then the goal “Prepare for midterm” will be striked through.
-      - Completed and Uncompleted Goals: Given that the goal “Prepare for midterm” has been marked as completed and the goal “Grocery shopping” has not been completed, when Jessica opens the app, then the goal “Grocery shopping” will not be struck though and will appear above the goal “Prepare for midterm” which will be striked through.
-
-- (4.) Un-Complete Goal
-  - As a user, I want to be able to unmark a goal as incomplete so that I know it still needs to be done. 
-  - Priority: Med
-  - Dependency: User Story #2
-  - Time Estimate: 2
-  - Task:
-    - Add “on-click” on a completed goal to mark as uncomplete
-    - Update goal repository 
-    - Move goal to top of list
-    - Remove strikethrough from goal
-    - Testing
-  - Scenario: 
-    - Only One Completed Goal: Given that the only goal “Prepare for midterm” has been marked as completed, when Jessica taps on “Prepare for midterm” then the strikethrough on “Prepare for midterm” is removed.
-    - Completed and Uncompleted Goals: Given that the goal “Prepare for midterm” has been marked as completed and the goal “Grocery shopping” has not been marked as completed, when Jessica taps on “Prepare for midterm” then the strikethrough on “Prepare for midterm” is removed and “Prepare for midterm” is moved above “Grocery shopping”.
-    - Only Uncompleted Goals: Given that the goal “Prepare for midterm” has been marked as completed and the goal “Grocery shopping” has been marked as completed, when Jessica taps on “Prepare for midterm” then the strikethrough on “Grocery shopping” is removed and “Grocery shopping” is moved above “Grocery shopping”.
+**Iteration 2 Length:** 1 week (35 hrs (6 hrs/person))
+35 \* 0.523 = 19.39 Estimated hours of work allowed
 
 
+<img src="media/image10.jpg" style="width:4.26357in;height:3.19343in" />
 
-- (5). Display Date 
-  - Priority: Low
-  - As a user, when I launch the app, I want to see today’s date at the top of the screen so I know what day I am creating goals for.
-  - Dependency: none
-  - Time Estimate: 1
-  - Task:
-    - Format: Day of Week x/xx
-    - UI Design for date panel
-    - Create panel for date 
-    - Display date
-    - Update date at 2am
-    - Testing
-  - Scenario:
-    - Display Today’s Date with no Goals: Given that there are no events added and the date is Wednesday, January 31, when Jessica opens that app then the app should display “Wednesday 1/31” at the top of the screen
-    - Display Today’s Date with Goals: Given that there is the goal “Prepare for midterm” added and the date is Wednesday, January 31, when Jessica opens that app then the app should display “Wednesday 1/31” at the top of the screen and the goal “Prepare for midterm” should be displayed beneath the date
-- (6) Rollover Goals
-  - Priority: Med
-  - Dependency: User Story #1, #2, #3, #5
-  - Time Estimate: 4
-  - As a user, I want my goals to rollover to the next day if I don’t complete them so I know that I still have to finish them.
-  - Task:
-    - Roll over at 2am & retrieve unfinished goals from previous day 
-    - Delete any completed goals @ rollover time 
-    - Testing
-  - Scenario:
-    - Uncompleted Goals: Given that the goal “Prepare for midterm” is not marked as completed and the goal “text Maria” is marked as completed and the date is Wednesday, 1/31, when it is 2am, then the goal “Prepare for midterm” will be displayed at the top marked as uncompleted with the date Thursday, 2/1.
-    - All Goals Completed: Given that the goals “Prepare for midterm” and goal “Grocery shopping” are marked as completed and there are no other goals, when it turns 2am comes, then no goals will be displayed.
+# Planning Poker Results:
 
-# <a name="_6zm5xqotkze"></a>Tasks
+Increments (In hours): 1, 2, 3, 4, 8, 16, 32
 
-**Iteration 1:**
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>User Story</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Hand</strong></th>
+<th><strong>Assumptions Revealed</strong></th>
+</tr>
+<tr class="odd">
+<th>7</th>
+<th>Add goals to Tomorrow</th>
+<th>4 3 4 4 2 8</th>
+<th><p>-can probably copy over the logic currently</p>
+<p>-simply new field in the goal &amp; query for those</p>
+<p>-testing</p></th>
+</tr>
+<tr class="header">
+<th>7</th>
+<th>Add goals to Tomorrow</th>
+<th>3 4 4 4 4 3</th>
+<th>- We underestimated how long stuff took in the previous milestone
+(should be accounted for by velocity but was the only reason our hands
+differed)</th>
+</tr>
+<tr class="odd">
+<th><mark>7</mark></th>
+<th><mark>Add goals to Tomorrow</mark></th>
+<th><mark>4 4 4 4 4 4</mark></th>
+<th></th>
+</tr>
+<tr class="header">
+<th>8</th>
+<th>Pending Goals</th>
+<th>8 8 4 8 4 8</th>
+<th><p>-Misunderstood user story as including US 13</p>
+<p>-misunderstood pop-up box (same as from milestone 1)</p></th>
+</tr>
+<tr class="odd">
+<th><mark>8</mark></th>
+<th><mark>Pending Goals</mark></th>
+<th><mark>4 4 4 4 4 4</mark></th>
+<th></th>
+</tr>
+<tr class="header">
+<th>9</th>
+<th>Recurring Goals</th>
+<th>8 16 16 16 16 8</th>
+<th><p>-recurring logic might be difficult</p>
+<p>-testing will take a long time</p>
+<p>-maybe have to create a 2nd database</p>
+<p>-ask tutor what they think to help</p></th>
+</tr>
+<tr class="odd">
+<th><mark>9</mark></th>
+<th><mark>Recurring Goals</mark></th>
+<th><mark>16 16 16 16 16 16</mark></th>
+<th></th>
+</tr>
+<tr class="header">
+<th>10</th>
+<th>Tag Goals</th>
+<th>3 3 8 2 2 3</th>
+<th><p>-prepend/append buttons can be reused</p>
+<p>-misunderstood how the tag worked. (Didn’t know there was only four
+different categories)</p>
+<p>-misunderstood how the view with tag worked (thought goals ordered by
+insert, actually sorted by tag)</p>
+<p>-similar to how we have our completed goal ordering in MS1 (can adapt
+it)</p></th>
+</tr>
+<tr class="odd">
+<th><mark>10</mark></th>
+<th><mark>Tag Goals</mark></th>
+<th><mark>3 3 3 3 3 3</mark></th>
+<th></th>
+</tr>
+<tr class="header">
+<th>11</th>
+<th>Focus Mode</th>
+<th>3 3 3 8 8 8</th>
+<th><p>-confused about how the logic would work</p>
+<p>-Similar enough to the display goals so shouldn’t be as bad as some
+thought</p></th>
+</tr>
+<tr class="odd">
+<th>11</th>
+<th>Focus Mode</th>
+<th>3 3 3 3 4 4</th>
+<th>-testing + fragment testing(make sure works with different goal
+types) + UI design</th>
+</tr>
+<tr class="header">
+<th><mark>11</mark></th>
+<th><mark>Focus Mode</mark></th>
+<th><mark>4 4 4 4 4 4</mark></th>
+<th></th>
+</tr>
+<tr class="odd">
+<th>12</th>
+<th>Switch Pages/Views</th>
+<th>3 3 1 2 2 2</th>
+<th><p>-testing will take a bit of time</p>
+<p>-simple because just switching fragment view (swapFragments
+method)</p></th>
+</tr>
+<tr class="header">
+<th><mark>12</mark></th>
+<th><mark>Switch Pages/Views</mark></th>
+<th><mark>2 2 2 2 2 2</mark></th>
+<th></th>
+</tr>
+<tr class="odd">
+<th>13</th>
+<th>Modify Pending Goals</th>
+<th>4 2 4 4 4 4</th>
+<th><p>-testing</p>
+<p>-need to figure out long-hold logic (Android documentation)</p>
+<p>-Thought when goal was uncompleted from today, it moved back to
+pending</p></th>
+</tr>
+<tr class="header">
+<th>13</th>
+<th>Modify Pending Goals</th>
+<th>3 4 3 3 4 3</th>
+<th>-on long click listener exists already (thought it may have been
+harder to do)</th>
+</tr>
+<tr class="odd">
+<th><mark>13</mark></th>
+<th><mark>Modify Pending Goals</mark></th>
+<th><mark>3 3 3 3 3 3</mark></th>
+<th><table style="width:10%;">
+<colgroup>
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><mark>-assume that logic for</mark></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table></th>
+</tr>
+<tr class="header">
+<th>14</th>
+<th>Delete Recurring Goals</th>
+<th>2 3 3 2 2 2</th>
+<th><p>-Assume logic for creating Recurring goal is already
+implemented</p>
+<p>-similar logic to modify pending goal</p></th>
+</tr>
+<tr class="odd">
+<th><mark>14</mark></th>
+<th><mark>Delete Recurring Goals</mark></th>
+<th><mark>2 2 2 2 2 2</mark></th>
+<th></th>
+</tr>
+<tr class="header">
+<th>15</th>
+<th>Rollover Tomorrow’s Goals to Today</th>
+<th>4 2 8 4 2 3</th>
+<th><p>-overestimated time it would take to complete the task</p>
+<p>-rollover already implemented so just need to modify what tasks get
+rollovered</p></th>
+</tr>
+<tr class="odd">
+<th>15</th>
+<th>Rollover Tomorrow’s Goals to Today</th>
+<th>3 4 2 3 3 4</th>
+<th><p>-Will take less time because it can be done with a query to
+update goals from tomorrow to today</p>
+<p>-Need to make sure completed goals from tomorrow dont get
+deleted</p></th>
+</tr>
+<tr class="header">
+<th><mark>15</mark></th>
+<th><mark>Rollover Tomorrow’s Goals to Today</mark></th>
+<th><mark>3 3 3 3 3 3</mark></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+#  
+
+# User Stories:
+
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><blockquote>
+<p>(1.) _______</p>
+</blockquote>
+<ul>
+<li><blockquote>
+<p>As a user, _______ so I can _______.</p>
+</blockquote></li>
+<li><blockquote>
+<p>Priority: _____</p>
+</blockquote></li>
+<li><blockquote>
+<p>Dependency: _____</p>
+</blockquote></li>
+<li><blockquote>
+<p>Time Estimate: _____</p>
+</blockquote></li>
+<li><blockquote>
+<p>Task:</p>
+</blockquote>
+<ul>
+<li></li>
+<li><blockquote>
+<p>Testing</p>
+</blockquote></li>
+</ul></li>
+<li><blockquote>
+<p>Scenarios:</p>
+</blockquote>
+<ul>
+<li></li>
+</ul></li>
+</ul></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+7\. US \#7: Add goals to Tomorrow
+
+1.  As a user, I want to be able to plan ahead goals for up to one day
+    > so that I can write in new goals when I think about them but don’t
+    > have to see them on today’s goal page to have better clarity on
+    > what needs to be done more immediately.
+
+2.  Priority: High
+
+3.  Dependency: N/A
+
+4.  Time Estimate: 4
+
+5.  Tasks:
+
+    1.  Tomorrow fragment
+
+    2.  Pop-up box
+
+    3.  Tomorrow field on goal
+
+    4.  Display correct date & format
+
+    5.  Testing
+
+6.  Scenarios:
+
+    1.  Adding goals to empty Tomorrow view: Given that there are no
+        > goals on the Tomorrow page, when Jessica presses the “+”, then
+        > the pop-up box displays, when Jessica types in “Turn in paper”
+        > and selects the “one-time” button, then the goal “Turn in
+        > paper” appears on the list.
+
+    2.  Adding goals to existing Tomorrow view: Given that there is the
+        > goal “Turn in paper” on the Tomorrow page, when Jessica
+        > presses the “+”, then the pop-up box displays, when Jessica
+        > types in “Wash dishes” and selects the “one-time” button, then
+        > the goal “Wash dishes” appears on the list below “Turn in
+        > paper.”
+
+<img src="media/image6.jpg" style="width:6.5in;height:5.02778in" />
+
+8\. US \#8: Pending Goals
+
+1.  As a user, I want to be able to add a goal with no specific date to
+    > be pending so that I can write down things that I need to get done
+    > in the future.
+
+2.  Priority: High
+
+3.  Dependency: N/A
+
+4.  Time Estimate: 4
+
+5.  Task:
+
+    1.  Pending Fragment
+
+    2.  Pop up box
+
+    3.  Pending field on goal
+
+    4.  Testing
+
+6.  Scenarios
+
+    1.  Add Pending Goals: Given that there are no goals in the Pending
+        > page, when Jessica presses the plus button to add “Watch
+        > lecture” then watch lecture appears on the page, when she adds
+        > “Take out trash” then “take out trash appears below “watch
+        > lecture”.
+
+<img src="media/image8.jpg" style="width:6.5in;height:5in" />
+
+9\. US \#9: Recurring Goals
+
+1.  As a user, I want to be able to add a goal to the recurring page so
+    > that I know which goals need to be repeated and completed not just
+    > once.
+
+2.  Priority: High
+
+3.  Dependency: N/A
+
+4.  Time Estimate: 16
+
+5.  Task:
+
+    1.  Pop-up box
+
+        1.  add calendar to pick date
+
+        2.  Add different recurring options (i.e. daily, weekly,
+            > monthly, yearly)
+
+    2.  Recurring fragment
+
+        1.  Different recurring messages
+
+        2.  Sort recurring goals by start date
+
+    3.  Update goal field with Recurring
+
+    4.  Recurring logic
+
+    5.  Testing
+
+6.  Scenarios
+
+    1.  Daily recurring (starting today): Given I am on the Recurring
+        > view and the current date is Tuesday 2/27 and there are no
+        > goals in today or tomorrow, when I click the “+” button and I
+        > type in “Do Homework” and select Daily and select starting
+        > 2/27 and click save, then I will see “Do Homework, daily” in
+        > the list in the recurring view. When I navigate to the Today
+        > view then I will see “Do homework, daily”. When I navigate to
+        > the Tomorrow view then I will see “Do homework, daily”.
+
+    2.  Daily recurring (starting tomorrow): Given I am on the Recurring
+        > view and the current date is Tuesday 2/27 and there are no
+        > goals in today or tomorrow, when I click the “+” button and I
+        > type in “Do Homework” and select Daily and select starting
+        > 2/28 and click save, then I will see “Do Homework, daily” in
+        > the list in the recurring view. When I navigate to the Today
+        > view then I will see an empty list. When I navigate to the
+        > Tomorrow view then I will see “Do homework, daily”.
+
+    3.  Daily recurring (starting day after tomorrow): Given I am on the
+        > Recurring view and the current date is Tuesday 2/27 and there
+        > are no goals in today or tomorrow, when I click the “+” button
+        > and I type in “Do Homework” and select Daily and select
+        > starting 2/29 and click save, then I will see “Do Homework,
+        > daily” in the list in the recurring view. When I navigate to
+        > the Today view then I will see an empty list. When I navigate
+        > to the Tomorrow view then I will see an empty list.
+
+    4.  Weekly Recurring: Given I am on the Recurring view and the
+        > current date is Tuesday 2/27 and there are no goals in today
+        > or tomorrow, when I click the “+” button and I type in “Do
+        > Laundry” and select Weekly and select starting 2/27 and click
+        > save, then I will see “Do Laundry, weekly on Tuesday” in the
+        > list in the recurring view. When I navigate to the Today view
+        > then I will see “Do Laundry, weekly on Tuesday”. When I
+        > navigate to the Tomorrow view then I will see an empty list.
+        > When 2:00 am on Monday 3/4 comes, then I will see no tasks in
+        > the today view and see “Do Laundry, weekly on Tuesday” in the
+        > tomorrow view. When 2:00 am on Tuesday 3/5 (the next Tuesday)
+        > comes, then I will see “Do Laundry, weekly on Tuesday” in the
+        > today view and no tasks in the tomorrow view.
+
+    5.  Monthly Recurring: Given I am on the Recurring view and the
+        > current date is Tuesday 2/27 and it is the fourth tuesday of
+        > the month and there are no goals in today or tomorrow, when I
+        > click the “+” button and I type in “Pay phone bill” and select
+        > Monthly and select starting 2/27 and click save, then I will
+        > see “Pay phone bill, monthly every 4th Tuesday” in the list in
+        > the recurring view. When I navigate to the Today view then I
+        > will see “Pay phone bill, monthly every 4th tuesday”. When I
+        > navigate to the Tomorrow view then I will see an empty list.
+        > When 2:00 am on Monday 3/25 comes, then I will see no tasks in
+        > the today view and see “Pay phone bill, monthly every 4th
+        > tuesday” in the tomorrow view. When 2:00 am on Tuesday 3/26
+        > (the 4th Tuesday of the next month) comes, then I will see
+        > “Pay phone bill, monthly every 4th Tuesday” in the today view
+        > and no tasks in the tomorrow view.
+
+    6.  Yearly Recurring: Given I am on the Recurring view and the
+        > current date is Tuesday 2/27/24 and there are no goals in
+        > today or tomorrow, when I click the “+” button and I type in
+        > “Do taxes” and select Yearly and select starting 2/27 and
+        > click save, then I will see “Do taxes, yearly on 2/27” in the
+        > list in the recurring view. When I navigate to the Today view
+        > then I will see “Do taxes, yearly on 2/27”. When I navigate to
+        > the Tomorrow view then I will see an empty list. When 2:00 am
+        > on 2/26/25 comes, then I will see no tasks in the today view
+        > and see “Do taxes, yearly on 2/27” in the tomorrow view. When
+        > 2:00 am on 2/27/25 (the next year) comes, then I will see “Do
+        > taxes, yearly on 2/27” in the today view and no tasks in the
+        > tomorrow view.
+
+    7.  Incomplete Daily Recurring goal on rollover: Given the current
+        > date is 2/27 and I am on the Recurring view and there are no
+        > goals in Today or tomorrow, when I add a daily recurring goal
+        > “Do Homework, daily” that starts on 2/27, when I go to Today
+        > then I will see “Do Homework, daily”, when I go to Tomorrow
+        > then I will see “Do Homework, daily”. When the next day comes
+        > (2:00 am on 2/28) and I did not mark “Do Homework, daily” as
+        > complete on the today view, then I will see “Do Homework,
+        > daily” once (not twice) in the today view and “Do Homework,
+        > daily” in the tomorrow view.  
+        > **Explanation for clarification:** Recurring goals that are
+        > not marked complete do not stack on top of each other, so the
+        > do homework goal in the tomorrow view rolls over to replace
+        > the old goal in the today view and 2/29’s do homework goal
+        > rolls over to replace the old goal in the tomorrow view
+
+    8.  Picking a past date: Given the current date is 2/27 and I am on
+        > the Recurring view, when i click ‘+’ and go to the date picker
+        > and click 2/26 for the recurrence, then i will not be able to
+        > select it (or any other day before 2/27)
+
+<img src="media/image5.jpg" style="width:6.5in;height:5.02778in" />
+
+10\. US \#10: Tag Goals
+
+1.  As a user, I want to be able to tag a goal with a context so that I
+    > can organize my tasks by different context.
+
+2.  Priority: Med
+
+3.  Dependency: N/A
+
+4.  Time Estimate: 3
+
+5.  Task:
+
+    1.  Add categories - Home, Work, School, Errands
+
+        1.  Colors for each
+
+        2.  Completed gray area
+
+    2.  Add finished category for when goals are completed
+
+        1.  Not selectable when created, but when goal is completed,
+            > gets assigned to this category
+
+    3.  Update Goal fields & Database
+
+    4.  Update sorting logic
+
+    5.  Testing
+
+6.  Scenarios:
+
+    1.  Sorting Goals w/ Context: Given that there are four goals, “do
+        > laundry”, “fill out timesheet”, “study for midterm”, and “get
+        > groceries” for Today, when Jessica opens the Today view, then
+        > the goals will be displayed in that order, when Jessica taps
+        > to complete “do laundry”, then the color dot turns gray and
+        > “do laundry” gets struck through and moves to the bottom, when
+        > Jessica adds another Home tagged goal “do dishes”, then “do
+        > dishes” appears above the other goals.
+
+    2.  Tagging Context: Given that there are no goals on the Today
+        > page, when Jessica taps the plus to add a new goal, then a pop
+        > up box displays where there are four options with unique
+        > colors, when Jessica types in “do laundry” and taps Home, then
+        > there is a yellow dot to the left of “do laundry”, when
+        > Jessica types in “fill out timesheet” and taps Work, then
+        > there is a blue dot to the left of “fill out timesheet”, when
+        > Jessica types in “study for midterm” and taps School, then
+        > there is a pink dot to the left of “study for midterm”, when
+        > Jessica types in “get groceries” and taps Errands, then there
+        > is a green dot to the left of “get groceries”.
+
+<img src="media/image3.jpg" style="width:6.5in;height:3.54167in" />
+
+11\. US: \#11: Focus Mode
+
+1.  As a user, I want to be able to enter a focus mode to show goals of
+    > only a certain context so that I can focus on specific context
+    > first.
+
+2.  Priority: Med
+
+3.  Dependency: US 10
+
+4.  Time Estimate: 4
+
+5.  Task:
+
+    1.  Pop-up box
+
+        1.  Have indicator for current mode
+
+        2.  Have cancel option to exit focus mode
+
+    2.  Hamburger icon on menu bar
+
+    3.  Sort by context
+
+    4.  Mode persists across views
+
+    5.  Testing
+
+6.  Scenario:
+
+    1.  Picking a focus for Focus Mode: Given Jessica has goals “(H) Do
+        > laundry” and “(S) Study for midterm” for today, when she
+        > presses the hamburger menu icon, then the Focus Mode menu will
+        > open and show the contexts “Home”, “Work”, “School”, and
+        > “Errands” will be shown. When she presses “Home” then the view
+        > for today will show the goal “(H) Do laundry”.
+
+    2.  Canceling Focus Mode: Given that Jessica has goals “(H) Do
+        > laundry” and “(S) Study for midterm” for today and is in Focus
+        > Mode for context Home and displaying goal “(H) Do laundry”,
+        > when she presses the cancel button, then the app will exit
+        > focus mode and the goals “(H) Do laundry” and “(S) Study for
+        > midterm” will be displayed.
+
+    3.  Switching Pages with Focus Mode: Given that Jessica has goal
+        > ”(H) Do laundry” for today and goals “(S) Study” and “(H) Wash
+        > dishes” for tomorrow and is in Focus mode for context Home in
+        > the today’s view and the top of the app displays “Today, Tues
+        > 2/20”, when she presses the dropdown and selects “Tomorrow”,
+        > then the view will change to tomorrow and the top of the app
+        > displays “Tomorrow, Weds 2/21” and the goal “(H) Wash dishes”
+        > will be shown.
+
+<img src="media/image4.jpg" style="width:6.5in;height:5in" />
+
+12\. US: \#12: Switch Pages/Views
+
+1.  As a user, I want to be able to select which page I want to look at
+    > so that I can add goals to the specific page catered to my needs.
+
+2.  Priority: High
+
+3.  Dependency: US 7, US 8, and/or US9 (needs at least 1)
+
+4.  Time Estimate: 2
+
+5.  Task:
+
+    1.  Add drop down to UI that pulls the list of the the fragments and
+        > swaps between them on select
+
+        1.  Swap fragments logic
+
+    2.  Testing
+
+6.  Scenario:
+
+    1.  Switching Between Views: Given that Jessica opens the app and
+        > Jessica is currently on the Today view, when she taps the
+        > arrow next to the date above, then a drop down selection menu
+        > appears, when Jessica clicks on Tomorrow, then Jessica sees
+        > the Tomorrow page, when Jessica clicks on Pending, then
+        > Jessica sees the Pending page, when Jessica clicks on
+        > Recurring, then Jessica sees the Recurring page, when Jessica
+        > clicks on Today, then Jessica sees the Today page.
+
+<img src="media/image7.jpg" style="width:6.5in;height:5.73611in" />
+
+13\. US: \#13: Modify Pending Goals
+
+1.  As a user, I want to modify the status of a goal on the Pending Page
+    > so that I know whether it needs to be completed now or it’s
+    > finished.
+
+2.  Priority: Med
+
+3.  Dependency: US 7 & US 8
+
+4.  Time Estimate: 3
+
+5.  Task:
+
+    1.  Long hold logic to change status
+
+        1.  Update goal fields
+
+    2.  Pop-up box
+
+    3.  Testing
+
+6.  Scenario:
+
+    1.  Modifying Pending Goals: **Given** I am on the Pending page
+        > **And** there is a pending goal “Do the Dishes” **And**
+        > today’s date is Mon, Feb 26 **When** I long press “Do the
+        > Dishes” **Then** I will see a menu with the options: Move to
+        > Today, Move to Tomorrow, Finish, and Delete **When** I select
+        > Move to Today **And** navigate to the Today page **Then** I
+        > will see Mon, Feb 26 **And** I will see “Do the Dishes”
+        > **When** I select Move to Tomorrow **And** navigate to the
+        > Tomorrow page **Then** I will see Tues, Feb 27 **And** I will
+        > see “Do the Dishes” **When** I select Finish **And** I
+        > navigate to the Today page **Then** I will see “Do the Dishes”
+        > struck through (Piazza \#425) **When** I select Delete
+        > **Then** I will no longer see “Do the Dishes”
+
+<img src="media/image9.jpg" style="width:6.5in;height:5.02778in" />
+
+14: US: \#14: Delete Recurring Goals
+
+1.  As a user, I want to be able to delete recurring goals so that I am
+    > no longer reminded to complete them when I’m done with the goal.
+
+2.  Priority: Med
+
+3.  Dependency: US 9
+
+4.  Time Estimate: 2
+
+5.  Task:
+
+    1.  Long hold logic to delete
+
+    2.  Confirmation dialog / pop-up
+
+    3.  Testing
+
+6.  Scenario:
+
+    1.  Deleting recurring goal: **Given** I have one goal “study for
+        > midterm” in my recurring goal list, **when** I long press
+        > “study for midterm” **then** I will see a “delete” prompt,
+        > **when** I press delete **then** “study for midterm” will no
+        > longer be in the recurring goals list.
+
+<img src="media/image1.jpg" style="width:6.5in;height:2.20833in" />
+
+15: US: \#15: Rollover Tomorrow’s Goals to Today
+
+1.  As a user, I want my goals for tomorrow to become today’s goals when
+    > the day changes so that I know I have to complete those goals
+    > today
+
+2.  Priority: High
+
+3.  Dependency: US 7
+
+4.  Time Estimate: 3
+
+5.  Task:
+
+    1.  Update rollover logic
+
+    2.  Testing
+
+6.  Scenario:
+
+    1.  Rolling Over Goals: Given that Jessica has “study for midterm”
+        > Today and “watch lecture” Tomorrow, when Jessica doesn’t
+        > complete “study for midterm”, then at 2am Today will have
+        > “study for midterm” and “watch lecture” and Tomorrow will be
+        > empty, when Jessica completes “study for midterm”, then at 2am
+        > Today will have “watch lecture” and Tomorrow will be empty”,
+        > when Jessica completes “watch lecture” in Tomorrow and does
+        > not complete “study for midterm”, then 2am Today will have
+        > “study for midterm” and “watch lecture” struck through and
+        > Tomorrow will be empty
+
+<img src="media/image2.jpg" style="width:6.5in;height:4.98611in" />
+
+# Iteration 1 Tasks
 
 Loose Tasks:
 
--set up Android environment **Time Estimate:** 15 min
+-Modify InMemoryDataSource & SimpleRepository to reflect new changes
 
--set up basis for the app (design basic structure, Java classes, etc) **Time Estimate:** 15 min
+-Integration / merge conflict resolution
 
--learn how to add keyboard function **Time Estimate:** 15 min
+7\. US \#7: Add goals to Tomorrow (High, 4 hours)
 
--set up GitHub repository & Github Projects **Time Estimate:** 30 min
+- Tasks:
 
-User Story #1: Add GOAL (8 hours) (8.5 hours after estimating tasks)
+  - Tomorrow fragment - 1 hour
 
-- Task:
-  - Goal Repository (some sort of backend) **Time Estimate:** 3 hours
-  - Goal Object/Class **Time Estimate:** 1 hour
-  - Implement “Add” button, when clicked, display pop-up/fragment for goal creation 
-    - Design UI for display **Time Estimate:** 30 min
-    - Submit and cancel button **Time Estimate:** 30 min
-    - Fragment/pop-up for goal creation **Time Estimate:** 1 hour
-  - Implement keyboard w/ voice dictation (voice dictation is low priority) **Time Estimate:** 30 min
-  - Testing **Time Estimate:** 2 hours
+  - Pop-up box - 1 hour
 
-User Story #3: Display Goal (2 hours)
+  - Tomorrow field on goal - 30 minutes
 
-- Task: 
-  - UI **Time Estimate:** 30 min
-    - Using a list style of page
-  - Fetch goals (2 lists, “active goals” and “completed goals”) 
+  - Display correct date & format - 30 minutes
 
-**Time Estimate:** 1 hour
+  - Testing - 1 hour
 
-- Observers for the goals
-- Testing **Time Estimate:** 30 min
+8\. US \#8: Pending Goals (High, 4 hours)
 
-User Story #5: Display Date (1 hours)
+- Tasks:
 
-- Task:
-  - Format: Day of Week x/xx **Time Estimate:** 30min
-  - UI Design for date panel **Time Estimate:** 15min
-    - Create panel for date
-    - Display date** 
-  - Testing **Time Estimate:** 15min
+  - Pending Fragment - 1 hour
 
-# <a name="_94fogoyb8xj"></a>Iterations/Milestone
-First Iteration (Feb 4 - Feb 10):
+  - Pop up box - 1 hour
 
-User Story #1 – Add Goal
+  - Pending field on goal - 30 minutes
 
-User Story #3 – Display Goal
+  - Testing - 1 hour and 30 minutes
 
-User Story #5 – Display Date
+9\. US \#9: Recurring Goals (High, 16 hours)
 
+- Tasks:
 
-Second Iteration (Feb 11 - Feb 19):
+  - Pop-up box - 2 hour
 
-User Story #2 – Complete Goal
+    - add calendar to pick date
 
-User Story #4 – Un-Complete Goal
+    - Add different recurring options (i.e. daily, weekly, monthly,
+      > yearly)
 
-1st Milestone:
+  - Recurring fragment - 1 hour
 
--try to have a working app! 
+  - Update goal field with Recurring - 1 hour
 
--MVP: be able to add, display and complete a goal 
+  - Recurring logic - 10 hours
 
-# <a name="_fpdeysepnvwp"></a>Scenario-Based Milestone Tests
+  - Testing - 2 hour
 
-1\. Start the app by tapping the app icon. You should see the date Wednesday 1/31 in the center at the top. You should also see a blank white screen beneath it that says "No goals for the Day.  Click the + at the upper right to enter your Most Important Thing." in gray text in the middle. You should also see a + in the upper right corner of the app. 
+12\. US: \#12: Switch Pages/Views (High, 2 hours)
 
-2\. Tap the + in the upper right corner. A small box with a text input field pops up and a “Cancel” button on the bottom left half of the box and a “Submit” button on the bottom right half of the box should appear. A keyboard should appear at the bottom of the app.
+- Tasks:
 
-3\.Type in “Prepare for midterm” in the text field, using the keyboard, then tap “Cancel.” The box pop-up should disappear and you should still see the date Wednesday 1/31 in the center at the top and a blank white screen with the message "No goals for the Day.  Click the + at the upper right to enter your Most Important Thing.", along with a + in the upper right corner.
+  - Add drop down to UI that pulls the list of the the fragments and
+    > swaps between them on select
 
-4\. Tap the + again. Type in “Prepare for midterm” in the text field,” hit “Submit”. The box pop-up should disappear. Below the date, “Prepare for midterm” shows up.
+    - Swap fragments logic - 1 hour
 
-5\. Tap the + again. Type in “Grocery shopping” in the text field, hit “Submit”. The box pop-up should disappear, and “Grocery shopping” should appear below “Prepare for midterm”.
+  - Testing - 1 hour
 
-6\. Tap on “Prepare for midterm.” The text for “Prepare for midterm” should become ~~“Prepare for midterm”.~~ This should appear below “Grocery shopping”.
+# Iterations/Milestone
 
-7\. Tap on “Grocery shopping”. The text for “Grocery shopping” should become ~~“Grocery shopping”~~. This should appear above ~~“Prepare for midterm”.~~
+**First Iteration: February 28th - March 7th**
 
-8\. Tap on ~~“Prepare for midterm”.~~ The text for it should become “Prepare for midterm”. This should appear above ~~“Grocery shopping”.~~
+Total Hours: 26 hours
 
-9\. Close the app. Reopen the app. The date Wednesday 1/31 should still be at the top. Below it is, in order, “Prepare for midterm”, ~~“Grocery shopping~~”. 
+User Story \#7: Add goals to Tomorrow
 
-10\. Tap the + again. Tap the text field to manifest the keyboard. Tap the microphone button on the upper right of the keyboard. Speak into the phone “text Maria”. Tap “Submit”. “Prepare for midterm” should appear above “text Maria” which appears above ~~“Grocery shopping~~”.
+User Story \#8: Pending Goals
 
-11\. When it is 2am, the date at the top should change to Thursday 2/01. Below it should be “Prepare for midterm”, which is above “text Maria”.
+User Story \#9: Recurring Goals
 
-12\. Close the app.
-# <a name="_qag1e56l2oz7"></a>Github Project
+User Story \#12: Switch Pages/Views
 
-Project: <https://github.com/orgs/CSE-110-Winter-2024/projects/182/views/1> 
+Loose Tasks:
 
-Repository: <https://github.com/CSE-110-Winter-2024/project-team-18>
+-Modify InMemoryDataSource & SimpleRepository to reflect new changes
+
+-Integration / merge conflict resolution
+
+Developer Story - Testing:
+
+-testing app to make sure all features work
+
+It’s most important to get started on the recurring goals User Story
+\#9, but it is understandable if we do not finish this user story due to
+its complexity. We will cut User Story \#12 from this iteration because
+it is the least important out of the other user stories, despite it
+being high. This user story is something that we can do most likely
+quickly in the beginning of the second iteration.
+
+**Second Iteration: March 7th - March 14th**
+
+Total Hours: 15 hours
+
+User Story \#10: Tag Goals
+
+User Story \#11: Focus Mode
+
+User Story \#13: Modify Pending Goals
+
+User Story \#14: Delete Recurring Goals
+
+User Story \#15: Rollover Tomorrow’s Goals to Today
+
+Developer Story - Testing:
+
+-testing app to make sure all features work
+
+We will cut User Story \#14 from this iteration if we run out of time
+because it is not as high priority as the others. It’s not of utmost
+importance to be able to delete a recurring goal, as users can just
+ignore it every time (though not the most convenient). We will
+prioritize our efforts to complete the other user stories to make sure
+that the minimum updates to the app are met.
+
+2nd Milestone Ends: March 14th
+
+# Scenario-Based Milestone Tests
+
+1\. Open the app. Given that it is Tuesday February 27, 2024, you will
+see the Today page by default. The date above says “Today, Tu 2/27” with
+a downward arrow next to it. A plus button on the right side of the menu
+bar and a hamburger icon on the left side of the menu bar. The middle of
+the screen says "No goals for the Day. Click the + at the upper right to
+enter your Most Important Thing." Tap on the plus button and a pop-up
+box will appear. Type in “Study for midterm” and tap the “S” icon. Click
+on weekly on Tu. Then hit Submit. Now a pink dot with “Study for
+midterm” will appear. If we were to fast forward to one week later
+(March 5th), then this same goal should appear. (User Story \#7, \#15,
+\#10)
+
+2\. Add more goals. Make one “wash dishes” with Home and one-time. Make
+one “grocery shopping” with Errand and yearly. Make one “go to work”
+with Work and monthly. Now the page should look like, in order, yellow
+dot with “wash dishes”, blue dot with “go to work”, pink dot with “Study
+for midterm”, and green dot with “grocery shopping”. Tap on “grocery
+shopping”, it should be struck through and moved to the bottom of the
+list. The color also turns gray. (User Story \#10)
+
+3\. Tap on the downward arrow. Click on Recurring. There should be 3
+goals there. “Study for midterm, weekly on Tu”, “grocery shopping,
+yearly on Feb 27”, “go to work, monthly on 4th Tuesday”. Long hold on
+grocery shopping, and hit delete. The goal should disappear. Tap on the
+downward arrow. Click on Today. There should only be yellow dot with
+“wash dishes”, blue dot with “go to work”, pink dot with “Study for
+midterm”. (User Story \#12, 9, 14)
+
+4\. Tap on the downward arrow. Click on Tomorrow. The date on top should
+say “Tomorrow, Wed 2/28”. The page is empty. Click the plus button to
+add a goal. The pop-up box should be the same as the one from the Today
+page. Add goals “grocery shopping” with Errand and yearly. A green dot
+with “grocery shopping” appears on the list. (User Story \#12, 7)
+
+5\. Using the \>\> button for demo purposes, advance forward one day.
+Today should be “Today, Wed 2/28” and Tomorrow should be “Tomorrow,
+Thurs, 2/29”. Leftover goals from the previous day should have rolled
+over. The list in Today should be a yellow dot with “wash dishes”, blue
+dot with “go to work”, pink dot with “Study for midterm”, green dot with
+“grocery shopping”. (User Story \#15, 12)
+
+6\. Tap on the downward arrow and click on Pending. The list should be
+empty. Tap on the plus button. A pop-up box with only a text box should
+appear. Type in “clean glasses” with home tapped and press submit.
+“Clean glasses” should appear on the page. Long hold on “clean glasses”.
+A menu should pop up with “Move to today”, “Move to tomorrow”, “Finish”,
+“Delete”. Tap Move to Today. “Clean glasses” should not appear on
+Pending. Switch to Today page. “Clean glasses” should appear. (User
+Story \#8, \#13)
+
+7\. Go back to Pending and add three goals. “Take out trash”, “fold
+clothes”, and “vacuum” with home tapped for each of them. Long hold on
+“Take out trash” and tap “Move to tomorrow”. Long hold on “fold clothes”
+and tap “Finish”. Long hold on “vacuum” and tap “Delete”. The Pending
+page should be empty. Switch to Tomorrow page. “Take out trash” should
+appear. Switch to Today page. “Fold clothes” should appear, struck
+through. (User Story \#8, \#13)
+
+8\. Go to Today page. There should be a yellow dot with “wash dishes”,
+yellow dot with “clean glasses”, blue dot with “go to work”, pink dot
+with “Study for midterm”, green dot with “grocery shopping”, gray dot
+with “fold clothes” struck through. Tap on the hamburger icon. A menu
+should appear. Tap the yellow Home. Only “wash dishes” and “clean
+glasses” and “fold clothes” should appear. Tap hamburger icon again. Tap
+blue Work. only “go to work” should appear. Tap hamburger icon and tap
+pink School. “Study for midterm” should appear only. Tap hamburger icon
+and tap green Errands. Only “grocery shopping” would appear. Tap
+hamburger icon and tap Cancel. All goals should appear. (User Story
+\#11)
+
+9\. Close the app.
+
+# Github Project
+
+Project:
+[<u>https://github.com/orgs/CSE-110-Winter-2024/projects/182/views/1</u>](https://github.com/orgs/CSE-110-Winter-2024/projects/182/views/1)
+
+Repository:
+[<u>https://github.com/CSE-110-Winter-2024/project-team-18</u>](https://github.com/CSE-110-Winter-2024/project-team-18)
