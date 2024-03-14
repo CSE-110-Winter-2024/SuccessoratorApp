@@ -162,7 +162,7 @@ public class FocusGoalTest {
         int[] GoalsCount = countGoalsByContextId(orderedGoals, 1,2,3,4);
 
         // Assert
-        assertEquals("Only school goals should be present when focus mode is set to School", 2, GoalsCount[3]);
+        assertEquals("Only school goals for today should be present when focus mode is set to School", 1, GoalsCount[3]);
     }
 
 
@@ -181,8 +181,8 @@ public class FocusGoalTest {
         //Test to see it's the correct size is set for each ID
         assertEquals(0,ContextCount[1]);
         assertEquals(0,ContextCount[2]);
-        assertEquals(2,ContextCount[3]);
-        assertEquals(1,ContextCount[4]);
+        assertEquals(1,ContextCount[3]);
+        assertEquals(0,ContextCount[4]);
     }
 
 
