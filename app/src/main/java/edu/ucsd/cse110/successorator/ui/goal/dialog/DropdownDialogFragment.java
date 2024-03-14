@@ -14,7 +14,6 @@ import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
-
 import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
 import edu.ucsd.cse110.successorator.ui.date.RecurringFragment;
 import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
@@ -22,6 +21,7 @@ import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
 import edu.ucsd.cse110.successorator.ui.goal.RecurringListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
+
 
 public class DropdownDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
@@ -57,7 +57,6 @@ public class DropdownDialogFragment extends DialogFragment {
                 .setPositiveButton("Go To", this::onPositiveButtonClick)
                 .setNegativeButton("Cancel", this::onNegativeButtonClick)
                 .create();
-
     }
 
     private void onPositiveButtonClick(DialogInterface dialog, int which){
