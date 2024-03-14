@@ -11,12 +11,14 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
 import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 import edu.ucsd.cse110.successorator.lib.util.Constants;
 
 /**
@@ -72,10 +74,31 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment {
 
     private void onPositiveButtonClick(DialogInterface dialog, int which) {
         var goalText = view.addGoalText.getText().toString();
+        int frequency = 0;
+        boolean isRecurringGoal = false;
 
-        //sort order is an invalid value here, because append/prepend will replace it
-        var card = new Goal(goalText, null, false, -1, Constants.TOMORROW, -1);
-        activityModel.addGoal(card);
+        if (view.daily.isChecked()) {
+            frequency = Constants.DAILY;
+            isRecurringGoal = true;
+        } else if (view.Weekly.isChecked()) {
+            frequency = Constants.WEEKLY;
+            isRecurringGoal = true;
+        } else if (view.Monthly.isChecked()) {
+            frequency = Constants.MONTHLY;
+            isRecurringGoal = true;
+        } else if (view.Yearly.isChecked()) {
+            frequency = Constants.YEARLY;
+            isRecurringGoal = true;
+        }
+
+        if (isRecurringGoal) {
+            var startDate = LocalDateTime.now().plusDays(1).minusHours(2).toLocalDate();
+            var card = new RecurringGoal(goalText, null, frequency, startDate);
+            activityModel.addRecurring(card);
+        } else {
+            var card = new Goal(goalText, null, false, -1, Constants.TODAY, -1);
+            activityModel.addGoal(card);
+        }
 
         dialog.dismiss();
     }
