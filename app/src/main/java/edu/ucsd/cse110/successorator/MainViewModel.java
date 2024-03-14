@@ -215,9 +215,10 @@ public class MainViewModel extends ViewModel {
                 .filter(goal -> goal.isRecur(currDate))
                 .filter(goal -> !goalRepository.existsRecurringId(goal.getId(), state))
                 .collect(Collectors.toList());
-        goalsToAdd.forEach(goal -> addGoal(goalFactory.goalFromRecurring(goal, state)));
-        getOrderedRecurringGoals().getValue()
-                .forEach(goal -> addRecurring(goal.updateNextDate(currDate)));
+        goalsToAdd.forEach(goal -> {
+            addGoal(goalFactory.goalFromRecurring(goal, state));
+            addRecurring(goal.updateNextDate(currDate));
+        });
     }
 
     private void rollOverTomorrowToToday() {

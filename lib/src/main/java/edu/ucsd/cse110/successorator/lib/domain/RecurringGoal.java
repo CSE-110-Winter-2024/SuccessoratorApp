@@ -74,8 +74,7 @@ public class RecurringGoal implements Serializable {
     }
 
     public boolean isRecur(LocalDate currDate) {
-        return (startDate.isBefore(currDate) || startDate.isEqual(currDate)) &&
-                (nextDate.isBefore(currDate) || nextDate.isEqual(currDate));
+        return nextDate.isBefore(currDate) || nextDate.isEqual(currDate);
     }
 
     public RecurringGoal updateNextDate(LocalDate currDate) {
