@@ -83,7 +83,6 @@ public class RoomGoalRepository implements GoalRepository {
         }
         //goalDao.insert(GoalEntity.fromGoal(goal));
     }
-
     @Override
     public void saveAndAppend(Goal goal) {
         if(!goal.isComplete()){
@@ -100,6 +99,11 @@ public class RoomGoalRepository implements GoalRepository {
     @Override
     public void appendCompleteGoal(Goal goal){
         goalDao.appendCompleteGoal(GoalEntity.fromGoal(goal));
+    }
+
+    @Override
+    public boolean existsRecurringId(int recurringId, String state) {
+        return recurringId >= 0 && goalDao.existsRecurringId(recurringId, state);
     }
 
     @Override
@@ -122,12 +126,12 @@ public class RoomGoalRepository implements GoalRepository {
 
     @Override
     public void removeRecur(int id) {
-        goalDao.delete(id);
+        goalDao.deleteRecur(id);
     }
 
     @Override
     public void appendRecur(RecurringGoal recurringGoal){
-        goalDao.appendRecur(RecurringGoalEntity.fromRecurringGoal(recurringGoal));
+        goalDao.insertRecur(RecurringGoalEntity.fromRecurringGoal(recurringGoal));
     }
 
     // ----- Unused -----

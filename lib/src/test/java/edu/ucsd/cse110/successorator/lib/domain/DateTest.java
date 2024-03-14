@@ -38,4 +38,20 @@ public class DateTest {
         expected.setDate(expectedDate);
         assertEquals(actual.getDate(), expected.getDate());
     }
+
+    @Test
+    public void testWeekOfMonthForDayOfWeek() {
+        LocalDateTime testDate = LocalDateTime.of(2024, 2, 13, 12, 21);
+        Date actual = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        actual.setDate(testDate);
+        assertEquals(2, actual.getWeekOfMonth());
+    }
+
+    @Test
+    public void testDayOfWeek() {
+        LocalDateTime testDate = LocalDateTime.of(2024, 2, 13, 12, 21);
+        Date actual = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
+        actual.setDate(testDate);
+        assertEquals(2, actual.getDayOfWeek());
+    }
 }

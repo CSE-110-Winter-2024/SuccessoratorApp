@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 
@@ -22,26 +23,30 @@ public class RecurringGoalEntity {
     public int frequency;
 
     @ColumnInfo(name = "start_date")
-    public String startDate;
+    public LocalDate startDate;
 
-    @ColumnInfo(name = "sort_order")
-    public int sortOrder;
+    @ColumnInfo(name = "next_date")
+    public LocalDate nextDate;
 
-    RecurringGoalEntity(@NonNull String title, int frequency, String startDate, int sortOrder) {
+    @ColumnInfo(name = "contextId")
+    public int contextId;
+
+    RecurringGoalEntity(@NonNull String title, int frequency, LocalDate startDate, LocalDate nextDate, int contextId) {
         this.title = title;
         this.frequency = frequency;
         this.startDate = startDate;
-        this.sortOrder = sortOrder;
+        this.nextDate = nextDate;
+        this.contextId = contextId;
     }
 
     public static RecurringGoalEntity fromRecurringGoal(@NonNull RecurringGoal recurringGoal) {
         var recurringGoalGoal = new RecurringGoalEntity(recurringGoal.getTitle(), recurringGoal.getFrequency(),
-                recurringGoal.getStartDate().toString(), recurringGoal.getSortOrder());
+                recurringGoal.getStartDate(), recurringGoal.getNextDate(), recurringGoal.getContextId());
         recurringGoalGoal.id = recurringGoal.getId();
         return recurringGoalGoal;
     }
 
     public @NonNull RecurringGoal toRecurringGoal() {
-        return new RecurringGoal(title, id, frequency, LocalDate.parse(startDate), sortOrder);
+        return new RecurringGoal(title, id, frequency, startDate, nextDate, contextId);
     }
 }

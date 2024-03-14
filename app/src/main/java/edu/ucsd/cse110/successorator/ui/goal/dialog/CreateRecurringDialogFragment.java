@@ -4,34 +4,52 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
+import edu.ucsd.cse110.successorator.R;
+import edu.ucsd.cse110.successorator.databinding.FragmentCreateRecurringDialogBinding;
 import edu.ucsd.cse110.successorator.databinding.FragmentDialogCreateGoalBinding;
-import edu.ucsd.cse110.successorator.lib.domain.Date;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalFactory;
 import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 import edu.ucsd.cse110.successorator.lib.util.Constants;
+import edu.ucsd.cse110.successorator.ui.date.DateFragment;
+import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
+import edu.ucsd.cse110.successorator.ui.date.RecurringFragment;
+import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
+import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
+import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
+import edu.ucsd.cse110.successorator.ui.goal.RecurringListFragment;
+import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
 
 /**
- * Fragment associated with the pop up box for creating a new goal
+ * Fragment associated with the pop up box for creating a new recurring goal
  */
-public class CreateTomorrowGoalDialogFragment extends DialogFragment {
+public class CreateRecurringDialogFragment extends DialogFragment {
+
     private MainViewModel activityModel;
-    private FragmentDialogCreateGoalBinding view;
+    private FragmentCreateRecurringDialogBinding view;
 
+    public CreateRecurringDialogFragment() {
+        // Required empty public constructor
+    }
 
-    public static CreateTomorrowGoalDialogFragment newInstance() {
-        var fragment = new CreateTomorrowGoalDialogFragment();
+    public static CreateRecurringDialogFragment newInstance() {
+        var fragment = new CreateRecurringDialogFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -45,24 +63,12 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment {
         var modelFactory = ViewModelProvider.Factory.from(MainViewModel.initializer);
         var modelProvider = new ViewModelProvider(modelOwner, modelFactory);
         this.activityModel = modelProvider.get(MainViewModel.class);
-
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
-        var today = activityModel.getCurrDate().getValue();
-        Date tomorrow = new Date(DateTimeFormatter.ofPattern("EEEE M/dd"));
-        tomorrow.setDate(today.getTomorrow());
-
-        // TODO: make sure this works
-
-        int num = tomorrow.getWeekOfMonth();
-        String dayOfWeek = tomorrow.dayOfWeek();
-        view.Weekly.setText("Weekly, on " + dayOfWeek);
-        view.Monthly.setText("Monthly, on " + tomorrow.getDayOfMonthWithSuffix(num) + " " + dayOfWeek);
-        view.Yearly.setText("Yearly, on " + tomorrow.getDayAndMonth());
+        this.view = FragmentCreateRecurringDialogBinding.inflate(getLayoutInflater());
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("New Goal")
@@ -71,25 +77,21 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment {
                 .setPositiveButton("Create", this::onPositiveButtonClick)
                 .setNegativeButton("Cancel", this::onNegativeButtonClick)
                 .create();
+
     }
 
     private void onPositiveButtonClick(DialogInterface dialog, int which) {
-        var goalText = view.addGoalText.getText().toString();
+        var recurringText = view.addGoalText.getText().toString();
         int frequency = 0;
-        boolean isRecurringGoal = false;
 
-        if (view.daily.isChecked()) {
+        if (view.radioButton.isChecked()) {
             frequency = Constants.DAILY;
-            isRecurringGoal = true;
-        } else if (view.Weekly.isChecked()) {
+        } else if (view.radioButton2.isChecked()) {
             frequency = Constants.WEEKLY;
-            isRecurringGoal = true;
-        } else if (view.Monthly.isChecked()) {
+        } else if (view.radioButton3.isChecked()) {
             frequency = Constants.MONTHLY;
-            isRecurringGoal = true;
-        } else if (view.Yearly.isChecked()) {
+        } else if (view.radioButton4.isChecked()) {
             frequency = Constants.YEARLY;
-            isRecurringGoal = true;
         }
 
         var contextId = view.contexts.getCheckedRadioButtonId();
@@ -106,24 +108,19 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment {
             contextId = 4;
         }
 
-        //sort order is an invalid value here, because append/prepend will replace it
+        var datePicker = view.datePicker;
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth() + 1;
+        int year = datePicker.getYear();
+        var startDate = LocalDate.of(year, month, day);
 
-        if (isRecurringGoal) {
-            var startDate = activityModel.getCurrDate().getValue().getDate().plusDays(1).toLocalDate();
-            var card = new RecurringGoal(goalText, null, frequency, startDate, contextId);
-            activityModel.addRecurring(card);
-        } else {
-            var card = new Goal(goalText, null,
-                    false, -1,
-                    Constants.TOMORROW, -1,
-                    contextId);
-            activityModel.addGoal(card);
-        }
+        var card = new RecurringGoal(recurringText, null, frequency, startDate, contextId);
+        activityModel.addRecurring(card);
 
         dialog.dismiss();
     }
 
-    private void onNegativeButtonClick(DialogInterface dialog, int which) {
+    private void onNegativeButtonClick(DialogInterface dialog, int which){
         dialog.cancel();
     }
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.RecurringGoal;
 import edu.ucsd.cse110.successorator.lib.util.Constants;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
@@ -31,6 +32,14 @@ public class InMemoryDataSource {
     private final MutableSubject<List<Goal>> allGoalsSubject
             = new SimpleSubject<>();
 
+    private int nextIdRecurring = 0;
+    private final Map<Integer, RecurringGoal> recurringGoals
+            = new HashMap<>();
+    private final Map<Integer, MutableSubject<RecurringGoal>> recurringGoalSubjects
+            = new HashMap<>();
+    private final MutableSubject<List<RecurringGoal>> allRecurringGoalsSubject
+            = new SimpleSubject<>();
+
     private final MutableSubject<List<Goal>> allTodayGoalsSubject
             = new SimpleSubject<>();
 
@@ -44,10 +53,12 @@ public class InMemoryDataSource {
     }
 
     public final static List<Goal> DEFAULT_GOALS = List.of();
+    public final static List<RecurringGoal> DEFAULT_RECURRING_GOALS = List.of();
 
     public static InMemoryDataSource fromDefault() {
         var data = new InMemoryDataSource();
         data.putGoals(DEFAULT_GOALS);
+        data.putRecurringGoals(DEFAULT_RECURRING_GOALS);
         return data;
     }
 
@@ -126,6 +137,9 @@ public class InMemoryDataSource {
     }
 
     public Subject<List<Goal>> getAllTomorrowGoalsSubject() {
+        if(allTomorrowGoalsSubject.getValue() == null) {
+            allTomorrowGoalsSubject.setValue(List.of());
+        }
         return allTomorrowGoalsSubject;
     }
 
@@ -273,5 +287,98 @@ public class InMemoryDataSource {
         // Between min and max...
         assert sortOrders.stream().allMatch(i -> i >= minSortOrder);
         assert sortOrders.stream().allMatch(i -> i <= maxSortOrder);
+    }
+
+    // Recurring Goals //
+
+    public RecurringGoal getRecurringGoal(int id) {
+        return recurringGoals.get(id);
+    }
+
+    public Subject<RecurringGoal> getRecurringGoalSubject(int id) {
+        if (!recurringGoalSubjects.containsKey(id)) {
+            var subject = new SimpleSubject<RecurringGoal>();
+            subject.setValue(getRecurringGoal(id));
+            recurringGoalSubjects.put(id, subject);
+        }
+        return recurringGoalSubjects.get(id);
+    }
+
+    public Subject<List<RecurringGoal>> getAllRecurringGoalsSubject() {
+        if(allRecurringGoalsSubject.getValue() == null) {
+            allRecurringGoalsSubject.setValue(List.of());
+        }
+        return allRecurringGoalsSubject;
+    }
+
+    public List<RecurringGoal> getRecurringGoals() {
+        return List.copyOf(recurringGoals.values());
+    }
+
+    public void putRecurringGoal(RecurringGoal goal) {
+        var fixedGoal = preInsertRecurring(goal);
+
+        recurringGoals.put(fixedGoal.getId(), fixedGoal);
+        postInsertRecurring();
+
+        if (recurringGoalSubjects.containsKey(fixedGoal.getId())) {
+            recurringGoalSubjects.get(fixedGoal.getId()).setValue(fixedGoal);
+        }
+        allRecurringGoalsSubject.setValue(getRecurringGoals());
+    }
+
+    public void putRecurringGoals(List<RecurringGoal> goalList) {
+        var fixedGoals = goalList.stream()
+                .map(this::preInsertRecurring)
+                .collect(Collectors.toList());
+
+        fixedGoals.forEach(goal -> recurringGoals.put(goal.getId(), goal));
+        postInsertRecurring();
+
+        fixedGoals.forEach(goal -> {
+            if (recurringGoalSubjects.containsKey(goal.getId())) {
+                recurringGoalSubjects.get(goal.getId()).setValue(goal);
+            }
+        });
+        allRecurringGoalsSubject.setValue(getRecurringGoals());
+    }
+
+    public void removeRecurringGoal(int id) {
+        var goal = recurringGoals.get(id);
+
+        recurringGoals.remove(id);
+
+        if (recurringGoalSubjects.containsKey(id)) {
+            recurringGoalSubjects.get(id).setValue(null);
+        }
+        allRecurringGoalsSubject.setValue(getRecurringGoals());
+    }
+
+    private RecurringGoal preInsertRecurring(RecurringGoal card) {
+        var id = card.getId();
+        if (id == null) {
+            // If the card has no id, give it one.
+            card = card.withId(nextIdRecurring++);
+        }
+        else if (id > nextIdRecurring) {
+            // If the card has an id, update nextId if necessary to avoid giving out the same
+            // one. This is important for when we pre-load cards like in fromDefault().
+            nextIdRecurring = id + 1;
+        }
+
+        return card;
+    }
+
+    private void postInsertRecurring() {
+        // Keep the min and max sort orders up to date.
+        minSortOrder = goals.values().stream()
+                .map(Goal::getSortOrder)
+                .min(Integer::compareTo)
+                .orElse(Integer.MAX_VALUE);
+
+        maxSortOrder = goals.values().stream()
+                .map(Goal::getSortOrder)
+                .max(Integer::compareTo)
+                .orElse(Integer.MIN_VALUE);
     }
 }
