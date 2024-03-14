@@ -16,14 +16,12 @@ import edu.ucsd.cse110.successorator.databinding.FragmentDialogDropdownBinding;
 import edu.ucsd.cse110.successorator.ui.date.DateFragment;
 
 import edu.ucsd.cse110.successorator.ui.date.PendingFragment;
+import edu.ucsd.cse110.successorator.ui.date.RecurringFragment;
 import edu.ucsd.cse110.successorator.ui.date.TomorrowDataFragment;
 import edu.ucsd.cse110.successorator.ui.goal.GoalListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.PendingGoalFragment;
+import edu.ucsd.cse110.successorator.ui.goal.RecurringListFragment;
 import edu.ucsd.cse110.successorator.ui.goal.TomorrowGoalListFragment;
-
-import edu.ucsd.cse110.successorator.ui.date.RecurringDataFragment;
-
-import edu.ucsd.cse110.successorator.ui.goal.RecurringGoalListFragment;
 
 public class DropdownDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
@@ -83,11 +81,11 @@ public class DropdownDialogFragment extends DialogFragment {
                     .replace(R.id.goalList, PendingGoalFragment.newInstance())
                     .replace(R.id.date_fragment_container, PendingFragment.newInstance())
                     .commit();
-        }else{
+        }else if (view.radioButton5.isChecked()){
             getParentFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.goalList, RecurringGoalListFragment.newInstance())
-                    .replace(R.id.date_fragment_container, RecurringDataFragment.newInstance())
+                    .replace(R.id.goalList, RecurringListFragment.newInstance())
+                    .replace(R.id.date_fragment_container, RecurringFragment.newInstance())
                     .commit();
         }
         dialog.dismiss();

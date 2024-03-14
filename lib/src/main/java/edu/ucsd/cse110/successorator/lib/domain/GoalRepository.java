@@ -28,6 +28,8 @@ public interface GoalRepository {
 
     void appendCompleteGoal(Goal goal);
 
+    boolean existsRecurringId(int recurringId, String state);
+
     void removeRecur(int id);
 
     void appendRecur(RecurringGoal recurringGoal);
