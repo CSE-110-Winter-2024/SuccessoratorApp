@@ -109,7 +109,7 @@ public class CreateTomorrowGoalDialogFragment extends DialogFragment {
         //sort order is an invalid value here, because append/prepend will replace it
 
         if (isRecurringGoal) {
-            var startDate = activityModel.getCurrDate().getValue().getDate().toLocalDate();
+            var startDate = activityModel.getCurrDate().getValue().getDate().plusDays(1).toLocalDate();
             var card = new RecurringGoal(goalText, null, frequency, startDate, contextId);
             activityModel.addRecurring(card);
         } else {
