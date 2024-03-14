@@ -1,12 +1,15 @@
 package edu.ucsd.cse110.successorator.ui.goal;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -29,10 +32,12 @@ import edu.ucsd.cse110.successorator.lib.util.Constants;
  */
 public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
     Consumer<RecurringGoal> onRecurringClicked;
+    Consumer<RecurringGoal> onRecurringLongPressed;
     Consumer<Integer> onDeleteClick;
 
     public RecurringListAdapter(Context context, List<RecurringGoal> recurring,
                                 Consumer<RecurringGoal> onRecurringClicked,
+                                Consumer<RecurringGoal> onRecurringLongPressed,
                                 Consumer<Integer> onDeleteClick) {
         // This sets a bunch of stuff internally, which we can access
         // with getContext() and getItem() for example.
@@ -41,6 +46,7 @@ public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
         // or it will crash!
         super(context, 0, new ArrayList<>(recurring));
         this.onRecurringClicked = onRecurringClicked;
+        this.onRecurringLongPressed = onRecurringLongPressed;
         this.onDeleteClick = onDeleteClick;
     }
 
@@ -95,6 +101,23 @@ public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
         //Set listener for strikethrough
         binding.recurringText.setOnClickListener(v -> {
             onRecurringClicked.accept(recurring);
+        });
+
+        binding.recurringText.setOnLongClickListener(v-> {
+            if (getContext() instanceof Activity) {
+                Activity activity = (Activity) getContext();
+                PopupMenu popupMenu = new PopupMenu(activity, v);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.recurring_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    if (item.getItemId() == R.id.delete){
+                        onDeleteClick.accept(recurring.getId());
+                    }
+                    return true;
+                });
+                popupMenu.show();
+            }
+            return true;
         });
 
         return binding.getRoot();
