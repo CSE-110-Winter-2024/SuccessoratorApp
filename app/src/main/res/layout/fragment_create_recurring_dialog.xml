@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/addGoalText"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:ems="10"
+        android:hint="Enter a recurring goal..."
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill" />
+
+    <RadioGroup
+        android:id="@+id/contexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/homeContext"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recurring"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addGoalText">
+
+        <RadioButton
+            android:id="@+id/homeContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#EAD082"
+            android:buttonTintMode="src_in"
+            android:text="Home" />
+
+        <RadioButton
+            android:id="@+id/workContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3DB4C3"
+            android:buttonTintMode="src_in"
+            android:text="Work" />
+
+        <RadioButton
+            android:id="@+id/schoolContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#CC85EA"
+            android:buttonTintMode="src_in"
+            android:text="School" />
+
+        <RadioButton
+            android:id="@+id/errandContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="#90BA9F"
+            android:text="Errand" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contexts">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:checked="false"
+            android:text="Daily" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:checked="true"
+            android:text="Weekly" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="270dp"
+            android:layout_height="48dp"
+            android:text="Monthly" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Yearly" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:gravity="center"
+        android:text="Starting:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        android:spinnersShown="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
