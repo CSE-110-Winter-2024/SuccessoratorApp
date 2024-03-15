@@ -20,6 +20,7 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.MainViewModel;
 import edu.ucsd.cse110.successorator.R;
@@ -68,6 +69,7 @@ public class PendingGoalFragment extends Fragment {
 
         activityModel.getPendingGoals().observe(cards -> {
             if (cards == null) return;
+
             adapter.clear();
             adapter.addAll(new ArrayList<>(cards)); // remember the mutable copy here!
             adapter.notifyDataSetChanged();
