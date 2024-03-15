@@ -15,11 +15,8 @@ public class RecurringGoal implements Serializable {
 
     private final @Nullable Integer id;
     private final @NonNull String title;
-    //private final Integer sortOrder; // Changed from 'int' to 'Integer' to allow null values.
-    //monthly frequency stored as 2 digit where ten's digit is number week and one's is day of week
     private final @NonNull Integer frequency;
     private final LocalDate startDate;
-
     private final LocalDate nextDate;
     private final Integer contextId;
 

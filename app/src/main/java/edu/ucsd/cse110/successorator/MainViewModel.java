@@ -372,6 +372,10 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
+    public void removeRecur(int id) {
+        goalRepository.removeRecur(id);
+    }
+
     public void rollOverGoal(Date lastLogDate, Date currentDate) {
         if(lastLogDate.getDate().toLocalDate()
                 .isBefore(currentDate.getDate().toLocalDate())) {
