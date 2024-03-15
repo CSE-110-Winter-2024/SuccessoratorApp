@@ -68,12 +68,6 @@ public class RecurringListAdapter extends ArrayAdapter<RecurringGoal>  {
             binding = ListItemRecurringBinding.inflate(layoutInflater, parent, false);
         }
 
-        //TODO : changed from onclick to on long click
-        binding.goalDeleteButton.setOnClickListener(v -> {
-            var id = Objects.requireNonNull(recurring.getId());
-            onDeleteClick.accept(id);
-        });
-
         var id = recurring.getContextId();
         if(id == 1){
             binding.contextText.setText("H");
