@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Date;
@@ -120,134 +121,24 @@ public class MainViewModel extends ViewModel {
             if (goals == null) return; // not ready yet, ignore
 
             var newOrderedGoals = goals.stream()
-                    .sorted(Comparator.comparing(RecurringGoal::getStartDate))
-                    .collect(Collectors.toList());
+                        .sorted(Comparator.comparing(RecurringGoal::getStartDate))
+                        .collect(Collectors.toList());
 
             orderedRecurringGoals.setValue(newOrderedGoals);
             copyRecurring(currDate.getValue().getDate().toLocalDate());
         });
 
         focusMode.observe(context -> {
-            if(context == 0){
-                defaultLists();
-            }else{
-                filterByContext(context);
-            }
+            orderedGoals.setValue(orderedGoals.getValue());
+            tmrGoals.setValue(tmrGoals.getValue());
+            pendingGoals.setValue(pendingGoals.getValue());
+            orderedRecurringGoals.setValue(orderedRecurringGoals.getValue());
         });
 
         currDate.observe(date -> {
             if(date == null || date.getDate() == null) return;
 
             rollOverGoal(lastLog.getValue(), currDate.getValue());
-        });
-    }
-
-    private void defaultLists(){
-        goalRepository.findAllToday().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-            var newOrderedGoals = goals.stream()
-                    .filter(goal -> !goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-            var complete = goals.stream()
-                    .filter(goal -> goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-            newOrderedGoals.addAll(complete);
-
-            orderedGoals.setValue(newOrderedGoals);
-        });
-
-        goalRepository.findAllTmr().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-
-            var newOrderedGoals = goals.stream()
-                    .filter(goal -> !goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-            var complete = goals.stream()
-                    .filter(goal -> goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-            newOrderedGoals.addAll(complete);
-
-            tmrGoals.setValue(newOrderedGoals);
-        });
-
-        goalRepository.findAllPending().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-
-            var newOrderedGoals = goals.stream()
-                    .sorted(Comparator.comparing(Goal::isComplete)
-                            .thenComparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-
-            pendingGoals.setValue(newOrderedGoals);
-        });
-
-        goalRepository.findAllPending().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-            var newOrderedGoals = goals.stream()
-                    .sorted(Comparator.comparing(Goal::isComplete)
-                            .thenComparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .collect(Collectors.toList());
-
-            pendingGoals.setValue(newOrderedGoals);
-        });
-    }
-    private void filterByContext(int context){
-        goalRepository.findAllToday().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-            var newOrderedGoals = goals.stream()
-                    .filter(goal -> !goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .filter(goal -> goal.getContextId() == context)
-                    .collect(Collectors.toList());
-            var complete = goals.stream()
-                    .filter(goal -> goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                    .filter(goal -> goal.getContextId() == context)
-                    .collect(Collectors.toList());
-            newOrderedGoals.addAll(complete);
-
-            orderedGoals.setValue(newOrderedGoals);
-        });
-
-        goalRepository.findAllTmr().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-
-            var newOrderedGoals = goals.stream()
-                    .filter(goal -> !goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .filter(goal -> goal.getContextId() == context)
-                    .collect(Collectors.toList());
-            var complete = goals.stream()
-                    .filter(goal -> goal.isComplete())
-                    .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                    .filter(goal -> goal.getContextId() == context)
-                    .collect(Collectors.toList());
-            newOrderedGoals.addAll(complete);
-
-            tmrGoals.setValue(newOrderedGoals);
-        });
-
-        goalRepository.findAllPending().observe(goals -> {
-            if (goals == null) return; // not ready yet, ignore
-
-            var newOrderedGoals = goals.stream()
-                    .sorted(Comparator.comparing(Goal::isComplete)
-                            .thenComparingInt(Goal::getContextId)
-                            .thenComparingInt(Goal::getSortOrder))
-                    .filter(goal -> goal.getContextId() == context)
-                    .collect(Collectors.toList());
-
-            pendingGoals.setValue(newOrderedGoals);
         });
     }
 

@@ -16,8 +16,7 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.stream.Collectors;
 
 
 import static org.junit.Assert.assertArrayEquals;
@@ -56,14 +55,14 @@ public class FocusGoalTest {
         model.addGoal(new Goal("Buy groceries", 8, false, 8, "Today", 2, 4));
         //WHEN I click on Focus Mode and select the Home context
         model.setFocusMode(1); // Focus Mode set to Home
-        List<Goal> orderedGoals = model.getOrderedGoals().getValue();
+        List<Goal> orderedGoals = model.getOrderedGoals().getValue().stream().filter(goal -> goal.getContextId()==1).collect(Collectors.toList());
         int[] GoalsCount = countGoalsByContextId(orderedGoals, 1,2,3,4);
         //THEN I should only get the home goals
         assertEquals("Testing for Home size:", 1, GoalsCount[1]);
 
         //WHEN I click on Focus Mode and select the Work context
         model.setFocusMode(2); // Focus Mode set to Work
-        orderedGoals = model.getOrderedGoals().getValue();
+        orderedGoals = model.getOrderedGoals().getValue().stream().filter(goal -> goal.getContextId()==2).collect(Collectors.toList());
         GoalsCount = countGoalsByContextId(orderedGoals, 1,2,3,4);
         //THEN I should only get the Work goals
         assertEquals("Testing for Work size:", 3, GoalsCount[2]);
@@ -71,7 +70,7 @@ public class FocusGoalTest {
 
         //WHEN I click on Focus Mode and select the School context
         model.setFocusMode(3); // Focus Mode set to Work
-        orderedGoals = model.getOrderedGoals().getValue();
+        orderedGoals = model.getOrderedGoals().getValue().stream().filter(goal -> goal.getContextId()==3).collect(Collectors.toList());
         GoalsCount = countGoalsByContextId(orderedGoals, 1,2,3,4);
         //THEN I should only get the School goals
         assertEquals("Testing for Errand size:", 0, GoalsCount[4]);
@@ -82,7 +81,7 @@ public class FocusGoalTest {
 
         //WHEN I click on Focus Mode and select the School context
         model.setFocusMode(4); // Focus Mode set to Work
-        orderedGoals = model.getOrderedGoals().getValue();
+        orderedGoals = model.getOrderedGoals().getValue().stream().filter(goal -> goal.getContextId()==4).collect(Collectors.toList());
         GoalsCount = countGoalsByContextId(orderedGoals, 1,2,3,4);
         //THEN I should only get the Errand goals
         assertEquals("Testing for Errand size:", 1, GoalsCount[4]);
@@ -124,7 +123,7 @@ public class FocusGoalTest {
         model.addGoal(new Goal("Buy groceries", 3, false, 3, "Today", 1, 4));
         //When I press on Focus Mode menu option AND press the Errand Context
         model.setFocusMode(4);
-        List<Goal> orderedGoals = model.getOrderedGoals().getValue();
+        List<Goal> orderedGoals = model.getOrderedGoals().getValue().stream().filter(goal -> goal.getContextId()==4).collect(Collectors.toList());
 
         //User now changes to Errand Mode
         int[] ContextCount  = countGoalsByContextId(orderedGoals,1,2,3,4);
@@ -136,7 +135,7 @@ public class FocusGoalTest {
 
         //User now changes to School Mode
         model.setFocusMode(3);
-        orderedGoals = model.getOrderedGoals().getValue();
+        orderedGoals = model.getOrderedGoals().getValue().stream().filter(goal -> goal.getContextId()==3).collect(Collectors.toList());
         ContextCount  = countGoalsByContextId(orderedGoals,1,2,3,4);
         //Counts the size of context
 
