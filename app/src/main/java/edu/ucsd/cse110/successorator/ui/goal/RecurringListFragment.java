@@ -57,7 +57,10 @@ public class RecurringListFragment extends Fragment {
                 recurring -> {
                     activityModel.addRecurring(recurring);
                 },
-                activityModel::remove
+                recurringGoals -> {
+
+                },
+                activityModel::removeRecur
         );
 
         activityModel.getOrderedRecurringGoals().observe(cards -> {
