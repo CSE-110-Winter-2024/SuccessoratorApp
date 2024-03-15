@@ -92,12 +92,12 @@ public class MainViewModel extends ViewModel {
                         .filter(goal -> !goal.isComplete())
                         .sorted(Comparator.comparingInt(Goal::getContextId)
                                 .thenComparingInt(Goal::getSortOrder))
-                        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
+             //           .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
                         .collect(Collectors.toList());
                 complete = goals.stream()
                         .filter(goal -> goal.isComplete())
                         .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
+                //        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
                         .collect(Collectors.toList());
                 newOrderedGoals.addAll(complete);
             }
@@ -126,12 +126,12 @@ public class MainViewModel extends ViewModel {
                         .filter(goal -> !goal.isComplete())
                         .sorted(Comparator.comparingInt(Goal::getContextId)
                                 .thenComparingInt(Goal::getSortOrder))
-                        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
+               //         .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
                         .collect(Collectors.toList());
                 complete = goals.stream()
                         .filter(goal -> goal.isComplete())
                         .sorted(Comparator.comparingInt(Goal::getSortOrder))
-                        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
+                   //     .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
                         .collect(Collectors.toList());
                 newOrderedGoals.addAll(complete);
             }
@@ -154,7 +154,7 @@ public class MainViewModel extends ViewModel {
                         .sorted(Comparator.comparing(Goal::isComplete)
                                 .thenComparingInt(Goal::getContextId)
                                 .thenComparingInt(Goal::getSortOrder))
-                        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
+                //        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
                         .collect(Collectors.toList());
             }
 
@@ -172,7 +172,7 @@ public class MainViewModel extends ViewModel {
             }else{
                 newOrderedGoals = goals.stream()
                         .sorted(Comparator.comparing(RecurringGoal::getStartDate))
-                        .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
+             //           .filter(goal -> Objects.equals(goal.getContextId(), focusMode.getValue()))
                         .collect(Collectors.toList());
             }
 
