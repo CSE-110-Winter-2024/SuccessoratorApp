@@ -137,8 +137,12 @@ Work Done:
 Velocity for Iteration 2: 16/32.5 = 0.554
 
 **Iteration 2 Length:** 1 week (35 hrs (6 hrs/person))
-35 \* 0.523 = 19.39 Estimated hours of work allowed
+35 \* 0.523 = 19.39 Estimated hours of work
 
+Work Done:
+26 hours of estimated work
+43 hours of actual work
+Velocity of for (hypothetical) Milestone 3 Iteration 1: 26/43 = 0.605
 
 <img src="media/image10.jpg" style="width:4.26357in;height:3.19343in" />
 
