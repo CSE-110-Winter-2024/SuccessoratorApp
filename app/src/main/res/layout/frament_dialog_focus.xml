@@ -1,0 +1,58 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/contexts"
+        android:layout_width="357dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:checkedButton="@+id/homeContext"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recurring"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addGoalText">
+
+        <RadioButton
+            android:id="@+id/homeFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#EAD082"
+            android:text="Home" />
+
+        <RadioButton
+            android:id="@+id/workFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3DB4C3"
+            android:text="Work" />
+
+        <RadioButton
+            android:id="@+id/schoolFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#CC85EA"
+            android:text="School" />
+
+        <RadioButton
+            android:id="@+id/errandFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#90BA9F"
+            android:text="Errand" />
+
+        <RadioButton
+            android:id="@+id/cancelFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+    </RadioGroup>
+
+    <!-- Other elements like @+id/recurring and @+id/addGoalText should be defined here -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
