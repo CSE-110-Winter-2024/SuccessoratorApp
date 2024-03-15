@@ -43,6 +43,10 @@ public class DeleteRecurringGoalTest {
     public void testDeleteRecurringGoal() {
         model.removeRecur(2);
 
+        // Verify the correct recurring goal is deleted
+        RecurringGoal actual = dataSource.getRecurringGoal(1);
+        assertEquals("Prepare for midterm", actual.getTitle());
+
         // Verify the size of the recurring goal list in the data source
         int expectedSize = 1; // Initial 2 recurring goals - 1 recurring goal
         int actualSize = dataSource.getRecurringGoals().size();
